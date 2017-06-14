@@ -1,0 +1,10 @@
+*Obtain updated database from pi server
+*Run team_indexer to add standard alphabetical ids to games (1-30, 1:ATL, 30: WAS)
+*Run season_games_splitter at date desired (usually today)
+*Run ptsaverages (to obtain corrected point differentials, ignoring blowouts and adding home advantage)
+*Run ratings_calculations to obtain SRS* and Burke ratings
+*Run monte_carlo_calculations in order to calculate ratings for coming games and binomial win probabilities
+*Run:
+	vectorized_monte_carlo for a quick estimate of each team's wins
+	loop_monte_carlo for predicted standings and playoff odds
+
