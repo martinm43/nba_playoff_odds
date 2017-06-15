@@ -2,6 +2,8 @@
 
 #Main control script.
 
+print('Now on GIT, and GitHub, as of June 2017!')
+
 import os
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
