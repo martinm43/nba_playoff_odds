@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Le styles -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/login.css" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="lib/html5shim.js"></script>
+<![endif]-->
+
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+<script type="text/javascript" src="lib/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript" src="lib/jquery.hitronext.js"></script>
+<script type="text/javascript" src="lib/dict.js"></script>
+<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript">
+var skip_Wizard;
+var model_name;
+var user_type;
+var DefFirstUrl;
+var DefNormalUrl;
+
+function userlogin() {
+$('.alert').hide();
+$('#btnLogin').button('loading');
+if ($('#user_login').val() == '') {
+$('#cg_username').addClass("error");
+$('#btnLogin').button('reset');
+return false;
+}
+else {
+$('#cg_username').removeClass("error");
+}
+
+if ($('#user_password').val() == '') {
+$('#cg_password').addClass("error");
+$('#btnLogin').button('reset');
+return false;
+}
+else {
+$('#cg_password').removeClass("error");
+}
+//start submit the form
+if ($("#user_remember_me").attr("checked") == "checked") {
+setCookie("userName", $("#user_login").val(), 24 * 30, "/");
+setCookie("password", $("#user_password").val(), 24 * 30, "/");
+} else {
+deleteCookie("userName", "/");
+deleteCookie("password", "/");
+}
+
+$.post(
+"goform/login",
+
+{
+"user": $('#user_login').val(),
+"pws": $('#user_password').val()
+},
+
+function (result) {
+$('#btnLogin').button('reset');
+if (result.indexOf('success') < 0) {
+$('#Error_Unknown').html($.tag_get(result));
+$(".alert").fadeIn();
+} else {
+$.getJSON("data/user_type.asp", function (json) {
+user_type = json.UserType;
+DefFirstUrl = json.DefFirstUrl;
+DefNormalUrl = json.DefNormalUrl;
+});
+$('#login').fadeOut(function () {
+if (skip_Wizard == "1")
+window.location = 'index.html#' + DefNormalUrl;
+else
+window.location = 'index.html#' + DefFirstUrl; /* first login the page */
+});
+}
+}
+)
+}
+$(document).ready(function () {
+$.hitron.languages.lang_init();
+
+//$('title').html($.tag_get('Login_Page_Title'));
+$('#btnLogin').attr('data-loading-text', $.tag_get('Login'));
+//Load title and vendor name.
+$('#user_login').attr("placeholder", $.tag_get('Username_Placeholder'));
+$('#user_password').attr("placeholder", $.tag_get('Password_Placeholder'));
+
+$.getJSON("data/system_model.asp", function (json) {
+document.title = json.modelName + ' ' + $.tag_get('Login_Title');
+$('#Login_Title').html(json.modelName + "<span> " + $.tag_get('Login') + "</span>");
+if ($.hitron.languages.lang_current == 'fr_CA') {
+$('#Login_Title').css('font-size', '16px');
+if (json.modelName == "CGN3ACSMR") {
+$('#Login_Title').css('font-size', '15px');
+}
+}
+$('#login').fadeIn('slow');
+skip_Wizard = json.skipWizard;
+model_name = json.modelName;
+var cookie_model_name = getCookieValue("modelname");
+if (cookie_model_name == "") {
+setCookie("modelname", cookie_model_name, 24 * 30, "/");
+}
+setCookie("cur_modelname", model_name, 24 * 30, "/");
+});
+
+//Login button function
+$('#btnLogin').click(function () {
+userlogin();
+});
+$('#user_password').keydown(function (event) {
+if (event.which == 13)
+userlogin();
+});
+//close alert
+$('#btnCloseAlert').click(function () {
+$(".alert").fadeOut();
+});
+
+$('#selLanguage').change(function () {
+$.hitron.languages.lang_set($('#selLanguage').val());
+});
+
+var userNameValue = getCookieValue("userName");
+$("#user_login").val(userNameValue);
+var userNameValue = getCookieValue("password");
+$("#user_password").val(userNameValue);
+if (userNameValue != "") {
+$("#user_remember_me").attr("checked", true);
+} else {
+$("#user_remember_me").attr("checked", false);
+}
+
+$.hitron.languages.lang_load();
+$('#selLanguage').val($.hitron.languages.lang_current);
+
+var date, year;
+date = new Date();
+year = date.getFullYear();
+$("#copyright").html("&copy " + year + " " + $.tag_get('Copyright'));
+
+});
+</script>
+</head>
+
+
+<body>
+<div class='container' id='login' style="display:none">
+<span class="hide">RedirectLoginIdentify</span><!-- For identfying session timeout event for Backbone.js -->
+
+<div style='width:auto !important;width:410px;max-width:410px;margin:auto;height:auto !important;height:410px;min-height:410px;' id='loginWindow'>
+<div class='section section-large' id='login-section'>
+<div class='section-header section-header-black' large='large'>
+
+<div style="float:right;">
+<img class="logo" src="img/logo_small.png"></img>
+</div>
+<h3 id="Login_Title"></h3>
+</div>
+<div class='section-body'>
+
+<div class="row-fluid">
+<div class="control-group" style="margin-bottom:0px;" id="cg_username">
+<label for="user_login" class="langTag" id="Username" ></label>
+<div class="controls"><input class="input-xlarge" id="user_login" name="user[login]" maxlength=128 type="text" />
+</div>
+</div>
+<div class="control-group" style="margin-bottom:0px" id="cg_password">
+<label for="user_password" class="langTag" id="Password"></label>
+<input class="input-xlarge" id="user_password" name="user[password]" maxlength=128 type="password" />
+</div>
+
+<div>
+<label class="langTag" id="Language"></label>
+<select id="selLanguage" style="width:280px">
+<option value="en_US">English</option>
+<option class="langTag" id="French" value="fr_CA"></option>
+</select>
+</div>
+
+</div>
+</div>
+<div class="section-foot">
+<div class='row-fluid'>
+<div class='span4'>
+<button class="btn btn-primary" name="commit" type="button" value="Login" id="btnLogin">
+<span class="langTag" id="Login"></span>
+</button>
+</div>
+<div class='span8' style='padding-top:5px'>
+<label class='checkbox' for='user_remember_me'>
+<input name="user[remember_me]" type="hidden" value="0" />
+<input id="user_remember_me" name="user[remember_me]" type="checkbox" style="margin-top:-1px\9;" value="1" />
+<span class="langTag" id="Login_RememberMe"></span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-error fade in" style="display:none" >
+<a class="close" href="#" id="btnCloseAlert">&times;</a>
+<h4 class="langTag" id="Login_Failed"></h4>
+<p><span class="langTag" id="Error_Unknown"></span></p>
+</div>
+</div>
+<div class="footer" id="footer">
+<center>
+<p id="copyright"></p>
+</center>
+</div>
+</div>
+</body>
+</html>
