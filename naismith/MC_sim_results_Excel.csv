@@ -1,66 +1,66 @@
 NBA Western Conference
-1,GSW,W,71.0
-2,SAS,W,68.0
-3,HOU,W,60.0
-4,LAC,W,51.0
-5,OKC,W,51.0
-6,UTA,W,51.0
-7,DEN,W,40.0
-8,MEM,W,39.0
-9,POR,W,36.0
-10,NOP,W,28.0
-11,MIN,W,27.5
-12,LAL,W,27.0
-13,SAC,W,27.0
-14,DAL,W,25.0
-15,PHX,W,21.0
+1,GSW,W,64.0
+2,SAS,W,62.0
+3,LAC,W,54.0
+4,HOU,W,49.0
+5,UTA,W,48.0
+6,OKC,W,47.0
+7,POR,W,42.0
+8,LAL,W,38.0
+9,DEN,W,37.0
+10,MEM,W,37.0
+11,MIN,W,29.0
+12,PHX,W,29.0
+13,NOP,W,28.0
+14,SAC,W,27.0
+15,DAL,W,21.0
 
 NBA Eastern Conference
-1,CLE,E,62.0
-2,TOR,E,62.0
-3,BOS,E,52.0
-4,CHA,E,50.0
-5,ATL,E,42.0
-6,DET,E,42.0
-7,NYK,E,42.0
-8,MIL,E,41.0
-9,WAS,E,41.0
-10,CHI,E,38.0
-11,IND,E,37.0
-12,ORL,E,32.0
-13,MIA,E,26.0
-14,BRK,E,21.0
-15,PHI,E,18.0
+1,CLE,E,55.0
+2,TOR,E,53.0
+3,CHA,E,50.0
+4,BOS,E,49.0
+5,DET,E,49.0
+6,WAS,E,49.0
+7,ATL,E,48.0
+8,CHI,E,48.0
+9,IND,E,40.0
+10,MIL,E,38.0
+11,NYK,E,37.0
+12,MIA,E,30.0
+13,ORL,E,27.0
+14,BRK,E,24.0
+15,PHI,E,21.0
 
 Playoff Odds For Each Team
-Team ATL has a playoff probability of 70.0%
-Team BOS has a playoff probability of 100.0%
+Team ATL has a playoff probability of 94.7%
+Team BOS has a playoff probability of 93.8%
 Team BRK has a playoff probability of 0.0%
-Team CHA has a playoff probability of 100.0%
-Team CHI has a playoff probability of 39.5%
-Team CLE has a playoff probability of 100.0%
+Team CHA has a playoff probability of 96.8%
+Team CHI has a playoff probability of 93.5%
+Team CLE has a playoff probability of 99.7%
 Team DAL has a playoff probability of 0.0%
-Team DEN has a playoff probability of 88.5%
-Team DET has a playoff probability of 77.5%
+Team DEN has a playoff probability of 41.4%
+Team DET has a playoff probability of 94.5%
 Team GSW has a playoff probability of 100.0%
-Team HOU has a playoff probability of 100.0%
-Team IND has a playoff probability of 23.5%
+Team HOU has a playoff probability of 99.2%
+Team IND has a playoff probability of 19.7%
 Team LAC has a playoff probability of 100.0%
-Team LAL has a playoff probability of 0.5%
-Team MEM has a playoff probability of 82.5%
-Team MIA has a playoff probability of 0.0%
-Team MIL has a playoff probability of 62.0%
-Team MIN has a playoff probability of 0.0%
-Team NOP has a playoff probability of 0.0%
-Team NYK has a playoff probability of 70.0%
-Team OKC has a playoff probability of 100.0%
-Team ORL has a playoff probability of 1.0%
+Team LAL has a playoff probability of 45.6%
+Team MEM has a playoff probability of 36.0%
+Team MIA has a playoff probability of 0.2%
+Team MIL has a playoff probability of 9.8%
+Team MIN has a playoff probability of 0.9%
+Team NOP has a playoff probability of 1.0%
+Team NYK has a playoff probability of 7.0%
+Team OKC has a playoff probability of 96.8%
+Team ORL has a playoff probability of 0.0%
 Team PHI has a playoff probability of 0.0%
-Team PHX has a playoff probability of 0.0%
-Team POR has a playoff probability of 29.0%
-Team SAC has a playoff probability of 0.0%
+Team PHX has a playoff probability of 0.9%
+Team POR has a playoff probability of 80.8%
+Team SAC has a playoff probability of 0.1%
 Team SAS has a playoff probability of 100.0%
-Team TOR has a playoff probability of 100.0%
-Team UTA has a playoff probability of 99.5%
-Team WAS has a playoff probability of 56.5%
-Number of Simulations: 200
+Team TOR has a playoff probability of 99.7%
+Team UTA has a playoff probability of 97.3%
+Team WAS has a playoff probability of 90.6%
+Number of Simulations: 1000

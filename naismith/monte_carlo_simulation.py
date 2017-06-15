@@ -140,8 +140,7 @@ winrows = np.asarray(winrows)
 all_sims=[]
 
 #custom simulation number
-ite=250000
-
+ite=100000
 
 
 for i in range (ite):

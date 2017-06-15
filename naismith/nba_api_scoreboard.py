@@ -22,11 +22,17 @@ month_games_list=[]
 #scoreboard_month=raw_input('Enter month to update(1-12 format): ')
 #scoreboard_month=int(scoreboard_month)
 now=datetime.datetime.now()
-scoreboard_month=10
-scoreboard_min_day=29
-scoreboard_max_day=31
+scoreboard_month=now.month
+scoreboard_min_day=max(now.day-3,1) #careful to keep a min day.
+scoreboard_max_day=now.day-1
+
+#single day edit
+##scoreboard_month=12
+##scoreboard_min_day=28
+##scoreboard_max_day=31
+
 for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
-    g=nba_py.Scoreboard(day=scoreboard_day,month=scoreboard_month)
+    g=nba_py.Scoreboard(day=scoreboard_day,month=scoreboard_month) #if updating pre 2017 add year.
     #Obtain game information from the "linescore" method of the Scoreboard class
     #This data is arranged in pairs. Odd teams are away teams and even teams are home teams.
     line_score_list=g.line_score()
@@ -76,6 +82,6 @@ print('Preparing to write to nba working database. Please stand by...')
 
 tablename='nba_py_api_data'
 
-table_initializer(wkdir+dbname,tablename,month_games_list[0],month_games_list)
+table_initializer(wkdir+dbname,tablename,month_games_list[0],month_games_list,automode='on')
 
 

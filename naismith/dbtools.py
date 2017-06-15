@@ -123,14 +123,14 @@ def insert_data(dbname,table_name,entry_dict,factory_mode=False):
   return
 
 ##The next step in development
-def table_initializer(_dblink,_tablename,_sampledict,_dictlist):
+def table_initializer(_dblink,_tablename,_sampledict,_dictlist,automode='off'):
   
     #Shitty error handling < no error handling
     #On error resume next is awful.
- 
-    flag=raw_input('YES to delete existing table/create new table '+_tablename+':')
-    if flag=='YES':
-      create_db(_dblink,_tablename)
+    if automode=='off':
+    	flag=raw_input('YES to delete existing table/create new table '+_tablename+':')
+    	if flag=='YES':
+      		create_db(_dblink,_tablename)
     
     col_creator(_dblink,_tablename,_sampledict)
   
