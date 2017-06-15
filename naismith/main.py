@@ -3,6 +3,7 @@
 #Main control script.
 
 print('Now on GIT, and GitHub, as of June 2017!')
+print("""Even better, it's just one single folder!""")
 
 import os
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
