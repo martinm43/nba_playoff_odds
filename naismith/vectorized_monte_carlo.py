@@ -68,7 +68,7 @@ winprobs=mcrows[:,3].T
 #print(hometeams)
 
 ngames=len(winprobs)
-nsims=100000
+nsims=1000
 
 print('Performing vectorized Python Monte Carlo Simulation.')
 print('Number of simulations set at '+str(nsims)+' simulations')
@@ -149,14 +149,15 @@ print 'Number of Simulations: ' + str(ite)
 
 csvfile_out = open(wkdir+'MC_sim_results_Excel.csv','wb')
 csvwriter = csv.writer(csvfile_out)
-csvwriter.writerow(['NBA Western Conference'])
+
+#Write a header row for the csv
+csvwriter.writerow(['Rank','Team','Conference','Wins'])
+
 i=1
 for t in enumerate(west):
    print t
    csvwriter.writerow([str(t[0]+1),t[1][0],t[1][1],t[1][2]])
-   
-csvwriter.writerow("")
-csvwriter.writerow(['NBA Eastern Conference'])
+
 i=1
 for t in enumerate(east):
    print t
