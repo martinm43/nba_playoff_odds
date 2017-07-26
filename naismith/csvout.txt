@@ -1,5 +1,5 @@
 .mode csv
-.output test.csv
-.read query.sql
+.output trimatch.csv
+.read trimatch_query.sql
 .output stdout
 .exit
