@@ -1,5 +1,4 @@
-#MAM - 16 Jan 16 
-
+ 
 #Main control script.
 
 import os
@@ -18,6 +17,6 @@ def standings_generation():
   print("""Binomial win percentages calculated""")
 
 if __name__=='__main__':
-    print("""Martin's Standings Projection Program V1.3""")
+    print("""Standings Projection Program V1.3""")
     standings_generation()    
 
