@@ -1,0 +1,5 @@
+.mode csv
+.output test.csv
+.read query.sql
+.output stdout
+.exit
