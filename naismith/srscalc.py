@@ -130,19 +130,12 @@ def srscalc(srsdata,calcmode='Numpy LS'):
   #print srs_dict
   return srs_dict
 
-def srs_month_since_date(date): #date in "Seconds Since Epoch"
+def srs_month_since_date(date, no_months=1): #date in "Seconds Since Epoch"
   month_secs=2592000 #30 days
-  results=srscalc(games_query(date-month_secs,date))
+  results=srscalc(games_query(date-month_secs*no_months,date))
   for srsdata in results:
     srsdata['calc_date']=int(date)
   return results
-
-def srs_3_month_since_date(date): #date in "Seconds Since Epoch"
-  month_secs=2592000
-  set=srscalc(games_query(date-month_secs*3,date))
-  for srsdata in set:
-    srsdata['calc_date']=int(date)
-  return set
 
 if __name__=='__main__':
 

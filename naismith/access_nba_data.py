@@ -2,8 +2,9 @@
 #qpy:2
 #qpy:console
 
-app_dir='/home/martin/naismith/'
-phone=app_dir+'v1.0_dev/db_folder/'
+#Choose working directory.
+import os
+phone=os.getcwd()
 
 import sqlite3
 import time, datetime
@@ -26,7 +27,9 @@ def epochtime_nba_api(str_time):
   return time.mktime(datetime_obj.timetuple())
 
 def games_query(start,end,datemode='off'):
-  conn=sqlite3.connect(phone+'nba_data_test.sqlite')
+  db_dir=phone+'/nba_data_test.sqlite'
+  print(db_dir) 
+  conn=sqlite3.connect(db_dir)
   c=conn.cursor()
   if datemode=='off':
     str_input='SELECT away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
