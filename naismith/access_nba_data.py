@@ -39,6 +39,15 @@ def games_query(start,end,datemode='off'):
   games=c.execute(str_input).fetchall()
   return games
 
+def teams_query():
+  conn=sqlite3.connect(phone+'nba_data_test.sqlite')
+  c=conn.cursor()
+  if datemode=='off':
+    str_input='SELECT bballref_team_id,abbreviation FROM pro_api_teams'
+  teams=c.execute(str_input).fetchall()
+  pprint(teams)
+  return teams
+
 if __name__=='__main__':
   start_input=raw_input('Please enter a start date, format May 6 2016')
   start_secs=epochtime(start_input)
