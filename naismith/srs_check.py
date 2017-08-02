@@ -51,7 +51,8 @@ def year_pts_against(year,ngames=82):
 
 
 if __name__=="__main__":
-    print(year_win_totals(2015))
-    print(year_pts_for(2015))
-    print(year_pts_against(2015))
+    from sys import argv
+    print(year_win_totals(int(argv[1])))
+    print(year_pts_for(int(argv[1])))
+    print(year_pts_against(int(argv[1])))
     
