@@ -28,7 +28,6 @@ def epochtime_nba_api(str_time):
 
 def games_query(start,end,datemode='off'):
   db_dir=cwd+'/nba_data_test.sqlite'
-  print(db_dir) 
   conn=sqlite3.connect(db_dir)
   c=conn.cursor()
   if datemode=='off':
@@ -38,7 +37,6 @@ def games_query(start,end,datemode='off'):
     str_input='SELECT date,away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
               WHERE datetime BETWEEN '+str(start)+' AND '+str(end)
   games=c.execute(str_input).fetchall()
-  pprint(games)
   return games
 
 if __name__=='__main__':
