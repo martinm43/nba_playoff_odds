@@ -1,4 +1,4 @@
-[{'team_id':'1','team_name':'ATL','conf':'E'},
+{teams:{{'team_id':'1','team_name':'ATL','conf':'E'},
 {'team_id':'2','team_name':'BOS','conf':'E'},
 {'team_id':'3','team_name':'BRK','conf':'E'},
 {'team_id':'4','team_name':'CHA','conf':'E'},
@@ -27,4 +27,4 @@
 {'team_id':'27','team_name':'SAS','conf':'W'},
 {'team_id':'28','team_name':'TOR','conf':'E'},
 {'team_id':'29','team_name':'UTA','conf':'W'},
-{'team_id':'30','team_name':'WAS','conf':'E'}]
+{'team_id':'30','team_name':'WAS','conf':'E'}}}
