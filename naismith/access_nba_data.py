@@ -4,7 +4,7 @@
 
 #Choose working directory.
 import os
-phone=os.getcwd()
+cwd=os.getcwd()
 
 import sqlite3
 import time, datetime
@@ -27,7 +27,7 @@ def epochtime_nba_api(str_time):
   return time.mktime(datetime_obj.timetuple())
 
 def games_query(start,end,datemode='off'):
-  db_dir=phone+'/nba_data_test.sqlite'
+  db_dir=cwd+'/nba_data_test.sqlite'
   print(db_dir) 
   conn=sqlite3.connect(db_dir)
   c=conn.cursor()
