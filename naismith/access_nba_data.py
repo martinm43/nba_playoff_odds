@@ -40,10 +40,10 @@ def games_query(start,end,datemode='off'):
   return games
 
 def teams_query():
-  conn=sqlite3.connect(phone+'nba_data_test.sqlite')
+  print(cwd+'/nba_data_test.sqlite')
+  conn=sqlite3.connect(cwd+'/nba_data_test.sqlite')
   c=conn.cursor()
-  if datemode=='off':
-    str_input='SELECT bballref_team_id,abbreviation,conf_or_league FROM pro_api_teams'
+  str_input='SELECT bball_ref_id,abbreviation,conf_or_league FROM pro_api_teams'
   teams=c.execute(str_input).fetchall()
   pprint(teams)
   return teams
