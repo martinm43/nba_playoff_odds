@@ -47,7 +47,7 @@ def srscalc(srsdata,calcmode='Numpy LS'):
   for i in range(1,31):
     games[i-1]=[sublist[2] for sublist in srsdata].count(i)+[sublist[0] for sublist in srsdata].count(i)
   
-  print(games)
+  #print(games)
   
   W=np.zeros((30,30))
     
@@ -100,7 +100,7 @@ def srscalc(srsdata,calcmode='Numpy LS'):
     #print U[0,:]
     #print p
     
-    print('SVD results follow')
+    #print('SVD results follow')
     #Trying to use SVD as shown in https://codeandfootball.wordpress.com/2011/04/12/issues-with-the-simple-ranking-system/
     #To resolve singular issues. The idea is that we solve an approximation of the original system.
     
@@ -117,8 +117,8 @@ def srscalc(srsdata,calcmode='Numpy LS'):
     D=np.dot(svd_R1.transpose(),np.dot(np.diag(svd_s_inv),svd_R2.transpose()))
     X=np.dot(D,p)
     #print(C[0,:])
-    print('Product of svd_s gives a condition number '+str(np.prod(svd_s))) 
-    print(svd_s)
+    #print('Product of svd_s gives a condition number '+str(np.prod(svd_s))) 
+    #print(svd_s)
     
   srs_dict=[]
   srs_headers=['team_id','srs','point_diff']
