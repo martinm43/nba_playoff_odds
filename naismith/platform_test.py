@@ -1,3 +1,5 @@
+#This test seems to have identified a crazy, crazy issue. No reproducibility
+#across platforms as of 4 Aug 2017 - MAM
 from platform import platform
 from access_nba_data import epochtime
 from srscalc import srs_month_since_date
