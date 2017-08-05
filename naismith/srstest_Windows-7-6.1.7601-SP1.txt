@@ -1,0 +1,32 @@
+Test was conducted on platform Windows-7-6.1.7601-SP1
+NBA year is: 2016
+Team id 1 had a srs of 0.27213855325
+Team id 2 had a srs of 1.20760698082
+Team id 3 had a srs of -2.68786404565
+Team id 4 had a srs of 0.94327566743
+Team id 5 had a srs of -0.781017097564
+Team id 6 had a srs of 2.65698220191
+Team id 7 had a srs of -1.78855560722
+Team id 8 had a srs of -0.417080753633
+Team id 9 had a srs of -0.405635737253
+Team id 10 had a srs of 4.19897316846
+Team id 11 had a srs of 2.45258151406
+Team id 12 had a srs of -0.28654509579
+Team id 13 had a srs of 1.24807197725
+Team id 14 had a srs of -2.07036569901
+Team id 15 had a srs of 0.598157815942
+Team id 16 had a srs of -2.07293816911
+Team id 17 had a srs of 0.00947733857989
+Team id 18 had a srs of -1.2136669281
+Team id 19 had a srs of -1.59028529384
+Team id 20 had a srs of -0.819605673393
+Team id 21 had a srs of 1.14419788021
+Team id 22 had a srs of -0.782157848122
+Team id 23 had a srs of -2.48914668915
+Team id 24 had a srs of -2.41001381595
+Team id 25 had a srs of -0.635427172979
+Team id 26 had a srs of -0.946966094561
+Team id 27 had a srs of 3.21356887747
+Team id 28 had a srs of 2.27450656487
+Team id 29 had a srs of 1.06962702357
+Team id 30 had a srs of -0.111092610877
