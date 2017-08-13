@@ -109,7 +109,7 @@ def srscalc(srsdata,calcmode='Numpy LS'):
     tol=0.001
     svd_s.tolist()
     #print(svd_s)
-    svd_s_inv=[d**(-1) if abs(d)>tol else 0 for d in svd_s]
+    svd_s_inv=[d**(-1) for d in svd_s]
     svd_s_inv=np.asarray(svd_s_inv)
     #print(svd_s_inv)
     #SVD testing block
