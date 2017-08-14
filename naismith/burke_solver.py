@@ -1,7 +1,7 @@
 #all thanks to StackOverflow!
 #minor edits made
 
-def burke_calc(game):
+def burke_calc(game,impmode='bballref'):
    
   import math
   import datetime
@@ -14,7 +14,8 @@ def burke_calc(game):
   except:
     print('Cannot import scipy optimization module.')
     return 
-   
+  if impmode=='bballref':
+        game=[[g[2],g[0],g[3],g[1]] for g in game]
   # list of game,home,away,homescore,awayscore 
   numGames = len(game)
   numTeams = 30
@@ -94,4 +95,4 @@ if __name__=='__main__':
   #list comprehend this into the format required by the program
   game=[[g[2],g[0],g[3],g[1]] for g in gameslist]
   print(len(game))
-  burke_calc(game)
+  burke_calc(game, impmode=None)
