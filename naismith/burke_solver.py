@@ -85,10 +85,10 @@ if __name__=='__main__':
   print('this is main')
   from access_nba_data import epochtime, games_query
   #get list of games in format "home,away,homescore,awayscore"
-  start_date=raw_input('Start date: ')
-  end_date=raw_input('End date: ')
-  start_secs=epochtime(start_date)
-  end_secs=epochtime(end_date)
+  #start_date=raw_input('Start date: ')
+  #end_date=raw_input('End date: ')
+  start_secs=epochtime('oct 1 2015')
+  end_secs=epochtime('may 1 2016')
   gameslist=games_query(start_secs,end_secs)
   #pprint(gameslist)
   #list comprehend this into the format required by the program
