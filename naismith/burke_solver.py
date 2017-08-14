@@ -1,7 +1,7 @@
 #all thanks to StackOverflow!
 #minor edits made
 
-def burke_calc(game,impmode='bballref'):
+def burke_calc(game,impmode='bballref',printing='off'):
    
   import math
   import datetime
@@ -77,8 +77,9 @@ def burke_calc(game,impmode='bballref'):
   # such that the average is 0.0 
   teamStrength -= teamStrength.mean() 
   teamStrength.tolist()
-  for t in enumerate(teamStrength):
-    print('Team '+str(t[0]+1)+' has a calculated Burke Score of '+str(t[1]))
+  if printing=='on':
+      for t in enumerate(teamStrength):
+          print('Team '+str(t[0]+1)+' has a calculated Burke Score of '+str(t[1]))
   return teamStrength
   
 if __name__=='__main__':
