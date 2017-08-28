@@ -40,7 +40,7 @@ for i in range(0,len(all_burke_calcs[0,:])):
     
 plot_team_id=8
 plt.plot(all_burke_calcs[:,plot_team_id])
-plt.plot(ave_burke_calcs[:,plot_team_id])
+#plt.plot(ave_burke_calcs[:,plot_team_id])
 plt.ylabel('team Burke score')
 plt.xlabel('days since tracking began')
 plt.show()
