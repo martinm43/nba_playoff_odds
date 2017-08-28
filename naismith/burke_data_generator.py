@@ -15,12 +15,12 @@ def runningMeanFast(x, N):
 
 #set start date and date related variables
 
-start_year=2004
+start_year=2001
 end_year=2007
 
 burke_dicts_array=[]
 
-for year_num in (start_year,end_year):
+for year_num in range(start_year,end_year):
     year=str(year_num)
     new_year_num=year_num+1
     new_year=str(new_year_num)
@@ -54,6 +54,9 @@ for year_num in (start_year,end_year):
             burke_dicts_array.append(burke_dict)
             burke_dict['year']=year
             del(burke_dict)
+    
+    print(len(burke_dicts_array))
+    print(year_num)
         
 
 #Plots for visually examining the "burke calc" plots in question
