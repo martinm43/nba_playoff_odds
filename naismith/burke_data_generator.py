@@ -21,8 +21,8 @@ def runningMeanFast(x, N):
 
 #set start date and date related variables
 
-start_year=2016
-end_year=2017 
+start_year=1996
+end_year=1998
 
 burke_dicts_array=[]
 
@@ -46,7 +46,7 @@ for year_num in range(start_year,end_year):
     all_burke_calcs=[]
 
     while calc_date < end_date:
-        temp_burke_calc=burke_calc(games_query(calc_date-monthsecs*3,calc_date,source_table='nba_py_api_data'),impmode='bballref')
+        temp_burke_calc=burke_calc(games_query(calc_date-monthsecs*3,calc_date),impmode='bballref')
         #For legacy data used from bballref_scores
         #temp_burke_calc=burke_calc(games_query(calc_date-monthsecs*3,calc_date))
         all_burke_calcs.append(temp_burke_calc)
@@ -65,6 +65,7 @@ for year_num in range(start_year,end_year):
             burke_dict['id']=year_num*10000+burke_rank_id
             burke_dict['date']=start_date+i*daysecs
             burke_dict['burke_ranking']=all_burke_calcs[i,j]
+            burke_dict['team']=j
             burke_dicts_array.append(burke_dict)
             burke_dict['year']=year
             del(burke_dict)
@@ -77,7 +78,7 @@ for year_num in range(start_year,end_year):
 #Storing data in file using historical database table creation tools
 table_initializer(cwd+dbname,table_name,burke_dicts_array[0],burke_dicts_array,automode='on')
 
-#Plots for visually examining the "burke calc" plots in question
+#Plots for visually examining the "burkse calc" plots in question
 #plot_team_id=0
 #plt.plot(all_burke_calcs[:,plot_team_id])
 ##plt.plot(ave_burke_calcs[:,plot_team_id])
