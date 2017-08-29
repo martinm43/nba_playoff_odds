@@ -9,24 +9,35 @@ import matplotlib.pyplot as plt
 from access_nba_data import games_query, epochtime
 from burke_solver import burke_calc
 
+import os
+from dbtools import table_initializer
+cwd=os.getcwd()+'/'
+table_name='burke_calc_data'
+dbname='nba_data_test.sqlite'
+
 #Moving averages, via StackOverflow
 def runningMeanFast(x, N):
     return np.convolve(x, np.ones((N,))/N)[(N-1):]
 
 #set start date and date related variables
 
-start_year=2001
-end_year=2007
+start_year=2012
+end_year=2015
 
 burke_dicts_array=[]
 
 for year_num in range(start_year,end_year):
+#    Note: this code does not work in lockout years!
     year=str(year_num)
     new_year_num=year_num+1
     new_year=str(new_year_num)
 
     start_date=epochtime('Dec 1 '+year)
     end_date=epochtime('May 1 '+new_year)
+    
+    #Lockout manual overrides
+#    start_date=epochtime('Dec 1 1996')
+#    end_date=epochtime('May 5 1999')
     calc_date=start_date
     daysecs=24*60*60
     monthsecs=daysecs*30
@@ -45,19 +56,24 @@ for year_num in range(start_year,end_year):
     #added to the "epochtime" of the first day.
     #Create a dict for the addition of these values to tables
     
+    burke_rank_id=0
     for i in range (0, len(all_burke_calcs)):
         for j in range(0,30):
             burke_dict={}
-            burke_dict['id']=j+1
+            burke_dict['id']=year_num*10000+burke_rank_id
             burke_dict['date']=start_date+i*daysecs
             burke_dict['burke_ranking']=all_burke_calcs[i,j]
             burke_dicts_array.append(burke_dict)
             burke_dict['year']=year
             del(burke_dict)
+            burke_rank_id+=1
     
     print(len(burke_dicts_array))
     print(year_num)
         
+
+#Storing data in file using historical database table creation tools
+table_initializer(cwd+dbname,table_name,burke_dicts_array[0],burke_dicts_array,automode='on')
 
 #Plots for visually examining the "burke calc" plots in question
 #plot_team_id=0
