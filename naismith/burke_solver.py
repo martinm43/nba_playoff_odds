@@ -15,7 +15,7 @@ def burke_calc(game,impmode='bballref',printing='off'):
     print('Cannot import scipy optimization module.')
     return 
   if impmode=='bballref':
-        game=[[g[2],g[0],g[3],g[1]] for g in game]
+      game=[[g[2],g[0],g[3],g[1]] for g in game]
   # list of game,home,away,homescore,awayscore 
   numGames = len(game)
   numTeams = 30

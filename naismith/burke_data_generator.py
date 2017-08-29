@@ -21,8 +21,8 @@ def runningMeanFast(x, N):
 
 #set start date and date related variables
 
-start_year=2012
-end_year=2015
+start_year=2016
+end_year=2017 
 
 burke_dicts_array=[]
 
@@ -46,7 +46,9 @@ for year_num in range(start_year,end_year):
     all_burke_calcs=[]
 
     while calc_date < end_date:
-        temp_burke_calc=burke_calc(games_query(calc_date-monthsecs*3,calc_date))
+        temp_burke_calc=burke_calc(games_query(calc_date-monthsecs*3,calc_date,source_table='nba_py_api_data'),impmode='bballref')
+        #For legacy data used from bballref_scores
+        #temp_burke_calc=burke_calc(games_query(calc_date-monthsecs*3,calc_date))
         all_burke_calcs.append(temp_burke_calc)
         calc_date+=daysecs
     

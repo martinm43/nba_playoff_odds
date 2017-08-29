@@ -26,16 +26,24 @@ def epochtime_nba_api(str_time):
   datetime_obj=datetime.datetime.strptime(str_time,"%Y-%m-%d")
   return time.mktime(datetime_obj.timetuple())
 
-def games_query(start,end,datemode='off'):
+def games_query(start,end,datemode='off',source_table='bballref_scores'):
   db_dir=cwd+'/nba_data_test.sqlite'
   conn=sqlite3.connect(db_dir)
   c=conn.cursor()
-  if datemode=='off':
-    str_input='SELECT away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
-              WHERE datetime BETWEEN '+str(start)+' AND '+str(end)
-  else:
-    str_input='SELECT date,away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
-              WHERE datetime BETWEEN '+str(start)+' AND '+str(end)
+  if source_table=='bballref_scores':
+      if datemode=='off':
+        str_input='SELECT away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
+                  WHERE datetime BETWEEN '+str(start)+' AND '+str(end)
+      else:
+        str_input='SELECT date,away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
+                  WHERE datetime BETWEEN '+str(start)+' AND '+str(end)
+  elif source_table=='nba_py_api_data':
+      if datemode=='off':
+        str_input='SELECT away_standard_id, away_pts, home_standard_id, home_pts FROM nba_py_api_data\
+                  WHERE (day_datetime BETWEEN '+str(start)+' AND '+str(end)+') AND (away_pts IS NOT NULL) AND (home_pts IS NOT NULL)'
+      else:
+        str_input='SELECT date,away_standard_id, away_pts, home_standard_id, home_pts FROM nba_py_api_data\
+                  WHERE (day_datetime BETWEEN '+str(start)+' AND '+str(end)+') AND (away_pts IS NOT NULL) AND (home_pts IS NOT NULL)'
   games=c.execute(str_input).fetchall()
   return games
 
