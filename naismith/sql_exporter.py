@@ -18,7 +18,7 @@ def list_to_csv(csvfile,list_of_lists):
     csvfile_out.close()
     return 1
 
-conn=sqlite3.connect(os.path.join(cwd,'lcbo_db.sqlite'))
+conn=sqlite3.connect(os.path.join(cwd,'nba_data_test.sqlite'))
 c=conn.cursor()
 
 csvfilename='results.csv'
