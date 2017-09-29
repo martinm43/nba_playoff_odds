@@ -1,4 +1,4 @@
-Date,Start (ET),Visitor/Neutral,Away_PTS,Home/Neutral,Home_PTS,,,Notes
+date,date_start_time_et,away_team,away_pts,home_team,home_pts,box_score,OT,Notes
 Tue Oct 17 2017,8:00 pm,Boston Celtics,,Cleveland Cavaliers,,,,
 Tue Oct 17 2017,10:30 pm,Houston Rockets,,Golden State Warriors,,,,
 Wed Oct 18 2017,7:30 pm,Milwaukee Bucks,,Boston Celtics,,,,
