@@ -5,7 +5,7 @@ import os
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
 def standings_generation():
-  execfile(wkdir+'team_indexer.py')
+  execfile(wkdir+'nba_api_team_indexer.py')
   print("""Game linking and team indexing complete""")
   execfile(wkdir+'season_games_splitter.py')
   print("""Season splitting complete""")
