@@ -48,6 +48,8 @@ c=conn.cursor()
 str_input='SELECT away_standard_id, away_pts, home_standard_id, home_pts FROM nba_py_api_data WHERE day_datetime<'+str(cutdate)
 gameslist=c.execute(str_input).fetchall()
 winlist=[x[0] if x[1]>x[3] else x[2] for x in gameslist]
+winlist=[0 for x in gameslist]
+
 winrows=[]
 for i in range(1,31):
     print(i)
