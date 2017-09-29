@@ -15,7 +15,7 @@ from pprint import pprint
 games_2018=pd.read_csv('2018_season_schedule.csv')
 
 #fillna issue
-
+games_2018=games_2018.fillna(0)
 
 games_2018['fulldate']=games_2018['date']+ ' '+games_2018['date_start_time_et']
 
