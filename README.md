@@ -10,3 +10,6 @@ simulation)
 Done for fun and wanting to learn some Python, Git, iPython, Eclipse...
 
 MAM - June 2017.
+
+MAM - Now about to implement folder functionality in order to better organize work. "Folders/module" version will be new branch 
+      until all files can be confirmed as working.

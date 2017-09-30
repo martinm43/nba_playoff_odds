@@ -8,6 +8,8 @@
 import csv,os
 from srscalc import srscalc
 
+print(srscalc)
+
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
 #Handling Burke solver's dependence on scipy.

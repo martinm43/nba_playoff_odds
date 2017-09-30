@@ -13,7 +13,7 @@ conn=sqlite3.connect(os.path.join(wkdir,'nba_data_test.sqlite'))
 c=conn.cursor()
 
 team_id_data=[]
-target='pro_api_teams.csv'
+target='pro_api_teams_list.csv'
 with open(wkdir+target,'rb') as csvfile:
     balldata = csv.reader(csvfile,delimiter=',')
     team_id_dict={}
