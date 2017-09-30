@@ -1,6 +1,6 @@
 from peewee import *
 
-database = SqliteDatabase('nba_data_test.sqlite', **{})
+database = SqliteDatabase('nba_data.sqlite', **{})
 
 class UnknownField(object):
     def __init__(self, *_, **__): pass

@@ -27,7 +27,7 @@ def epochtime_nba_api(str_time):
   return time.mktime(datetime_obj.timetuple())
 
 def games_query(start,end,datemode='off',source_table='bballref_scores'):
-  db_dir=cwd+'/nba_data_test.sqlite'
+  db_dir=cwd+'/nba_data.sqlite'
   conn=sqlite3.connect(db_dir)
   c=conn.cursor()
   if source_table=='bballref_scores':
@@ -48,8 +48,8 @@ def games_query(start,end,datemode='off',source_table='bballref_scores'):
   return games
 
 def teams_query():
-  print(cwd+'/nba_data_test.sqlite')
-  conn=sqlite3.connect(cwd+'/nba_data_test.sqlite')
+  print(cwd+'/nba_data.sqlite')
+  conn=sqlite3.connect(cwd+'/nba_data.sqlite')
   c=conn.cursor()
   str_input='SELECT bball_ref_id,abbreviation,conf_or_league FROM pro_api_teams'
   teams=c.execute(str_input).fetchall()

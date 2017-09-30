@@ -9,7 +9,7 @@ import sqlite3,os,csv
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
-conn=sqlite3.connect(os.path.join(wkdir,'nba_data_test.sqlite'))
+conn=sqlite3.connect(os.path.join(wkdir,'nba_data.sqlite'))
 c=conn.cursor()
 
 team_id_data=[]

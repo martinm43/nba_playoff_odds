@@ -25,7 +25,7 @@ from dbtools.access_nba_data import epochtime
 
 #strings for getting to file locations 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
-filename='nba_data_test.sqlite'
+filename='nba_data.sqlite'
 
 #Grab date, season for consideration
 season=raw_input('Season under consideration: ')

@@ -43,7 +43,7 @@ import sqlite3
 from dbtools.access_nba_data import epochtime
 from pprint import pprint
 tablename='nba_py_api_data'
-filename='nba_data_test.sqlite'
+filename='nba_data.sqlite'
 conn=sqlite3.connect(wkdir+filename)
 c=conn.cursor()
 

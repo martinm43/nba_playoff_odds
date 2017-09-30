@@ -60,7 +60,7 @@ def score_bound(score_array,score_limit):
   score_array=score_array.clip(min=-score_limit)
   return score_array 
   
-conn=sqlite3.connect(os.path.join(db_folder,'nba_data_test.sqlite'))
+conn=sqlite3.connect(os.path.join(db_folder,'nba_data.sqlite'))
 c=conn.cursor()
 
 #print 'SQL script executor'

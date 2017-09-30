@@ -13,7 +13,7 @@ import os
 from dbtools import table_initializer
 cwd=os.getcwd()+'/'
 table_name='burke_calc_data'
-dbname='nba_data_test.sqlite'
+dbname='nba_data.sqlite'
 
 #Moving averages, via StackOverflow
 def runningMeanFast(x, N):

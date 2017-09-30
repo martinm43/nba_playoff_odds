@@ -1,7 +1,7 @@
 #The purpose of this script/module
 #is to use seemenow's nba_py module
 #in order to generate information that can be used
-#to update the nba_data_test.sqlite database
+#to update the nba_data.sqlite database
 
 import nba_py, os, datetime
 from dbtools import table_initializer
@@ -9,7 +9,7 @@ from access_nba_data import epochdate_nba_api,epochtime_nba_api
 #from pprint import pprint
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
-dbname='nba_data_test.sqlite'
+dbname='nba_data.sqlite'
 
 #converting results to json by default even if pandas is available
 #future iterations of this program may use pandas
@@ -77,7 +77,7 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
          g['away_standard_id']=0
          g['home_standard_id']=0
   
-#Add a table containing the nba_py scoreboard data to the nba_data_test.sqlite database
+#Add a table containing the nba_py scoreboard data to the nba_data.sqlite database
 print('Preparing to write to nba working database. Please stand by...')
 
 tablename='nba_py_api_data'
