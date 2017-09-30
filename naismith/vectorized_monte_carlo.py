@@ -68,7 +68,7 @@ winprobs=mcrows[:,3].T
 #print(hometeams)
 
 ngames=len(winprobs)
-nsims=1000
+nsims=10000
 
 print('Performing vectorized Python Monte Carlo Simulation.')
 print('Number of simulations set at '+str(nsims)+' simulations')

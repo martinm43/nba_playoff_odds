@@ -1,66 +1,32 @@
-NBA Western Conference
-1,GSW,W,69.0
-2,SAS,W,60.0
-3,HOU,W,59.0
-4,LAC,W,53.0
-5,UTA,W,53.0
-6,OKC,W,48.0
-7,MEM,W,43.0
-8,DEN,W,35.0
-9,SAC,W,35.0
-10,POR,W,33.0
-11,LAL,W,30.0
-12,MIN,W,30.0
-13,DAL,W,28.0
-14,NOP,W,28.0
-15,PHX,W,21.0
-
-NBA Eastern Conference
-1,TOR,E,65.0
-2,CLE,E,61.0
-3,BOS,E,50.0
-4,MIL,E,48.0
-5,CHA,E,47.0
-6,NYK,E,40.0
-7,DET,E,39.0
-8,IND,E,39.0
-9,WAS,E,37.0
-10,ATL,E,36.0
-11,ORL,E,36.0
-12,CHI,E,32.0
-13,MIA,E,30.0
-14,BRK,E,23.0
-15,PHI,E,21.0
-
-Playoff Odds For Each Team
-Team ATL has a playoff probability of 33.7%
-Team BOS has a playoff probability of 99.7%
-Team BRK has a playoff probability of 0.0%
-Team CHA has a playoff probability of 98.2%
-Team CHI has a playoff probability of 10.1%
-Team CLE has a playoff probability of 100.0%
-Team DAL has a playoff probability of 3.2%
-Team DEN has a playoff probability of 38.6%
-Team DET has a playoff probability of 62.9%
-Team GSW has a playoff probability of 100.0%
-Team HOU has a playoff probability of 100.0%
-Team IND has a playoff probability of 62.1%
-Team LAC has a playoff probability of 100.0%
-Team LAL has a playoff probability of 5.7%
-Team MEM has a playoff probability of 93.7%
-Team MIA has a playoff probability of 4.2%
-Team MIL has a playoff probability of 98.6%
-Team MIN has a playoff probability of 5.1%
-Team NOP has a playoff probability of 2.2%
-Team NYK has a playoff probability of 67.8%
-Team OKC has a playoff probability of 99.1%
-Team ORL has a playoff probability of 27.2%
-Team PHI has a playoff probability of 0.0%
-Team PHX has a playoff probability of 0.0%
-Team POR has a playoff probability of 18.7%
-Team SAC has a playoff probability of 33.8%
-Team SAS has a playoff probability of 100.0%
-Team TOR has a playoff probability of 100.0%
-Team UTA has a playoff probability of 100.0%
-Team WAS has a playoff probability of 35.7%
+Rank,Team,Conference,Wins
+1,GSW,W,68
+2,SAS,W,59
+3,HOU,W,58
+4,LAC,W,52
+5,UTA,W,52
+6,OKC,W,47
+7,MEM,W,42
+8,SAC,W,35
+9,DEN,W,34
+10,POR,W,32
+11,LAL,W,29
+12,DAL,W,28
+13,MIN,W,28
+14,NOP,W,27
+15,PHX,W,20
+1,TOR,E,64
+2,CLE,E,60
+3,BOS,E,49
+4,MIL,E,47
+5,CHA,E,46
+6,DET,E,39
+7,IND,E,39
+8,NYK,E,39
+9,ORL,E,35
+10,WAS,E,35
+11,ATL,E,34
+12,CHI,E,31
+13,MIA,E,30
+14,BRK,E,22
+15,PHI,E,20
 Number of Simulations: 10000

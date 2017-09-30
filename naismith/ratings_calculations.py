@@ -6,7 +6,7 @@
 #MAM
 
 import csv,os
-from srscalc import srscalc
+from analytics.srscalc_script import srscalc
 
 #print(srscalc)
 
