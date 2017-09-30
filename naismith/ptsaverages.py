@@ -4,7 +4,7 @@
 
 import sqlite3,os,csv
 from pprint import pprint
-from access_nba_data import epochtime
+from dbtools.access_nba_data import epochtime
 import numpy as np
 
 #print "This is a SQL script executor"

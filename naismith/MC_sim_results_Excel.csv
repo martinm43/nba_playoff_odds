@@ -4,7 +4,7 @@ NBA Western Conference
 3,HOU,W,59.0
 4,LAC,W,53.0
 5,UTA,W,53.0
-6,OKC,W,47.0
+6,OKC,W,48.0
 7,MEM,W,43.0
 8,DEN,W,35.0
 9,SAC,W,35.0
@@ -33,34 +33,34 @@ NBA Eastern Conference
 15,PHI,E,21.0
 
 Playoff Odds For Each Team
-Team ATL has a playoff probability of 34.3%
+Team ATL has a playoff probability of 33.7%
 Team BOS has a playoff probability of 99.7%
 Team BRK has a playoff probability of 0.0%
-Team CHA has a playoff probability of 98.4%
-Team CHI has a playoff probability of 10.4%
+Team CHA has a playoff probability of 98.2%
+Team CHI has a playoff probability of 10.1%
 Team CLE has a playoff probability of 100.0%
-Team DAL has a playoff probability of 3.5%
-Team DEN has a playoff probability of 39.0%
-Team DET has a playoff probability of 63.4%
+Team DAL has a playoff probability of 3.2%
+Team DEN has a playoff probability of 38.6%
+Team DET has a playoff probability of 62.9%
 Team GSW has a playoff probability of 100.0%
 Team HOU has a playoff probability of 100.0%
-Team IND has a playoff probability of 60.2%
+Team IND has a playoff probability of 62.1%
 Team LAC has a playoff probability of 100.0%
-Team LAL has a playoff probability of 5.4%
-Team MEM has a playoff probability of 93.5%
+Team LAL has a playoff probability of 5.7%
+Team MEM has a playoff probability of 93.7%
 Team MIA has a playoff probability of 4.2%
-Team MIL has a playoff probability of 98.8%
-Team MIN has a playoff probability of 4.6%
-Team NOP has a playoff probability of 2.3%
-Team NYK has a playoff probability of 67.3%
-Team OKC has a playoff probability of 99.2%
-Team ORL has a playoff probability of 27.7%
+Team MIL has a playoff probability of 98.6%
+Team MIN has a playoff probability of 5.1%
+Team NOP has a playoff probability of 2.2%
+Team NYK has a playoff probability of 67.8%
+Team OKC has a playoff probability of 99.1%
+Team ORL has a playoff probability of 27.2%
 Team PHI has a playoff probability of 0.0%
 Team PHX has a playoff probability of 0.0%
-Team POR has a playoff probability of 18.6%
+Team POR has a playoff probability of 18.7%
 Team SAC has a playoff probability of 33.8%
 Team SAS has a playoff probability of 100.0%
 Team TOR has a playoff probability of 100.0%
 Team UTA has a playoff probability of 100.0%
-Team WAS has a playoff probability of 35.6%
+Team WAS has a playoff probability of 35.7%
 Number of Simulations: 10000

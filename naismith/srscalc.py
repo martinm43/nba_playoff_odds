@@ -5,8 +5,10 @@
 #UPDATE Sep 2016: SVD approximation used to solve problem and avoid "blowing up"
 
 #MAM
+import sys
+#print(sys.path)
 
-from access_nba_data import epochtime, games_query 
+#from .access_nba_data import epochtime, games_query 
 import math
 import csv
 import numpy as np

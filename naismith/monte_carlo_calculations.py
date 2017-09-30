@@ -6,7 +6,7 @@
 
 #Replace Excel Program with Python routine. Get what you need.
 import csv,os
-from morey import SRS_regress,burke_regress
+from analytics.morey import SRS_regress,burke_regress
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 

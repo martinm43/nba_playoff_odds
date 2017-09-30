@@ -8,7 +8,7 @@
 import csv,os
 from srscalc import srscalc
 
-print(srscalc)
+#print(srscalc)
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -16,7 +16,7 @@ wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 burke_solve=0
 try:
     import scipy.optimize
-    from burke_solver import burke_calc
+    from analytics.burke_solver import burke_calc
     burke_solve=1
 except ImportError:
     print('Burke solution method not available')
@@ -40,7 +40,7 @@ srsdata=[]
 #csvfile.close
 
 import sqlite3
-from access_nba_data import epochtime
+from dbtools.access_nba_data import epochtime
 from pprint import pprint
 tablename='nba_py_api_data'
 filename='nba_data_test.sqlite'

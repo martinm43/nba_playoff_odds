@@ -21,7 +21,7 @@ def list_to_csv(csvfile,list_of_lists):
     return 1
 
 #get the conversion function
-from access_nba_data import epochtime
+from dbtools.access_nba_data import epochtime
 
 #strings for getting to file locations 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
@@ -47,7 +47,8 @@ ballrows=c.execute(str_input).fetchall()
 c=conn.cursor()
 str_input='SELECT away_standard_id, away_pts, home_standard_id, home_pts FROM nba_py_api_data WHERE day_datetime<'+str(cutdate)
 gameslist=c.execute(str_input).fetchall()
-winlist=[x[0] if x[1]>x[3] else x[2] for x in gameslist]
+#Hardcoded solution to "incorporating past wins while projecting into the future" problem
+#winlist=[x[0] if x[1]>x[3] else x[2] for x in gameslist]
 winlist=[0 for x in gameslist]
 
 winrows=[]
