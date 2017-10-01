@@ -24,6 +24,10 @@ with open(wkdir+target,'rb') as csvfile:
         team_id_dict={} #clear holder
     csvfile.close
 
+#Convert this to dict
+#eliminate need for external csv by deleting the above code block
+team_id_data==c.execute('select id, abbreviation, city, id, team_name,bball_ref_id,conf_or_league from pro_api_teams')
+
 for id_set in team_id_data:
     #Away ids first
     game_ids=c.execute('SELECT id FROM nba_py_api_data WHERE away_TEAM_ID='+str(id_set['nba_api_id'])).fetchall()
