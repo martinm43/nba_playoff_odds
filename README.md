@@ -13,3 +13,20 @@ MAM - June 2017.
 
 MAM - Now about to implement folder functionality in order to better organize work. "Folders/module" version will be new branch 
       until all files can be confirmed as working.
+
+MAM, Oct 1 2017: the new files have been updated as required. Folder (aka module) functionality has been added.
+It is known, however, that srscalc is a bit more complex of a problem than first though. A working (?) project exists in GitHub
+but it is written for Python 3. 
+
+Now dropping unused/unverified "intermediate calculation" tables (e.g. advanced stats moving average, or ASMA) as the fundamental 
+calculations behind them are unverified. 
+
+To do/considering:
+*removing unused legacy calculation tables as above (anything related to our srs calculations)
+*storing playoff odds in a table/figuring out how to automate them in order to produce "odds of making the playoffs" guides
+*tiebreaker logic for playoffs
+*implementing the above "Python 3" library for srscalc
+*removing superfluous print-to-screen statements
+*refining the output files - correcting formating in final output file
+*perform regression using Burke odds
+*figuring out how to email them/playoff predictions/expected outcomes of games to personal account

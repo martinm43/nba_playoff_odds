@@ -156,7 +156,7 @@ for t in east:
 
 print 'Number of Simulations: ' + str(ite)
 
-csvfile_out = open(wkdir+'MC_sim_results_Excel.csv','wb')
+csvfile_out = open(wkdir+'MC_sim_results_Excel.txt','wb')
 csvwriter = csv.writer(csvfile_out)
 csvwriter.writerow(['NBA Western Conference'])
 i=1

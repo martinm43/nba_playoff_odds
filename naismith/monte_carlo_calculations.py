@@ -197,7 +197,7 @@ fancy_out=list(zip(date_out,home_out, away_out, dsrs_data, winpct_data))
 #pprint(fancy_out[0])
 fancy_out=[[row[0],team_name(row[1],teamdict),team_name(row[2],teamdict),row[3],row[4]] for row in fancy_out]
 #pprint(fancy_out)
-csvfile_out = open(wkdir+'coming_games_Excel.csv','wb')
+csvfile_out = open(wkdir+'coming_games_Excel.txt','wb')
 csvwriter = csv.writer(csvfile_out)
 csvwriter.writerow(['Date','Home Team','Away Team','dSRS','Home Team Win Probability'])
 for row in fancy_out:
