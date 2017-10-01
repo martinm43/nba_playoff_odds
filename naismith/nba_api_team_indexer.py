@@ -2,6 +2,8 @@
 #qpy:2
 #qpy:console
 
+from pprint import pprint
+
 print "This scripts links the stats.nba.com api ids with regular ids"
 
 import sqlite3,os,csv
@@ -26,7 +28,13 @@ with open(wkdir+target,'rb') as csvfile:
 
 #Convert this to dict
 #eliminate need for external csv by deleting the above code block
-team_id_data==c.execute('select id, abbreviation, city, id, team_name,bball_ref_id,conf_or_league from pro_api_teams')
+team_id_data_values=c.execute('select id, abbreviation, city, id, team_name,bball_ref_id,conf_or_league from pro_api_teams')
+team_id_data_keys=['id',' abbreviation', 'city',' id', 'team_name','bball_ref_id','conf_or_league']
+from itertools import izip
+team_id_data=[]
+for i in team_id_data_values:
+  team_id_data.append(dict(zip(team_id_data_values,team_id_data_keys)))
+pprint(team_id_data)
 
 for id_set in team_id_data:
     #Away ids first
