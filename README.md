@@ -22,11 +22,12 @@ Now dropping unused/unverified "intermediate calculation" tables (e.g. advanced 
 calculations behind them are unverified. 
 
 To do/considering:
-*removing unused legacy calculation tables as above (anything related to our srs calculations)
+*DONE: removing unused legacy calculation tables as above (anything related to our srs calculations)
 *storing playoff odds in a table/figuring out how to automate them in order to produce "odds of making the playoffs" guides
 *tiebreaker logic for playoffs
 *implementing the above "Python 3" library for srscalc
 *removing superfluous print-to-screen statements
 *refining the output files - correcting formating in final output file
+*Making output file optional
 *perform regression using Burke odds
 *figuring out how to email them/playoff predictions/expected outcomes of games to personal account
