@@ -3,6 +3,7 @@
 #This version is going to have straight calculations, nothing fancy.
 
 #UPDATE Sep 2016: SVD approximation used to solve problem and avoid "blowing up"
+from __future__ import division
 
 #MAM
 import sys

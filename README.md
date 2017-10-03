@@ -23,6 +23,7 @@ calculations behind them are unverified.
 
 To do/considering:
 *DONE: removing unused legacy calculation tables as above (anything related to our srs calculations)
+*Pythagorean wins.
 *storing playoff odds in a table/figuring out how to automate them in order to produce "odds of making the playoffs" guides
 *tiebreaker logic for playoffs
 *implementing the above "Python 3" library for srscalc
