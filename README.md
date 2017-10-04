@@ -26,6 +26,7 @@ To do/considering:
 *DONE: Pythagorean wins expectation function
 *Reviewing and reperforming rest calculations
  *if rest=0 at beginning of season set to 72
+ *proper ids based on year, game number, and home/away? (optional)
 *storing playoff odds in a table/figuring out how to automate them in order to produce "odds of making the playoffs" guides
 *tiebreaker logic for playoffs
 *implementing the above "Python 3" library for srscalc
