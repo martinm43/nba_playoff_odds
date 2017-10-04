@@ -11,7 +11,7 @@ def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82, calcdate
 
     team_id=str(team_id_num)
     year_start=str(year_start_num)
-
+#    print(calcdate)
     pts=BballrefScores.select(BballrefScores.away_pts).where(\
                          BballrefScores.away_team_id==team_id,\
                          BballrefScores.season_year==year_start,\
@@ -28,10 +28,12 @@ def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82, calcdate
 
     team_pts_against_home=BballrefScores.select(BballrefScores.away_pts).where(\
                                                BballrefScores.home_team_id==team_id,\
-                                               BballrefScores.season_year==year_start)
+                                               BballrefScores.season_year==year_start,\
+     			                       BballrefScores.datetime<calcdate)
     team_pts_against_away=BballrefScores.select(BballrefScores.home_pts).where(\
                                                BballrefScores.away_team_id==team_id,\
-                                               BballrefScores.season_year==year_start)
+                                               BballrefScores.season_year==year_start,\
+                                               BballrefScores.datetime<calcdate)
     team_pts_against_home=sum([p.away_pts for p in team_pts_against_home])
     team_pts_against_away=sum([p.home_pts for p in team_pts_against_away])
     team_pts_against=team_pts_against_away+team_pts_against_home
