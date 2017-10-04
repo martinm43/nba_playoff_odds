@@ -104,16 +104,3 @@ def team_rest_calc_v2(ballrows):
 
 
   return season_rest_data
-team_game_ids)>0:
-      team_time_data[:,:-4]=team_game_ids
-    else:
-      print 'Warning: Team '+str(i)+' not found'
-    for j in range(1,len(team_game_ids)): #skip the first game with index 0. 82 games in season.
-       #Calculate time in hours between games
-       team_time_data[j,3]=(team_game_ids[j,2]-team_game_ids[j-1,2])/3600.0 
-       #Is it an away game?
-       #Be sure to count them.
-       count_away=0
-       if [row['away_team_id'] for row in ballrows if row['id']==team_game_ids[j,1]][0]==i:
-         team_time_data[j,5]=1
-    
