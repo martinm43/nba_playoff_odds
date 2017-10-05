@@ -21,10 +21,11 @@ class BballrefAvgPtsDiff(BaseModel):
 class BballrefRest(BaseModel):
     away_streak = FloatField(null=True)
     datetime = FloatField(null=True)
-    game = FloatField(db_column='game_id', null=True)
-    is_away = FloatField(null=True)
+    game = IntegerField(db_column='game_id', null=True)
+    is_away = IntegerField(null=True)
     resttime = FloatField(null=True)
-    team = FloatField(db_column='team_id', null=True)
+    team = IntegerField(db_column='team_id', null=True)
+    season_year = IntegerField(null=True)
 
     class Meta:
         db_table = 'bballref_rest'

@@ -25,8 +25,9 @@ To do/considering:
 *DONE: removing unused legacy calculation tables as above (anything related to our srs calculations)
 *DONE: Pythagorean wins expectation function
 *Reviewing and reperforming rest calculations
- *if rest=0 at beginning of season set to 72
- *proper ids based on year, game number, and home/away? (optional)
+ *DONE: if rest=0 at beginning of season set to 72
+ *DONE: proper ids based on year, game number, and home/away? (optional)
+ *investigate the negative rest occurences in the new year.
 *storing playoff odds in a table/figuring out how to automate them in order to produce "odds of making the playoffs" guides
 *tiebreaker logic for playoffs
 *implementing the above "Python 3" library for srscalc
