@@ -4,9 +4,10 @@
 #to update the nba_data.sqlite database
 
 import nba_py, os, datetime
-from dbtools import table_initializer
-from access_nba_data import epochdate_nba_api,epochtime_nba_api
-#from pprint import pprint
+from dbtools.dbtools import table_initializer
+from dbtools.access_nba_data import epochdate_nba_api,epochtime_nba_api
+from dbtools.nba_data_models import NbaPyApiData
+from pprint import pprint
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 dbname='nba_data.sqlite'
@@ -78,10 +79,16 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
          g['home_standard_id']=0
   
 #Add a table containing the nba_py scoreboard data to the nba_data.sqlite database
-print('Preparing to write to nba working database. Please stand by...')
+#print('Preparing to write to nba working database. Please stand by...')
 
-tablename='nba_py_api_data'
+#tablename='nba_py_api_data'
 
-table_initializer(wkdir+dbname,tablename,month_games_list[0],month_games_list,automode='on')
+#table_initializer(wkdir+dbname,tablename,month_games_list[0],month_games_list,automode='on')
 
+#Using Peewee ORM
 
+#1 - check results
+#pprint(gameslist)
+
+#2 - insert
+NbaPyApiData.insert_many(gameslist).upsert().execute()
