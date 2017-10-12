@@ -128,7 +128,7 @@ class ProApiGames(BaseModel):
 
 class ProApiTeams(BaseModel):
     abbreviation = TextField(null=True)
-    bball_ref = UnknownField(db_column='bball_ref_id', null=True)  # 
+    bball_ref = IntegerField(db_column='bball_ref_id', null=True)  # 
     city = TextField(null=True)
     conf_or_league = TextField(null=True)
     team = IntegerField(db_column='team_id', null=True)
