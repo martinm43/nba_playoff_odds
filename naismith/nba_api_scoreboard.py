@@ -87,8 +87,15 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
 
 #Using Peewee ORM
 
-#1 - check results
-#pprint(gameslist)
+#1 - check result
+gameslist=[dict((k.lower(), v) for k,v in g.iteritems()) for g in gameslist]
+for g in gameslist:
+  for k in g.keys():
+    if k.endswith('_id'):
+      k_new=k[:-3]
+      g[k_new]=g[k]
+      del g[k]
 
+pprint(gameslist)
 #2 - insert
 NbaPyApiData.insert_many(gameslist).upsert().execute()

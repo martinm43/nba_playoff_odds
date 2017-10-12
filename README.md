@@ -34,5 +34,5 @@ To do/considering:
 *removing superfluous print-to-screen statements
 *refining the output files - correcting formating in final output file
 *Making output file optional
-*perform regression using Burke odds
+*Laptop: perform regression using Burke odds
 *figuring out how to email them/playoff predictions/expected outcomes of games to personal account
