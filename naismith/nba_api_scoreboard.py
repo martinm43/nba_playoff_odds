@@ -7,6 +7,7 @@ import nba_py, os, datetime
 from dbtools.dbtools import table_initializer
 from dbtools.access_nba_data import epochdate_nba_api,epochtime_nba_api
 from dbtools.nba_data_models import NbaPyApiData
+from teamind.teamind import teamind
 from pprint import pprint
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
