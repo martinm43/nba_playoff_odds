@@ -1,4 +1,5 @@
 # coding: utf-8
+# Does not work. Not enough games!
 from dbtools.nba_data_models import NbaPyApiData
 from dbtools.access_nba_data import stringtime, epochtime
 starttime=epochtime('Sep 30 2017')
