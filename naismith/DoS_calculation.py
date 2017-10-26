@@ -7,8 +7,9 @@ from dbtools.access_nba_data import epochtime, stringtime
 
 #defaults
 init_rank=750
-dos_factor=5
+dos_factor=10
 def_env_factor=0.6 
+def_expect_factor=0.5
 
 #arrays
 ranks=np.ones(30)*init_rank
@@ -17,8 +18,8 @@ ranks=np.ones(30)*init_rank
 def dos(pts_a,pts_b):
     return (pts_a-pts_b)/(pts_a+pts_b)
 
-def expected_dos(rank_a,rank_b,env_factor=def_env_factor):
-    return -1+2/(1+np.exp(rank_a-rank_b-env_factor))
+def expected_dos(rank_a,rank_b,env_factor=def_env_factor,expect_factor=def_expect_factor):
+    return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor))
 
 start_date=epochtime('Oct 1 2016')
 end_date=epochtime('May 1 2017')
