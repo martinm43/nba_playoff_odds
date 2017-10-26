@@ -6,10 +6,19 @@ from dbtools.nba_data_models import NbaPyApiData
 from dbtools.access_nba_data import epochtime, stringtime
 
 #defaults
+<<<<<<< HEAD
 init_rank=750
 dos_factor=10
 def_env_factor=0.3 
 def_expect_factor=1
+=======
+init_rank=750 #what a "neutral team" is valued at
+dos_factor=10 #factor applied to change value based on expected performance vs actual
+def_env_factor=0.6 #environment factor for away team
+#The trickiest factor
+def_expect_factor=0.5 #affects sigmoid plot of -1 to +1 outcomes based on quality diff.
+#how much does talent disparity affect expected "win ratio"?
+>>>>>>> 8c78453ba8aa6c5e878d6aa55f1c6e623e883952
 
 #arrays
 ranks=np.ones(30)*init_rank
