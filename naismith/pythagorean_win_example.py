@@ -8,8 +8,8 @@ from __future__ import division #this is a major key. Forces floating point div.
 from dbtools.nba_data_models import BballrefScores
 
 def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82,\
-			mincalcdate=99999999999.9,\
-			maxcalcdate=0.0):
+			mincalcdate=0.0,\
+			maxcalcdate=999999999999.9):
 
     team_id=str(team_id_num)
     year_start=str(year_start_num)
