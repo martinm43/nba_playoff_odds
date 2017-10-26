@@ -11,7 +11,8 @@ from dbtools.access_nba_data import epochtime, stringtime
 from dbtools.nba_data_models import NbaPyApiData
 def dos(pts_a,pts_b):
     return (pts_a-pts_b)/(pts_a+pts_b)
-   
+def expected_dos(rank_a,rank_b,env_factor=def_env_factor):
+    return  
 season_start_2018=epochtime('Oct 17 2017')
 stringtime(season_start_2018)
 s=NbaPyApiData.select().where(NbaPyApiData.day_datetime>season_start_2018)
