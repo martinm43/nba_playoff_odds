@@ -8,8 +8,8 @@ from dbtools.access_nba_data import epochtime, stringtime
 #defaults
 init_rank=750
 dos_factor=10
-def_env_factor=0.6 
-def_expect_factor=0.5
+def_env_factor=0.3 
+def_expect_factor=1
 
 #arrays
 ranks=np.ones(30)*init_rank
@@ -22,8 +22,8 @@ def expected_dos(rank_a,rank_b,env_factor=def_env_factor,expect_factor=def_expec
     return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor))
 
 start_date=epochtime('Oct 1 2016')
-end_date=epochtime('May 1 2017')
-stringtime(season_start_2018)
+end_date=epochtime('May 1 2018')
+#stringtime(season_start_2018)
 
 s=NbaPyApiData.select().where(NbaPyApiData.day_datetime>=start_date,\
                                 NbaPyApiData.day_datetime<=end_date)
@@ -38,6 +38,7 @@ for i in s:
         print([expected_away_diff,expected_home_diff])
         away_diff=dos_factor*(dos(i.away_pts,i.home_pts)-expected_away_diff)
         home_diff=dos_factor*(dos(i.home_pts,i.away_pts)-expected_home_diff)
+	print([away_diff,home_diff])
         ranks[i.away_standard-1]=away_rank+away_diff
         ranks[i.home_standard-1]=home_rank+home_diff
         print i.away_team_city_name,i.home_team_city_name
