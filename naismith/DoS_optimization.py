@@ -9,7 +9,7 @@ from dbtools.access_nba_data import epochtime, stringtime
 def dos(pts_a,pts_b):
     return (pts_a-pts_b)/(pts_a+pts_b)
 
-def expected_dos(rank_a,rank_b,env_factor=3,expect_factor=0.05):
+def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=1.0):
     return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor))
 
 def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):
@@ -39,13 +39,13 @@ def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):
 
 if __name__=='__main__':
     #input variables to function
-    start_date=epochtime('Oct 1 2009')
-    end_date=epochtime('May 1 2014')
+    start_date=epochtime('Oct 1 1996')
+    end_date=epochtime('May 1 2017')
     s_b=BballrefScores.select().where(BballrefScores.datetime>=start_date,\
                                 BballrefScores.datetime<=end_date)
     #Convert into universal format
     s_array=[(i.away_team_id,i.away_pts,i.home_team_id,i.home_pts) for i in s_b]
 
-    test_values=np.linspace(0.6,1.0,100)
+    test_values=np.linspace(0.9,1.5,100)
     #Crude investigation into the possible ranges of "ideal values"
-    errors=[(i,DoS_calculation_error(s_array,i,1.0)) for i in test_values]
+    ave_game_errors=[(i,np.sqrt(DoS_calculation_error(s_array,.75,i)/(2*len(s_array)))) for i in test_values]
