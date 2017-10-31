@@ -6,23 +6,14 @@ from dbtools.nba_data_models import NbaPyApiData, BballrefScores
 from dbtools.access_nba_data import epochtime, stringtime
 from DoS_optimization import dos,expected_dos
 
-#local function definitions
-#def dos(pts_a,pts_b):
-#    return (pts_a-pts_b)/(pts_a+pts_b)
-
-#def expected_dos(rank_a,rank_b,env_factor=3,expect_factor=0.05):
-#    return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor))
-
 #defaults
-init_rank=1000 #what a "neutral team" is valued at
-dos_factor=2 #factor applied to change value based on expected performance vs actual
+init_rank=1500 #what a "neutral team" is valued at
+dos_factor=1.5 #factor applied to change value based on expected performance vs actual
 def_env_factor=.75 #environment factor for away team
 def_expect_factor=1.0 #affects sigmoid plot of -1 to +1 outcomes based on quality diff.
 
 #arrays
 ranks=np.ones(30)*init_rank
-
-
 
 start_date=epochtime('Oct 1 1996')
 end_date=epochtime('May 1 2017')

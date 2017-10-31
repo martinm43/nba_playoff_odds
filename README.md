@@ -37,4 +37,4 @@ To do/considering:
 *Laptop: perform regression using Burke odds
 *figuring out how to email them/playoff predictions/expected outcomes of games to personal account
 *difference over sum and derby based modelling (good weekend project)
-
+*import results for month of October on Nov 1
