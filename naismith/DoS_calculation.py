@@ -4,13 +4,14 @@ from pprint import pprint
 import numpy as np
 from dbtools.nba_data_models import NbaPyApiData, BballrefScores
 from dbtools.access_nba_data import epochtime, stringtime
+from DoS_optimization import dos,expected_dos
 
 #local function definitions
-def dos(pts_a,pts_b):
-    return (pts_a-pts_b)/(pts_a+pts_b)
+#def dos(pts_a,pts_b):
+#    return (pts_a-pts_b)/(pts_a+pts_b)
 
-def expected_dos(rank_a,rank_b,env_factor=3,expect_factor=0.05):
-    return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor))
+#def expected_dos(rank_a,rank_b,env_factor=3,expect_factor=0.05):
+#    return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor))
 
 #defaults
 init_rank=1000 #what a "neutral team" is valued at
@@ -52,7 +53,7 @@ for i in s_array:
         error+=(dos(i[1],i[3])-expected_away_diff)**2+(dos(i[3],i[1])-expected_home_diff)**2
         ranks[i[0]-1]=away_rank+away_diff
         ranks[i[2]-1]=home_rank+home_diff
-        #for j in enumerate(ranks):
-        #    print [j[0]+1,j[1]]
+        for j in enumerate(ranks):
+            print [j[0]+1,j[1]]
     
 #print error
