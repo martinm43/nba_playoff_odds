@@ -10,7 +10,7 @@ def dos(pts_a,pts_b):
     return (pts_a-pts_b)/(pts_a+pts_b)
 
 def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=1.0):
-    return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor))
+    return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor)/100)
 
 def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):
     
@@ -49,3 +49,5 @@ if __name__=='__main__':
     test_values=np.linspace(0.9,1.5,100)
     #Crude investigation into the possible ranges of "ideal values"
     ave_game_errors=[(i,np.sqrt(DoS_calculation_error(s_array,.75,i)/(2*len(s_array)))) for i in test_values]
+    for i in ave_game_errors:
+	print i
