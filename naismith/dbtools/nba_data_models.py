@@ -106,6 +106,7 @@ class NbaPyApiData(BaseModel):
     home_team_wins_losses = TextField(db_column='home_TEAM_WINS_LOSSES', null=True)
     home_tov = IntegerField(db_column='home_TOV', null=True)
     home_standard = IntegerField(db_column='home_standard_id', null=True)
+    season_year = IntegerField(null=True)
 
     class Meta:
         db_table = 'nba_py_api_data'
