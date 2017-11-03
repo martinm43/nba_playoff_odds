@@ -25,7 +25,7 @@ month_games_list=[]
 #scoreboard_month=int(scoreboard_month)
 now=datetime.datetime.now()
 scoreboard_month=now.month
-scoreboard_min_day=max(now.day-3,1) #careful to keep a min day.
+scoreboard_min_day=max(now.day-7,1) #careful to keep a min day.
 scoreboard_max_day=now.day-1
 
 #single day edit

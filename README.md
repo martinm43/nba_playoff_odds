@@ -40,4 +40,5 @@ To do/considering:
 	- Tuning work to be completed
 *DONE: import results for month of October on Nov 1
 	- Recurring task. Import data as required every week or so? Takes only few seconds
-
+*Inserting missing games using 
+bballreference data into nba_py - have a backfill flag
