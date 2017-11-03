@@ -46,35 +46,21 @@ def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82,\
 	    team_pts_against=team_pts_against_away+team_pts_against_home
 
     elif source_option=='nba_py_api_data': #under development
-	    pts=NbaPyApiData.select().where(\
-        	                 NbaPyApiData.away_standard==team_id,\
-                	         NbaPyApiData.season_year==year_start,\
-				 NbaPyApiData.day_datetime>mincalcdate,\
-				 NbaPyApiData.day_datetime<maxcalcdate)
-	    print(len(pts))
-            team_away_pts=sum([p.away_pts for p in pts])
+	    #"minimum and maximum calc date" logic not working. Temp fix made
+            pts=NbaPyApiData.select().where(NbaPyApiData.away_standard==team_id,NbaPyApiData.season_year==year_start)
+	    team_away_pts=sum([p.away_pts for p in pts])
+            
+            pts=NbaPyApiData.select().where(NbaPyApiData.home_standard==team_id,NbaPyApiData.season_year==year_start)
+            team_home_pts=sum([p.home_pts for p in pts])
+	    
+            team_pts_for=team_away_pts+team_home_pts
 
-	    pts=NbaPyApiData.select().where(\
-        	                 NbaPyApiData.home_standard==team_id,\
-                	         NbaPyApiData.season_year==year_start,\
-				 NbaPyApiData.day_datetime>mincalcdate,\
-				 NbaPyApiData.day_datetime<maxcalcdate)
-
-	    team_home_pts=sum([p.home_pts for p in pts])
-	    team_pts_for=team_away_pts+team_home_pts
-
-	    team_pts_against_home=NbaPyApiData.select().where(\
-        	                                       NbaPyApiData.home_standard==team_id,\
-                	                               NbaPyApiData.season_year==year_start,\
-							 NbaPyApiData.day_datetime>mincalcdate,\
-     			        	               NbaPyApiData.day_datetime<maxcalcdate)
-	    team_pts_against_away=NbaPyApiData.select().where(\
-        	                                       NbaPyApiData.away_standard==team_id,\
-                	                               NbaPyApiData.season_year==year_start,\
-							 NbaPyApiData.day_datetime>mincalcdate,\
-     			        	               NbaPyApiData.day_datetime<maxcalcdate)
+	    team_pts_against_home=NbaPyApiData.select().where(NbaPyApiData.home_standard==team_id,NbaPyApiData.season_year==year_start)	    
 	    team_pts_against_home=sum([p.away_pts for p in team_pts_against_home])
+            
+            team_pts_against_away=NbaPyApiData.select().where(NbaPyApiData.away_standard==team_id,NbaPyApiData.season_year==year_start)
 	    team_pts_against_away=sum([p.home_pts for p in team_pts_against_away])
+
 	    team_pts_against=team_pts_against_away+team_pts_against_home
 
     if team_pts_against >0 and team_pts_for >0:
