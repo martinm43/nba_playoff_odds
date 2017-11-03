@@ -78,6 +78,7 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
          #ids to be added later
          g['away_standard_id']=0
          g['home_standard_id']=0
+         g['season_year']=2018 #hardcoded season
   
 #Add a table containing the nba_py scoreboard data to the nba_data.sqlite database
 #print('Preparing to write to nba working database. Please stand by...')
