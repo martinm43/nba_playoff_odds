@@ -22,6 +22,9 @@ Now dropping unused/unverified "intermediate calculation" tables (e.g. advanced 
 calculations behind them are unverified. 
 
 To do/considering:
+
+*Major: fix indexing error between Boston and Brooklyn in NBA_PY_API_DATA
+
 *DONE: removing unused legacy calculation tables as above (anything related to our srs calculations)
 *DONE: Pythagorean wins expectation function
 *Reviewing and reperforming rest calculations
@@ -40,5 +43,5 @@ To do/considering:
 	- Tuning work to be completed
 *DONE: import results for month of October on Nov 1
 	- Recurring task. Import data as required every week or so? Takes only few seconds
-*Inserting missing games using 
-bballreference data into nba_py - have a backfill flag
+*Inserting missing games using bballreference data into nba_py - have a backfill flag
+*Remove or disable srscalc for now until issue fixed
