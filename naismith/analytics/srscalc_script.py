@@ -83,8 +83,8 @@ def srscalc(srsdata,calcmode='Numpy LS'):
   
   #weird things happen if you dont do this - 
       #only so much resolution available
-  #U=np.around(U,decimals=6)
-  #p=np.around(p,decimals=6)
+  U=np.around(U,decimals=3)
+  p=np.around(p,decimals=4)
   
   
   #Calculation options.
@@ -109,7 +109,6 @@ def srscalc(srsdata,calcmode='Numpy LS'):
     
     svd_R1,svd_s,svd_R2=np.linalg.svd(U)
     
-    tol=0.001
     svd_s.tolist()
     #print(svd_s)
     svd_s_inv=[d**(-1) for d in svd_s]

@@ -7,7 +7,8 @@ from pprint import pprint
 from dbtools.access_nba_data import epochtime
 import numpy as np
 
-#print "This is a SQL script executor"
+home_team_adv=2.0
+
 db_folder=os.path.dirname(os.path.realpath(__file__))+'/'
 sql_folder=os.path.dirname(os.path.realpath(__file__))+'/'
 wkdir=os.path.dirname(os.path.realpath(__file__))+'/'
@@ -56,6 +57,10 @@ teamdict=[{'team_id':'1','team_name':'ATL','conf':'E'},
 #Limit margin of victory
 def score_bound(score_array,score_limit):
   import numpy as np
+  #Fixing "null scores" problem
+  #print(score_array)
+  score_array=score_array[score_array != np.array(None)]
+  #print(score_array)
   score_array=score_array.clip(max=score_limit)
   score_array=score_array.clip(min=-score_limit)
   return score_array 
@@ -69,23 +74,26 @@ vector_of_means=[]
 for i in range(1,31):
   team_dict={}
   team_id=str(i)
-  #Note the "2 pt" home advantage.
   #Incorporating Date Limits
   str_input='SELECT CASE WHEN away_standard_id='+team_id+\
-           ' THEN away_pts-home_pts+2 WHEN home_standard_id='+team_id+\
-           ' THEN home_pts-away_pts-2 END FROM nba_py_api_data WHERE\
+           ' THEN away_pts-home_pts+'+str(home_team_adv)+' WHEN home_standard_id='+team_id+\
+           ' THEN home_pts-away_pts-'+str(home_team_adv)+' END FROM nba_py_api_data WHERE\
            (away_standard_id='+team_id+' OR home_standard_id='+team_id+') AND '+\
            '(day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)+');'
 
   if str_input.find('drop')==-1:
     query_result=c.execute(str_input).fetchall()
-  #pprint(query_result)
 
   query_result=[q[0] for q in query_result]
 
   #filter out huge results
   scores=np.asarray(query_result)
+  
+  #print('Before score cut')
+  #print(scores)
   scores=score_bound(scores,score_cut)
+  #print('After score cut')
+  #print(scores)
 
   team_name=[row['team_name'] for row in teamdict if row['team_id']==team_id][0]
   print('Avg margin of victory for '+team_name+' : '+'{:1.4}'.format(scores.mean()))
@@ -105,6 +113,5 @@ pprint(list_of_means)
 csvfile_out = open(wkdir+'analytics/'+'adj_pts_diff_vector.csv','wb')
 csvwriter = csv.writer(csvfile_out)
 for row in vector_of_means:
-    #Only need to print the visiting and home team scores and names.
     csvwriter.writerow(row)
 csvfile_out.close()

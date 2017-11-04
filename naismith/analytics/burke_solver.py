@@ -1,7 +1,7 @@
 #all thanks to StackOverflow!
 #minor edits made
 
-def burke_calc(game,impmode='bballref',printing='off'):
+def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=2.0):
    
   import math
   import datetime
@@ -44,9 +44,8 @@ def burke_calc(game,impmode='bballref',printing='off'):
     M[0, col] = 1.0 # home team advantage 
     M[int(home), col] = 1.0 
     M[int(away), col] = -1.0 
-    #December 29, 2016: Maximum and Minimum MOV logic.
+    
     diff_score=int(homescore) - int(awayscore)
-    max_MOV=9.0
     if diff_score >max_MOV:
         diff_score=max_MOV
     elif diff_score < -max_MOV:
@@ -62,7 +61,7 @@ def burke_calc(game,impmode='bballref',printing='off'):
   # is minimized. 
   # Initial guess at team weightings: 
   # 2.0 points home-team advantage, and all teams equally strong 
-  init_W = numpy.array([2.0]+[0.0]*numTeams) 
+  init_W = numpy.array([home_team_adv]+[0.0]*numTeams) 
 
   def errorfn(w,m,s): 
     return w.dot(m) - s 
