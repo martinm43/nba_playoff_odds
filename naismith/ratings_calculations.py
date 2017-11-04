@@ -71,8 +71,11 @@ srsdicts=srscalc(srsdata)
 if burke_solve==1:
     #Calculate Burke SRS
     burke_data=[[s[2],s[0],s[3],s[1]] for s in srsdata]
-    burkelist=burke_calc(burke_data,impmode=None)
+    burkelist=burke_calc(burke_data,impmode=None,max_MOV=100.0,home_team_adv=2.0)
     burkelist=[[b] for b in burkelist]
+
+#Debug
+pprint(burkelist)
 
 #Print results to screen
 print('Calculated SRS results via SVD:')
