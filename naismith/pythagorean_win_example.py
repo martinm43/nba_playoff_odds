@@ -70,4 +70,4 @@ def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82,\
 
 if __name__=='__main__':
   for i in range(1,31):
-    print([i,pythagorean_wins(i,2017,win_exp=14)])
+    print([i,pythagorean_wins(i,2018)])
