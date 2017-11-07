@@ -1,10 +1,18 @@
-def team_abbreviation(team_alphabetical_id):
-  """ This program converts team alphabetical ids into team abbreviations. e.g. 1 -> ATL"""
-  from dbtools.nba_data_models import ProApiTeams
-  s=ProApiTeams.select(ProApiTeams.abbreviation).where(ProApiTeams.bball_ref==team_alphabetical_id)
-  i=s[0]
-  return i.abbreviation
+"""
+This module will contain scripts for converting team names.
+Also a test of PEP conformance
+"""
 
-if __name__=="__main__":
-  for i in range(1,31):
-    print('Team '+str(i)+' is team '+team_abbreviation(i))
+def team_abbreviation(team_alphabetical_id):
+    """
+    Converts team numerical ids into team names.
+    """
+    from dbtools.nba_data_models import ProApiTeams
+    s_query = ProApiTeams.select(ProApiTeams.abbreviation).\
+      where(ProApiTeams.bball_ref == team_alphabetical_id)
+    s_result = s_query[0]
+    return s_result.abbreviation
+
+if __name__ == "__main__":
+    for i in range(1, 31):
+        print 'Team '+str(i)+' is team '+team_abbreviation(i)
