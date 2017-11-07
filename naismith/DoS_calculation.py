@@ -8,15 +8,15 @@ from DoS_optimization import dos,expected_dos
 
 #defaults
 init_rank=1500 #what a "neutral team" is valued at
-dos_factor=25 #factor applied to change value based on expected performance vs actual
+dos_factor=30 #factor applied to change value based on expected performance vs actual
 def_env_factor=75 #environment factor for away team
 def_expect_factor=1.0 #affects sigmoid plot of -1 to +1 outcomes based on quality diff.
 
 #arrays
 ranks=np.ones(30)*init_rank
 
-start_date=epochtime('Oct 1 2016')
-end_date=epochtime('May 1 2017')
+start_date=epochtime('Oct 1 1996')
+end_date=epochtime('May 1 1997')
 
 s=NbaPyApiData.select().where(NbaPyApiData.day_datetime>=start_date,\
                                 NbaPyApiData.day_datetime<=end_date)
