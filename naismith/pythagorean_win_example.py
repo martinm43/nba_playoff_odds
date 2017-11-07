@@ -70,8 +70,4 @@ def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82,\
 
 if __name__=='__main__':
   for i in range(1,31):
-<<<<<<< HEAD
-    print([i,pythagorean_wins(i,2018,win_exp=14,source_option='nba_py_api_data')])
-=======
-    print([i,pythagorean_wins(i,2018)])
->>>>>>> 35e3a6409bc299219688490fa97f5799fb8f21ed
+    print([i,pythagorean_wins(i,2018,source_option="nba_py_api_data"])
