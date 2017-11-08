@@ -197,3 +197,11 @@ class ProlineData(BaseModel):
     class Meta:
         db_table = 'proline_data'
 
+class NbaTeamEloData(BaseModel):
+    season_year = IntegerField(null=True)  # 
+    team_abbreviation = TextField(null=True)
+    datetime = FloatField(null=True)
+    elo_rating = FloatField(null=True)
+
+    class Meta:
+        db_table = 'nba_team_elo_data'
