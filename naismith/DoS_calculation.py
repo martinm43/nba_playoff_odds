@@ -11,16 +11,14 @@ from dbtools.max_sql_variables import max_sql_variables
 SQLITE_MAX_VARIABLE_NUMBER=max_sql_variables()
 
 #defaults
-init_rank=1500.0
+init_rank=2000.0
  #what a "neutral team" is valued at
-dos_factor=10 #factor applied to change value based on expected performance vs actual
-def_env_factor=dos_factor/3.0 #environment factor for away team
-def_expect_factor=1.0 #affects sigmoid plot of -1 to +1 outcomes based on quality diff.
-
+dos_factor=init_rank/25 #factor applied to change value based on expected performance vs actual
+def_env_factor=dos_factor/1000 #environment factor for away team
 
 #Choosing to use year-based calculations to deal with trading problems
 #Zero teach team out at beginning of year, reperform calculations each year
-start_season_year=2016
+start_season_year=1996
 end_season_year=2017
 
 #Looping begins here
@@ -55,10 +53,12 @@ for i in range(start_season_year,end_season_year+1):
       if i[1]>0 and i[3]>0:
           away_rank=ranks[i[0]-1]
           home_rank=ranks[i[2]-1]
-          expected_away_diff=expected_dos(away_rank,home_rank,env_factor=def_env_factor,expect_factor=def_expect_factor)
-          expected_home_diff=expected_dos(home_rank,away_rank,env_factor=def_env_factor,expect_factor=def_expect_factor)
+          expected_away_diff=expected_dos(away_rank,home_rank,env_factor=def_env_factor)
+          expected_home_diff=expected_dos(home_rank,away_rank,env_factor=def_env_factor)
           away_diff=dos_factor*(dos(i[1],i[3])-expected_away_diff)
           home_diff=dos_factor*(dos(i[3],i[1])-expected_home_diff)
+          #print away_diff
+          #print home_diff
           error+=(dos(i[1],i[3])-expected_away_diff)**2+(dos(i[3],i[1])-expected_home_diff)**2
           ranks[i[0]-1]=away_rank+away_diff
           ranks[i[2]-1]=home_rank+home_diff

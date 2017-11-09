@@ -9,14 +9,14 @@ from dbtools.access_nba_data import epochtime, stringtime
 def dos(pts_a,pts_b):
     return (pts_a-pts_b)/(pts_a+pts_b)
 
-def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=1.0):
-    return -1+expect_factor/(1+np.exp(rank_a-rank_b-env_factor)/100)
+def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=0.00255):
+    return -1+2.0/(1+np.exp(-expect_factor*(rank_a-rank_b-env_factor)))
 
 def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):
     
     #defaults
     init_rank=1000 #what a "neutral team" is valued at
-    dos_factor=30 #factor applied to change value based on expected performance vs actual
+    dos_factor=25 #factor applied to change value based on expected performance vs actual
     
     #arrays
     ranks=np.ones(30)*init_rank
@@ -46,8 +46,8 @@ if __name__=='__main__':
     #Convert into universal format
     s_array=[(i.away_team_id,i.away_pts,i.home_team_id,i.home_pts) for i in s_b]
 
-    test_values=np.linspace(0.9,1.5,100)
+    test_values=np.linspace(0.0024,0.0028) #value appears to be on the order of 0.01?
     #Crude investigation into the possible ranges of "ideal values"
     ave_game_errors=[(i,np.sqrt(DoS_calculation_error(s_array,.75,i)/(2*len(s_array)))) for i in test_values]
     for i in ave_game_errors:
-	print i
+	  print i
