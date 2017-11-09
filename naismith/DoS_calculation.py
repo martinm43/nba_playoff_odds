@@ -6,21 +6,21 @@ from dbtools.nba_data_models import database, NbaPyApiData, BballrefScores, NbaT
 from dbtools.access_nba_data import epochtime #, stringtime
 from DoS_optimization import dos,expected_dos
 from string_conversion_tools import team_abbreviation
-
+import matplotlib.pyplot as plt
 from dbtools.max_sql_variables import max_sql_variables
 SQLITE_MAX_VARIABLE_NUMBER=max_sql_variables()
 
 #defaults
 init_rank=1500.0
  #what a "neutral team" is valued at
-dos_factor=27 #factor applied to change value based on expected performance vs actual
-def_env_factor=75 #environment factor for away team
+dos_factor=10 #factor applied to change value based on expected performance vs actual
+def_env_factor=dos_factor/3.0 #environment factor for away team
 def_expect_factor=1.0 #affects sigmoid plot of -1 to +1 outcomes based on quality diff.
 
 
 #Choosing to use year-based calculations to deal with trading problems
 #Zero teach team out at beginning of year, reperform calculations each year
-start_season_year=2017
+start_season_year=2016
 end_season_year=2017
 
 #Looping begins here
@@ -75,7 +75,6 @@ for i in range(start_season_year,end_season_year+1):
                                                'team_abbreviation':team_abbreviation(j[0]+1),\
                                                'elo_rating':j[1]})
               data_indexer+=1
-
 
 with database.atomic() as txn:
      size = (SQLITE_MAX_VARIABLE_NUMBER // len(list_of_team_score_dicts[0])) - 1 

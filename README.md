@@ -39,7 +39,10 @@ To do/considering:
 *Laptop: perform regression using Burke odds
 *figuring out how to email them/playoff predictions/expected outcomes of games to personal account
 *DONE: difference over sum and derby based modelling 
-	- Tuning work to be completed
+	*DONE: Tuning work to be completed - next phase is visual tuning
+	*DONE: Asked Lydia - rezeroing is the best option in high variance league
+                        	a way of incorporating known values about teams (e.g. sum(PER))
+                        	would be ideal
 *DONE: import results for month of October on Nov 1
 	- Recurring task. Import data as required every week or so? Takes only few seconds
 *Inserting missing games using bballreference data into nba_py - have a backfill flag
