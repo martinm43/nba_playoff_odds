@@ -202,6 +202,7 @@ class NbaTeamEloData(BaseModel):
     team_abbreviation = TextField(null=True)
     datetime = FloatField(null=True)
     elo_rating = FloatField(null=True)
+    bball_ref_id = IntegerField(null=True)
 
     class Meta:
         db_table = 'nba_team_elo_data'
