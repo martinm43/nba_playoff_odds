@@ -9,7 +9,7 @@ from dbtools.access_nba_data import epochtime, stringtime
 def dos(pts_a,pts_b):
     return (pts_a-pts_b)/(pts_a+pts_b)
 
-def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=0.00255):
+def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=0.005):
     return -1+2.0/(1+np.exp(-expect_factor*(rank_a-rank_b-env_factor)))
 
 def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):

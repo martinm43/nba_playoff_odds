@@ -6,6 +6,7 @@
 from __future__ import division #this is a major key. Forces floating point div.
 
 from dbtools.nba_data_models import BballrefScores, NbaPyApiData
+from string_conversion_tools import team_abbreviation
 
 def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82,\
 			mincalcdate=0.0,\
@@ -70,4 +71,4 @@ def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82,\
 
 if __name__=='__main__':
   for i in range(1,31):
-    print([i,pythagorean_wins(i,2018,source_option="nba_py_api_data")])
+    print([team_abbreviation(i),pythagorean_wins(i,2018,source_option="nba_py_api_data")])
