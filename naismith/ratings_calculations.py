@@ -77,12 +77,13 @@ if burke_solve==1:
 
 #Debug
 print('Printing Burke Ratings:')
-pprint(burkelist)
+for i, burke_value in enumerate(burkelist):
+    print i,burke_value[0]
+    print('Burke rating of team '+team_abbreviation(i+1)+' is '+str(burke_value[0]))
 
 #Print results to screen
-print('Calculated SRS results via SVD:')
 for s in srsdicts:
-  print('Team '+str(s['team_id'])+', SRS (SVD approx): '+str(s['srs']))
+  print('Team '+team_abbreviation(s['team_id'])+', SRS (SVD approx): '+str(s['srs']))
 
 #SRS_vector for writing to file
 SRS_vector=[[s['srs']] for s in srsdicts]
