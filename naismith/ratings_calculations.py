@@ -7,6 +7,7 @@
 
 import csv,os
 from analytics.srscalc_script import srscalc
+from string_conversion_tools import team_abbreviation
 
 #print(srscalc)
 
@@ -75,6 +76,7 @@ if burke_solve==1:
     burkelist=[[b] for b in burkelist]
 
 #Debug
+print('Printing Burke Ratings:')
 pprint(burkelist)
 
 #Print results to screen
