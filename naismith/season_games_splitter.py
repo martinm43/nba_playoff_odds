@@ -46,7 +46,7 @@ ballrows=c.execute(str_input).fetchall()
 
 #Dec 29 2016 edit: Obtain an up-to-date list of wins from the nba_py_api_data database
 c=conn.cursor()
-str_input='SELECT away_standard_id, away_pts, home_standard_id, home_pts FROM nba_py_api_data WHERE day_datetime<'+str(cutdate)+' AND day_datetime > '+str(season_start)
+str_input='SELECT away_standard_id, away_pts, home_standard_id, home_pts FROM nba_py_api_data WHERE day_datetime<='+str(cutdate)+' AND day_datetime >= '+str(season_start)
 gameslist=c.execute(str_input).fetchall()
 #Hardcoded solution to "incorporating past wins while projecting into the future" problem
 winlist=[x[0] if x[1]>x[3] else x[2] for x in gameslist]
