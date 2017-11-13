@@ -53,10 +53,7 @@ winlist=[x[0] if x[1]>x[3] else x[2] for x in gameslist]
 #winlist=[0 for x in gameslist]
 
 winrows=[]
-for i in range(1,31):
-    print(i)
-    print(winlist.count(i))
-    winrows.append([winlist.count(i)])
+
 
 #Split data into games that have already occured and games that are to occur. Also grab a set of games
 #for the model
