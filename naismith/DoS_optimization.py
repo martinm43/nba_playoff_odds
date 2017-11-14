@@ -4,12 +4,13 @@ from pprint import pprint
 import numpy as np
 from dbtools.nba_data_models import NbaPyApiData, BballrefScores
 from dbtools.access_nba_data import epochtime, stringtime
+import matplotlib.pyplot as plt
 
 #local function definitions
 def dos(pts_a,pts_b):
     return (pts_a-pts_b)/(pts_a+pts_b)
 
-def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=0.005):
+def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=0.025):
     return -1+2.0/(1+np.exp(-expect_factor*(rank_a-rank_b-env_factor)))
 
 def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):
@@ -39,7 +40,7 @@ def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):
 
 if __name__=='__main__':
     #input variables to function
-    start_date=epochtime('Oct 1 1996')
+    start_date=epochtime('Oct 1 2016')
     end_date=epochtime('May 1 2017')
     s_b=BballrefScores.select().where(BballrefScores.datetime>=start_date,\
                                 BballrefScores.datetime<=end_date)
@@ -51,3 +52,7 @@ if __name__=='__main__':
     ave_game_errors=[(i,np.sqrt(DoS_calculation_error(s_array,.75,i)/(2*len(s_array)))) for i in test_values]
     for i in ave_game_errors:
 	  print i
+      
+    dos_differences=np.linspace(-300,300)
+    y=[expected_dos(i,0) for i in dos_differences]
+    plt.plot(dos_differences,y)

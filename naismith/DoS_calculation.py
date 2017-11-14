@@ -13,8 +13,8 @@ SQLITE_MAX_VARIABLE_NUMBER=max_sql_variables()
 #defaults
 init_rank=1500.0
  #what a "neutral team" is valued at
-dos_factor=init_rank/5 #factor applied to change value based on expected performance vs actual
-def_env_factor=dos_factor/1000 #environment factor for away team
+dos_factor=init_rank/10 #factor applied to change value based on expected performance vs actual
+def_env_factor=dos_factor/100 #environment factor for away team
 
 #Choosing to use year-based calculations to deal with trading problems
 #Zero teach team out at beginning of year, reperform calculations each year

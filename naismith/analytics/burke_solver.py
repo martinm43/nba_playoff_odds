@@ -2,7 +2,14 @@
 #minor edits made
 
 def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=2.0):
-   
+
+  """ 
+  game = list of games in standard format away_team,away_pts,home_team,home_pts
+  impmode = file importation mode
+  printing = debug printing optional
+  max_MOV = maximum margin of victory
+  home_team_adv = presumed home team advantage  """
+
   import math
   import datetime
   from pprint import pprint
