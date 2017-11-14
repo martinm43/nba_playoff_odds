@@ -8,9 +8,7 @@ import matplotlib.pyplot as plt
 startdate=epochtime('Nov 15 2016')
 enddate=epochtime('Apr 15 2017')
 
-dates=np.linspace(startdate,enddate)
-
-dates=np.linspace(startdate,enddate)
+dates=np.linspace(startdate,enddate,300)
 y=[burke_month_calc(i) for i in dates]
 
 plt.title('Team Performances over 2017 season by burke_rating')
