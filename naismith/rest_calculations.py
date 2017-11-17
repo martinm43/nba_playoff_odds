@@ -9,7 +9,7 @@ from string_conversion_tools import team_abbreviation
 from dbtools.access_nba_data import stringtime
 from pprint import pprint
 
-rest_keys=['game_id','rest']
+rest_keys=['game','rest']
 
 team=18
 season_year=2007
@@ -41,7 +41,7 @@ for season_year in range(2007,2008):
         rest_list=rest_array.tolist()
         rest_dicts=[dict(zip(rest_keys,i)) for i in rest_list]
         for i in rest_dicts:
-            i['team_id']=team
+            i['team']=team
             i['id']=season_year*10000+season_count
             i['season_year']=season_year
             season_count+=1
