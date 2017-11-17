@@ -40,6 +40,7 @@ for season_year in range(2007,2008):
         for i in rest_dicts:
             i['team_id']=team
             i['id']=season_year*10000+season_count
+            i['season_year']=season_year
             season_count+=1
             season_dicts.append(i)
 
