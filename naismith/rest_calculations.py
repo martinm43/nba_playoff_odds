@@ -14,7 +14,7 @@ rest_keys=['game','rest']
 team=18
 season_year=2007
 
-for season_year in range(2007,2008):
+for season_year in range(1997,2018):
  season_dicts=[]
  season_count=0
  for team in range(1,31):
