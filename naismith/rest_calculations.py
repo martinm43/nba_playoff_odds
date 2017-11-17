@@ -1,6 +1,9 @@
 # coding: utf-8
 # New rest calculation script. #
 from dbtools.nba_data_models import BballrefScores as bbrs
+from dbtools.nba_data_models import BballrefRest, database
+from dbtools.max_sql_variables import max_sql_variables
+SQLITE_MAX_VARIABLE_NUMBER=max_sql_variables()
 import numpy as np
 from string_conversion_tools import team_abbreviation
 from dbtools.access_nba_data import stringtime
@@ -44,4 +47,7 @@ for season_year in range(2007,2008):
             season_count+=1
             season_dicts.append(i)
 
-pprint(season_dicts)
+ with database.atomic() as txn:
+   size = (SQLITE_MAX_VARIABLE_NUMBER // len(season_dicts[0])) - 1                                               # remove one to avoid issue if peewee adds some variable
+   for i in range(0, len(season_dicts), size):
+     BballrefRest.insert_many(season_dicts[i:i+size]).upsert().execute()
