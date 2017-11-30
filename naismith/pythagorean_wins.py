@@ -89,4 +89,4 @@ if __name__=='__main__':
   for i in range(1,31):
     results_list.append([team_abbreviation(i),pythagorean_wins(i,2018,win_exp=16.5,source_option="nba_py_api_data"\
     ,mincalcdate=epochtime(sys.argv[1]),maxcalcdate=epochtime(sys.argv[2]))])
-    pprint(sorted(results_list, key=lambda x: x[1], reverse=True))
+  pprint(sorted(results_list, key=lambda x: x[1], reverse=True))
