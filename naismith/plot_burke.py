@@ -1,4 +1,9 @@
 # coding: utf-8
+"""
+An attempt to plot the performance of teams using 
+their 1-month Burke ratings. 
+
+"""
 from burke_month_calc import burke_month_calc
 from dbtools.access_nba_data import epochtime
 from dbtools.nba_data_models import ProApiTeams

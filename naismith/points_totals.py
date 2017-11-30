@@ -1,4 +1,8 @@
 # coding: utf-8
+"""
+Pure histogram plot of the points totals csv 
+obtained using SQL query.
+"""
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
