@@ -6,7 +6,7 @@
 
 #Replace Excel Program with Python routine. Get what you need.
 import csv,os
-from analytics.morey import SRS_regress,burke_regress
+from analytics.morey import SRS_regress,burke_regress,pts_regress
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -137,10 +137,13 @@ future_data=projdata
 #Opening the calculated SRS or other measurement file
 srs_data=[]
 ##obtaining ranks - choose ranking method based on user input
-model_selection=raw_input('Please enter the type of model to be applied (if none, will be SRS*):')
+model_selection=raw_input('Please enter the type of model to be applied (Burke,Points,or none for SRS):')
 if model_selection=='Burke':
 	model_csv='burke_vector.csv'
 	model_function=burke_regress
+if model_selection=='Points':
+	model_csv='analytics/adj_pts_diff_vector.csv'
+	model_function=pts_regress
 else:
 	model_csv='SRS_vector.csv'
 	model_function=SRS_regress
@@ -199,7 +202,7 @@ fancy_out=[[row[0],team_name(row[1],teamdict),team_name(row[2],teamdict),row[3],
 #pprint(fancy_out)
 csvfile_out = open(wkdir+'coming_games_Excel.csv','wb')
 csvwriter = csv.writer(csvfile_out)
-csvwriter.writerow(['Date','Home Team','Away Team','dSRS','Home Team Win Probability'])
+csvwriter.writerow(['Date','Home Team','Away Team','Differential','Away Team Win Probability'])
 for row in fancy_out:
 	#Only need to print the visiting and home team scores and names.
 	csvwriter.writerow(row)
