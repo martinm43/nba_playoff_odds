@@ -2,7 +2,7 @@
 
 def pts_regress(dpts):
   import math
-  return 1/(1+math.exp(-1*(0.15+dpts*0.225)))
+  return 1/(1+math.exp(-1*(0.15+dpts*0.2)))
 
 def SRS_regress(dSRS):
   import math

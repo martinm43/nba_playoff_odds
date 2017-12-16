@@ -48,10 +48,8 @@ filename='nba_data.sqlite'
 conn=sqlite3.connect(wkdir+filename)
 c=conn.cursor()
 
-#analysis_start_date=raw_input('Enter start date for analysis (e.g. Jan 1 2016): ')
-#analysis_end_date=raw_input('Enter end date for analysis (e.g. Feb 1 2016): ')
-analysis_start_date='Nov 1 2016'
-analysis_end_date='Dec 25 2016'
+analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
+analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
 
 analysis_start_date=epochtime(analysis_start_date)
 analysis_end_date=epochtime(analysis_end_date)
