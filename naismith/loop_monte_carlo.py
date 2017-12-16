@@ -177,7 +177,7 @@ csvwriter.writerow(['Playoff Odds For Each Team'])
 
 #Reporting playoff odds
 for i in range(1,31):
-    oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{0:.1%}'.format(float(playoff_results.count(i))/float(ite))
+    oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{0:.2%}'.format(float(playoff_results.count(i))/float(ite))
     print(oddsrow)
     csvwriter.writerow([oddsrow])
 
