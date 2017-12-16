@@ -9,7 +9,7 @@
 from __future__ import division
 
 #Replace Excel Program with Python routine. Get what you need.
-import csv, os, random 
+import csv, os, random, sys
 import numpy as np
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
@@ -71,8 +71,15 @@ winrows = np.asarray(winrows)
 
 all_sims = []
 
-#custom simulation number
-ite = 50000
+#custom simulation number. cutoff arbitrary
+print(sys.argv[1])
+if int(sys.argv[1])>int(250000):
+  print(sys.argv[1]>250000)
+  ite=int(250000)
+else:
+  ite=int(sys.argv[1])  
+
+print('Number of pending iterations: '+str(ite))
 
 for i in range (ite):
     #print '{:.2%}'.format(i/ite) + ' Percent Complete'
