@@ -72,7 +72,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #custom simulation number
-ite = 100000
+ite = 50000
 
 for i in range (ite):
     #print '{:.2%}'.format(i/ite) + ' Percent Complete'

@@ -74,13 +74,16 @@ if burke_solve==1:
     burke_data=[[s[2],s[0],s[3],s[1]] for s in srsdata]
     burkelist=burke_calc(burke_data,impmode=None,max_MOV=100.0,home_team_adv=2.0)
     burkelist=[[b] for b in burkelist]
-
+else:
+    burkelist=None
 #Debug
 print('Printing Burke Ratings:')
-for i, burke_value in enumerate(burkelist):
-    print i,burke_value[0]
-    print('Burke rating of team '+team_abbreviation(i+1)+' is '+str(burke_value[0]))
-
+if burkelist!=None:
+  for i, burke_value in enumerate(burkelist):
+      print i,burke_value[0]
+      print('Burke rating of team '+team_abbreviation(i+1)+' is '+str(burke_value[0]))
+else:
+  print('Burke calculations not performed, skipping')
 #Print results to screen
 for s in srsdicts:
   print('Team '+team_abbreviation(s['team_id'])+', SRS (SVD approx): '+str(s['srs']))
