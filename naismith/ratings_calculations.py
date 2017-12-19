@@ -78,11 +78,12 @@ else:
 print('Printing Burke Ratings:')
 if burkelist!=None:
   for i, burke_value in enumerate(burkelist):
-      print i,burke_value[0]
       print('Burke rating of team '+team_abbreviation(i+1)+' is '+str(burke_value[0]))
 else:
   print('Burke calculations not performed, skipping')
 #Print results to screen
+print('\n')
+print('Printing SRS ratings. Warning - values not accurate. ')
 for s in srsdicts:
   print('Team '+team_abbreviation(s['team_id'])+', SRS (SVD approx): '+str(s['srs']))
 
