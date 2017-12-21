@@ -102,8 +102,7 @@ fancy_out=[[row[0],team_abbreviation(row[1]),team_abbreviation(row[2]),row[3],ro
 #pprint(fancy_out)
 csvfile_out = open(wkdir+'coming_games_Excel.csv','wb')
 csvwriter = csv.writer(csvfile_out)
-csvwriter.writerow(['Date','Home Team','Away Team','Away Differential','Away Team Win 
-Probability'])
+csvwriter.writerow(['Date','Home Team','Away Team','Away Differential','Away Team Win Probability'])
 for row in fancy_out:
 	#Only need to print the visiting and home team scores and names.
 	csvwriter.writerow(row)
@@ -152,6 +151,6 @@ worksheet.write('E1','Away Team Win Probability',bold14)
  # row += 1
 
 
-#workbook.close()
+workbook.close()
 
 	
