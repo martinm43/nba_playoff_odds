@@ -5,46 +5,12 @@
 #for use in analyses. Data to be used for Monte Carlo simulation.
 
 #Replace Excel Program with Python routine. Get what you need.
-import csv,os
+import csv,os,xlsxwriter
 from analytics.morey import SRS_regress,burke_regress,pts_regress
 from teamind.teamind import teamind
 from string_conversion_tools import team_abbreviation
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
-
-#teamdict=[{'team_id':'1','team_name':'ATL','conf':'E'},
-#{'team_id':'2','team_name':'BOS','conf':'E'},
-#{'team_id':'3','team_name':'BRK','conf':'E'},
-#{'team_id':'4','team_name':'CHA','conf':'E'},
-#{'team_id':'5','team_name':'CHI','conf':'E'},
-#{'team_id':'6','team_name':'CLE','conf':'E'},
-#{'team_id':'7','team_name':'DAL','conf':'W'},
-#{'team_id':'8','team_name':'DEN','conf':'W'},
-#{'team_id':'9','team_name':'DET','conf':'E'},
-#{'team_id':'10','team_name':'GSW','conf':'W'},
-#{'team_id':'11','team_name':'HOU','conf':'W'},
-#{'team_id':'12','team_name':'IND','conf':'E'},
-#{'team_id':'13','team_name':'LAC','conf':'W'},
-#{'team_id':'14','team_name':'LAL','conf':'W'},
-#{'team_id':'15','team_name':'MEM','conf':'W'},
-#{'team_id':'16','team_name':'MIA','conf':'E'},
-#{'team_id':'17','team_name':'MIL','conf':'E'},
-#{'team_id':'18','team_name':'MIN','conf':'W'},
-#{'team_id':'19','team_name':'NOP','conf':'W'},
-#{'team_id':'20','team_name':'NYK','conf':'E'},
-#{'team_id':'21','team_name':'OKC','conf':'W'},
-#{'team_id':'22','team_name':'ORL','conf':'E'},
-#{'team_id':'23','team_name':'PHI','conf':'E'},
-#{'team_id':'24','team_name':'PHX','conf':'W'},
-#{'team_id':'25','team_name':'POR','conf':'W'},
-#{'team_id':'26','team_name':'SAC','conf':'W'},
-#{'team_id':'27','team_name':'SAS','conf':'W'},
-#{'team_id':'28','team_name':'TOR','conf':'E'},
-#{'team_id':'29','team_name':'UTA','conf':'W'},
-#{'team_id':'30','team_name':'WAS','conf':'E'}]
-
-#def team_name(index,tdicts):
-#  return [t['team_name'] for t in tdicts if t['team_id']==str(index)][0]
 
 home_out=[]
 away_out=[]
@@ -83,11 +49,6 @@ if model_selection==1:
 if model_selection==2:
 	model_csv='analytics/adj_pts_diff_vector.csv'
 	model_function=pts_regress
-
-#SRS functionality broken:
-#else:
-#	model_csv='SRS_vector.csv'
-#	model_function=SRS_regress
 
 with open(wkdir+model_csv,'rb') as srsfile:
 	rankdata = csv.reader(srsfile,delimiter=',')
@@ -147,9 +108,53 @@ for row in fancy_out:
 	csvwriter.writerow(row)
 csvfile_out.close()
 
-#List of known wins will be handled in the "season splitter" file from now on
-#Martin Miller, Dec 20, 2016.
+#Output a formatted file that you can show and view easily
+
+#import os
+#cwd=os.getcwd()+'/'
+
+#import sqlite3
+
+c=conn.cursor()
+
+#Write an xlsx
+#workbook=xlsxwriter.Workbook('Future_Games_Report.xlsx')
+#worksheet=workbook.add_worksheet()
+
+#bold format for headers and appropriate widths
+#bold14=workbook.add_format({'bold':True,'font_size':14})
+#bold14.set_align('center')
+#worksheet.set_column('A:A',70)
+#worksheet.set_column('B:B',20)
+#worksheet.set_column('C:C',20)
+
+#Cash formatting
+#cashformat=workbook.add_format()
+#cashformat.set_num_format(0x2c)
+#cashformat.set_align('center')
+
+#Centering
+#centformat=workbook.add_format()
+#centformat.set_align('center')
+
+#Add headers to the xlsx.
+worksheet.write('A1','Name',bold14)
+worksheet.write('B1','Sugar (g/L)',bold14)
+worksheet.write('C1','Volume (ml)',bold14)
+worksheet.write('D1','Price',bold14)
+
+row=1
+col=0
+
+#Write the data
+# for name,sugar,volume,price in (data):
+ # worksheet.write(row,col,name)
+ # worksheet.write(row,col+1,sugar,centformat)
+ # worksheet.write(row,col+2,volume,centformat)
+ # worksheet.write(row,col+3,price/100.0,cashformat)
+ # row += 1
 
 
+#workbook.close()
 
 	
