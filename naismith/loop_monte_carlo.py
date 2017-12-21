@@ -73,9 +73,9 @@ all_sims = []
 
 #custom simulation number. cutoff arbitrary
 print(sys.argv[1])
-if int(sys.argv[1])>int(250000):
-  print(sys.argv[1]>250000)
-  ite=int(250000)
+if int(sys.argv[1])>int(500000):
+  print(sys.argv[1]>500000)
+  ite=int(500000)
 else:
   ite=int(sys.argv[1])  
 
@@ -177,7 +177,7 @@ csvwriter.writerow(['Playoff Odds For Each Team'])
 
 #Reporting playoff odds
 for i in range(1,31):
-    oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{0:.3%}'.format(float(playoff_results.count(i))/float(ite))
+    oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{:.4g}%'.format(float(playoff_results.count(i))/float(ite)*100.00)
     print(oddsrow)
     csvwriter.writerow([oddsrow])
 
