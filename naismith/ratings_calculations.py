@@ -50,6 +50,7 @@ c=conn.cursor()
 
 analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
 analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
+max_MOV=raw_input('Enter max margin of victory for Burke-type analysis: ')
 
 analysis_start_date=epochtime(analysis_start_date)
 analysis_end_date=epochtime(analysis_end_date)
@@ -70,7 +71,7 @@ srsdicts=srscalc(srsdata)
 if burke_solve==1:
     #Calculate Burke SRS
     burke_data=[[s[2],s[0],s[3],s[1]] for s in srsdata]
-    burkelist=burke_calc(burke_data,impmode=None,max_MOV=100.0,home_team_adv=2.0)
+    burkelist=burke_calc(burke_data,impmode=None,max_MOV=max_MOV,home_team_adv=2.0)
     burkelist=[[b] for b in burkelist]
 else:
     burkelist=None

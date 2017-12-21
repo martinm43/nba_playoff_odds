@@ -102,7 +102,8 @@ fancy_out=[[row[0],team_abbreviation(row[1]),team_abbreviation(row[2]),row[3],ro
 #pprint(fancy_out)
 csvfile_out = open(wkdir+'coming_games_Excel.csv','wb')
 csvwriter = csv.writer(csvfile_out)
-csvwriter.writerow(['Date','Home Team','Away Team','Differential','Away Team Win Probability'])
+csvwriter.writerow(['Date','Home Team','Away Team','Away Differential','Away Team Win 
+Probability'])
 for row in fancy_out:
 	#Only need to print the visiting and home team scores and names.
 	csvwriter.writerow(row)
@@ -110,23 +111,18 @@ csvfile_out.close()
 
 #Output a formatted file that you can show and view easily
 
-#import os
-#cwd=os.getcwd()+'/'
-
-#import sqlite3
-
-c=conn.cursor()
-
 #Write an xlsx
-#workbook=xlsxwriter.Workbook('Future_Games_Report.xlsx')
-#worksheet=workbook.add_worksheet()
+workbook=xlsxwriter.Workbook('Future_Games_Report.xlsx')
+worksheet=workbook.add_worksheet()
 
 #bold format for headers and appropriate widths
-#bold14=workbook.add_format({'bold':True,'font_size':14})
-#bold14.set_align('center')
-#worksheet.set_column('A:A',70)
-#worksheet.set_column('B:B',20)
-#worksheet.set_column('C:C',20)
+bold14=workbook.add_format({'bold':True,'font_size':14})
+bold14.set_align('center')
+worksheet.set_column('A:A',70)
+worksheet.set_column('B:B',70)
+worksheet.set_column('C:C',70)
+worksheet.set_column('D:D',70)
+worksheet.set_column('E:E',70)
 
 #Cash formatting
 #cashformat=workbook.add_format()
@@ -134,17 +130,18 @@ c=conn.cursor()
 #cashformat.set_align('center')
 
 #Centering
-#centformat=workbook.add_format()
-#centformat.set_align('center')
+centformat=workbook.add_format()
+centformat.set_align('center')
 
 #Add headers to the xlsx.
-worksheet.write('A1','Name',bold14)
-worksheet.write('B1','Sugar (g/L)',bold14)
-worksheet.write('C1','Volume (ml)',bold14)
-worksheet.write('D1','Price',bold14)
+worksheet.write('A1','Date',bold14)
+worksheet.write('B1','Home Team',bold14)
+worksheet.write('C1','Away Team',bold14)
+worksheet.write('D1','Away - Home Differential',bold14)
+worksheet.write('E1','Away Team Win Probability',bold14)
 
-row=1
-col=0
+#row=1
+#col=0
 
 #Write the data
 # for name,sugar,volume,price in (data):
