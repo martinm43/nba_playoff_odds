@@ -50,7 +50,7 @@ c=conn.cursor()
 
 analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
 analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
-max_MOV=raw_input('Enter max margin of victory for Burke-type analysis: ')
+max_MOV=float(raw_input('Enter max margin of victory for Burke-type analysis: '))
 
 analysis_start_date=epochtime(analysis_start_date)
 analysis_end_date=epochtime(analysis_end_date)
