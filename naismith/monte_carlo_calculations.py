@@ -24,16 +24,13 @@ with open(wkdir+'outfile_future_games.csv','rb') as futurefile:
 		projdata.append(row)
 	futurefile.close
 
-#pprint(projdata)
 
 #Create the home and away vectors
 for row in projdata:
-#for row in future_data:
   date_out.append(row[7])
   home_out.append(row[5])
   away_out.append(row[3])
 
-#print(future_data[0])
 future_data=projdata
 
 #Opening the calculated SRS or other measurement file
@@ -117,11 +114,11 @@ worksheet=workbook.add_worksheet()
 #bold format for headers and appropriate widths
 bold14=workbook.add_format({'bold':True,'font_size':14})
 bold14.set_align('center')
-worksheet.set_column('A:A',70)
-worksheet.set_column('B:B',70)
-worksheet.set_column('C:C',70)
-worksheet.set_column('D:D',70)
-worksheet.set_column('E:E',70)
+worksheet.set_column('A:A',35)
+worksheet.set_column('B:B',35)
+worksheet.set_column('C:C',35)
+worksheet.set_column('D:D',35)
+worksheet.set_column('E:E',35)
 
 #Cash formatting
 #cashformat=workbook.add_format()
@@ -139,14 +136,15 @@ worksheet.write('C1','Away Team',bold14)
 worksheet.write('D1','Away - Home Differential',bold14)
 worksheet.write('E1','Away Team Win Probability',bold14)
 
-#row=1
-#col=0
+row=1
+col=0
 
 #Write the data
-# for name,sugar,volume,price in (data):
+# for date,name,sugar,volume,price in (data):
  # worksheet.write(row,col,name)
  # worksheet.write(row,col+1,sugar,centformat)
  # worksheet.write(row,col+2,volume,centformat)
+ # worksheet.write(row,col+3,price/100.0,cashformat)
  # worksheet.write(row,col+3,price/100.0,cashformat)
  # row += 1
 
