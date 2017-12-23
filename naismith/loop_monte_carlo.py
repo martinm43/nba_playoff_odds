@@ -126,7 +126,7 @@ avwins=np.percentile(all_sims,50,axis=0)
 #Print to screen
 i=1
 biglist=[]
-print 'Team (Conf): Median Wins'
+print "Team (Conf): Median Wins"
 for t in avwins:
    slist=[]
    slist.append([row['team_name'] for row in teamdict if row['team_id']==str(i)][0])
