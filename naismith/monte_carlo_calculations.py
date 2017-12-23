@@ -41,11 +41,11 @@ print('Model 1: Points')
 print('Model 2: Burke (accounts for SoS and home strength)')
 model_selection=input('Please enter the type of model to be applied: ')
 if model_selection==1:
-	model_csv='burke_vector.csv'
-	model_function=burke_regress
-if model_selection==2:
 	model_csv='analytics/adj_pts_diff_vector.csv'
 	model_function=pts_regress
+if model_selection==2:
+	model_csv='burke_vector.csv'
+	model_function=burke_regress
 
 with open(wkdir+model_csv,'rb') as srsfile:
 	rankdata = csv.reader(srsfile,delimiter=',')
