@@ -27,19 +27,6 @@ except ImportError:
 
 srsdata=[]
 
-###BEGINNING OF V2.0 EDITS #############################################
-#Obtaining data from the nba_py_api_data table - v1.4 edit
-
-#Old method, no longer used.
-#print('Calculating models')
-#target='outfile_gms.csv'
-#  
-#with open(wkdir+target,'rb') as csvfile:
-#	balldata = csv.reader(csvfile,delimiter=',')
-#	for row in balldata:
-#		srsdata.append(row)
-#csvfile.close
-
 import sqlite3
 from dbtools.access_nba_data import epochtime
 from pprint import pprint
@@ -112,3 +99,45 @@ if burke_solve==1:
 
 #### Close connection ####
 conn.close()
+
+#Write an xlsx
+import xlsxwriter
+workbook=xlsxwriter.Workbook('Coming_NBA_games.xlsx')
+worksheet=workbook.add_worksheet()
+
+#bold format for headers and appropriate widths
+#bold14=workbook.add_format({'bold':True,'font_size':14})
+#bold14.set_align('center')
+#worksheet.set_column('A:A',70)
+#worksheet.set_column('B:B',20)
+#worksheet.set_column('C:C',20)
+
+#Cash formatting
+#cashformat=workbook.add_format()
+#cashformat.set_num_format(0x2c)
+#cashformat.set_align('center')
+
+#Centering
+#centformat=workbook.add_format()
+#centformat.set_align('center')
+
+#Add headers to the xlsx.
+#worksheet.write('A1','Name',bold14)
+#worksheet.write('B1','Sugar (g/L)',bold14)
+#worksheet.write('C1','Volume (ml)',bold14)
+#worksheet.write('D1','Price',bold14)
+
+#row=1
+#col=0
+
+#Write the data
+#for name,sugar,volume,price in (data):
+#  worksheet.write(row,col,name)
+#  worksheet.write(row,col+1,sugar,centformat)
+#  worksheet.write(row,col+2,volume,centformat)
+#  worksheet.write(row,col+3,price/100.0,cashformat)
+#  row += 1
+
+
+#workbook.close()
+
