@@ -71,9 +71,6 @@ else:
   print('Burke calculations not performed, skipping')
 #Print results to screen
 print('\n')
-print('Printing SRS ratings. Warning - values not accurate. ')
-for s in srsdicts:
-  print('Team '+team_abbreviation(s['team_id'])+', SRS (SVD approx): '+str(s['srs']))
 
 #SRS_vector for writing to file
 SRS_vector=[[s['srs']] for s in srsdicts]
@@ -106,11 +103,13 @@ workbook=xlsxwriter.Workbook('Coming_NBA_games.xlsx')
 worksheet=workbook.add_worksheet()
 
 #bold format for headers and appropriate widths
-#bold14=workbook.add_format({'bold':True,'font_size':14})
-#bold14.set_align('center')
-#worksheet.set_column('A:A',70)
-#worksheet.set_column('B:B',20)
-#worksheet.set_column('C:C',20)
+bold14=workbook.add_format({'bold':True,'font_size':14})
+bold14.set_align('center')
+worksheet.set_column('A:A',35)
+worksheet.set_column('B:B',35)
+worksheet.set_column('C:C',35)
+worksheet.set_column('D:D',35)
+worksheet.set_column('E:E',35)
 
 #Cash formatting
 #cashformat=workbook.add_format()
@@ -118,14 +117,15 @@ worksheet=workbook.add_worksheet()
 #cashformat.set_align('center')
 
 #Centering
-#centformat=workbook.add_format()
-#centformat.set_align('center')
+centformat=workbook.add_format()
+centformat.set_align('center')
 
 #Add headers to the xlsx.
-#worksheet.write('A1','Name',bold14)
-#worksheet.write('B1','Sugar (g/L)',bold14)
-#worksheet.write('C1','Volume (ml)',bold14)
-#worksheet.write('D1','Price',bold14)
+worksheet.write('A1','Date',bold14)
+worksheet.write('B1','Home Team',bold14)
+worksheet.write('C1','Away Team',bold14)
+worksheet.write('D1','Away Rating Differential',bold14)
+worksheet.write('E1','Away Team Win Probability',bold14)
 
 #row=1
 #col=0
