@@ -17,6 +17,6 @@ def standings_generation():
   print("""Binomial win percentages calculated""")
 
 if __name__=='__main__':
-    print("""Standings Projection Program V1.3""")
+    print("""Standings Projection Program V2.5""")
     standings_generation()    
 
