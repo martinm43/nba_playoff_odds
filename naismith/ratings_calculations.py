@@ -8,8 +8,8 @@
 import csv,os
 from analytics.srscalc_script import srscalc
 from string_conversion_tools import team_abbreviation
-
-#print(srscalc)
+import sqlite3
+from dbtools.access_nba_data import epochtime
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -27,22 +27,6 @@ except ImportError:
 
 srsdata=[]
 
-###BEGINNING OF V2.0 EDITS #############################################
-#Obtaining data from the nba_py_api_data table - v1.4 edit
-
-#Old method, no longer used.
-#print('Calculating models')
-#target='outfile_gms.csv'
-#  
-#with open(wkdir+target,'rb') as csvfile:
-#	balldata = csv.reader(csvfile,delimiter=',')
-#	for row in balldata:
-#		srsdata.append(row)
-#csvfile.close
-
-import sqlite3
-from dbtools.access_nba_data import epochtime
-from pprint import pprint
 tablename='nba_py_api_data'
 filename='nba_data.sqlite'
 conn=sqlite3.connect(wkdir+filename)
@@ -82,11 +66,6 @@ if burkelist!=None:
       print('Burke rating of team '+team_abbreviation(i+1)+' is '+str(burke_value[0]))
 else:
   print('Burke calculations not performed, skipping')
-#Print results to screen
-print('\n')
-print('Printing SRS ratings. Warning - values not accurate. ')
-for s in srsdicts:
-  print('Team '+team_abbreviation(s['team_id'])+', SRS (SVD approx): '+str(s['srs']))
 
 #SRS_vector for writing to file
 SRS_vector=[[s['srs']] for s in srsdicts]
