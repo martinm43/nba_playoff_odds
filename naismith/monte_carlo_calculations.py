@@ -93,10 +93,7 @@ csvfile_out.close()
 
 #Print a "fancy/human readable" version of the above
 fancy_out=list(zip(date_out,home_out, away_out, dsrs_data, winpct_data))
-#print('fancyout')
-#pprint(fancy_out[0])
 fancy_out=[[row[0],team_abbreviation(row[1]),team_abbreviation(row[2]),row[3],row[4]] for row in fancy_out]
-#pprint(fancy_out)
 csvfile_out = open(wkdir+'coming_games_Excel.csv','wb')
 csvwriter = csv.writer(csvfile_out)
 csvwriter.writerow(['Date','Home Team','Away Team','Away Differential','Away Team Win Probability'])
@@ -105,9 +102,9 @@ for row in fancy_out:
 	csvwriter.writerow(row)
 csvfile_out.close()
 
-#Output a formatted file that you can show and view easily
+print('Binomial win percentages have been calculated.')
 
-#Write an xlsx
+#Output a formatted file that you can show and view easily - Write an xlsx
 workbook=xlsxwriter.Workbook('Future_Games_Report.xlsx')
 worksheet=workbook.add_worksheet()
 

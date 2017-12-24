@@ -32,17 +32,7 @@ filename='nba_data.sqlite'
 conn=sqlite3.connect(wkdir+filename)
 c=conn.cursor()
 
-analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
-analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
-max_MOV=float(raw_input('Enter max margin of victory for Burke-type analysis: '))
 
-analysis_start_date=epochtime(analysis_start_date)
-analysis_end_date=epochtime(analysis_end_date)
-
-nba_api_srsdata_query_str='SELECT away_standard_id, away_PTS, home_standard_id, home_PTS\
-                             from nba_py_api_data WHERE day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)
-nba_api_srsdata=c.execute(nba_api_srsdata_query_str).fetchall()
-srsdata=nba_api_srsdata
 
 ###END OF V2.0 EDITS ###################################################
 
@@ -54,6 +44,15 @@ srsdicts=srscalc(srsdata)
 
 if burke_solve==1:
     #Calculate Burke SRS
+    analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
+    analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
+    max_MOV=float(raw_input('Enter max margin of victory for Burke-type analysis: '))
+    analysis_start_date=epochtime(analysis_start_date)
+    analysis_end_date=epochtime(analysis_end_date)
+    nba_api_srsdata_query_str='SELECT away_standard_id, away_PTS, home_standard_id, home_PTS\
+                             from nba_py_api_data WHERE day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)
+    nba_api_srsdata=c.execute(nba_api_srsdata_query_str).fetchall()
+    srsdata=nba_api_srsdata
     burke_data=[[s[2],s[0],s[3],s[1]] for s in srsdata]
     burkelist=burke_calc(burke_data,impmode=None,max_MOV=max_MOV,home_team_adv=2.0)
     burkelist=[[b] for b in burkelist]

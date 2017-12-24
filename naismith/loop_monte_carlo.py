@@ -114,12 +114,6 @@ for row in all_sims:
     for i in range(0,8):
         playoff_results.append(int(eastteams[i]['team_id']))
         playoff_results.append(int(westteams[i]['team_id']))
-    #print(playoff_results)
-    #print('Eastern Teams')
-    #pprint(eastteams)
-    #print('Western Teams')
-    #pprint(westteams)
-
 
 avwins=np.percentile(all_sims,50,axis=0)
 
