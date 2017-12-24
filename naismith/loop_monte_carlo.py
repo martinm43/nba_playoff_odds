@@ -72,7 +72,6 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #custom simulation number. cutoff arbitrary
-print(sys.argv[1])
 if int(sys.argv[1])>int(500000):
   print(sys.argv[1]>500000)
   ite=int(500000)

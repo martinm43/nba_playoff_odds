@@ -68,7 +68,6 @@ else:
 
 #SRS_vector for writing to file
 SRS_vector=[[s['srs']] for s in srsdicts]
-#print SRS_vector
 
 #write it out.
 csvfile_out = open(wkdir+'SRS_vector.csv','wb')
