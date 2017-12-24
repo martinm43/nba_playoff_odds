@@ -111,6 +111,7 @@ worksheet=workbook.add_worksheet()
 #bold format for headers and appropriate widths
 bold14=workbook.add_format({'bold':True,'font_size':14})
 bold14.set_align('center')
+bold14.set_text_wrap()
 worksheet.set_column('A:A',15)
 worksheet.set_column('B:B',15)
 worksheet.set_column('C:C',15)
@@ -125,8 +126,8 @@ centformat.set_align('center')
 worksheet.write('A1','Date',bold14)
 worksheet.write('B1','Home Team',bold14)
 worksheet.write('C1','Away Team',bold14)
-worksheet.write('D1','Away - Home Differential',bold14)
-worksheet.write('E1','Away Team Win Probability',bold14)
+worksheet.write('D1','Away - Home\n Differential',bold14)
+worksheet.write('E1','Away Team\n Win Probability',bold14)
 
 row=1
 col=0
