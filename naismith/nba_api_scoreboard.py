@@ -25,7 +25,7 @@ month_games_list=[]
 #scoreboard_month=int(scoreboard_month)
 now=datetime.datetime.now()
 scoreboard_month=now.month
-scoreboard_min_day=max(now.day-3,1) #careful to keep a min day.
+scoreboard_min_day=max(now.day-7,1) #careful to keep a min day.
 scoreboard_max_day=now.day-1
 
 #single day edit
@@ -78,6 +78,7 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
          #ids to be added later
          g['away_standard_id']=0
          g['home_standard_id']=0
+         g['season_year']=2018 #hardcoded season
   
 #Add a table containing the nba_py scoreboard data to the nba_data.sqlite database
 #print('Preparing to write to nba working database. Please stand by...')

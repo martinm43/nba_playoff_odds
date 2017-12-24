@@ -81,12 +81,6 @@ def srscalc(srsdata,calcmode='Numpy LS'):
   #so inversion is not the way to solve it. The first entry out of the results matches
   #verified data so let's go with that
   
-  #weird things happen if you dont do this - 
-      #only so much resolution available
-  #U=np.around(U,decimals=6)
-  #p=np.around(p,decimals=6)
-  
-  
   #Calculation options.
   if calcmode=='Numpy LS':
     #handling old seasons by converting nans
@@ -109,7 +103,6 @@ def srscalc(srsdata,calcmode='Numpy LS'):
     
     svd_R1,svd_s,svd_R2=np.linalg.svd(U)
     
-    tol=0.001
     svd_s.tolist()
     #print(svd_s)
     svd_s_inv=[d**(-1) for d in svd_s]
@@ -118,10 +111,11 @@ def srscalc(srsdata,calcmode='Numpy LS'):
     #SVD testing block
     #C=np.dot(svd_R1,np.dot(np.diag(svd_s),svd_R2))
     D=np.dot(svd_R1.transpose(),np.dot(np.diag(svd_s_inv),svd_R2.transpose()))
+    print('Printing D')
+    print D
+    print('Printing p')
+    print p
     X=np.dot(D,p)
-    #print(C[0,:])
-    #print('Product of svd_s gives a condition number '+str(np.prod(svd_s))) 
-    #print(svd_s)
     
   srs_dict=[]
   srs_headers=['team_id','srs','point_diff']
@@ -140,18 +134,3 @@ def srs_month_since_date(date, no_months=1): #date in "Seconds Since Epoch"
     srsdata['calc_date']=int(date)
   return results
 
-if __name__=='__main__':
-
-    #Iterate through all of the season.
-    #Get max dates and min dates then separate them
-    #Get the srs calculation data (srsdata)
-    start_secs=epochtime('Oct 1 2015')
-    end_secs=epochtime('May 15 2016')
-    gameslist=games_query(start_secs,end_secs)
-    print(gameslist)
-    print 'Number of games: '+str(len(gameslist))
-    results=srscalc(gameslist)
-    for game in results:
-      game['start_date']=start_secs
-      game['end_date']=end_secs
-    pprint(results)

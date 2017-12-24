@@ -19,11 +19,8 @@ class BballrefAvgPtsDiff(BaseModel):
         db_table = 'bballref_avg_pts_diff'
 
 class BballrefRest(BaseModel):
-    away_streak = FloatField(null=True)
-    datetime = FloatField(null=True)
     game = IntegerField(db_column='game_id', null=True)
-    is_away = IntegerField(null=True)
-    resttime = FloatField(null=True)
+    rest = FloatField(null=True)
     team = IntegerField(db_column='team_id', null=True)
     season_year = IntegerField(null=True)
 
@@ -106,6 +103,7 @@ class NbaPyApiData(BaseModel):
     home_team_wins_losses = TextField(db_column='home_TEAM_WINS_LOSSES', null=True)
     home_tov = IntegerField(db_column='home_TOV', null=True)
     home_standard = IntegerField(db_column='home_standard_id', null=True)
+    season_year = IntegerField(null=True)
 
     class Meta:
         db_table = 'nba_py_api_data'
@@ -196,3 +194,12 @@ class ProlineData(BaseModel):
     class Meta:
         db_table = 'proline_data'
 
+class NbaTeamEloData(BaseModel):
+    season_year = IntegerField(null=True)  # 
+    team_abbreviation = TextField(null=True)
+    datetime = FloatField(null=True)
+    elo_rating = FloatField(null=True)
+    bball_ref_id = IntegerField(null=True)
+
+    class Meta:
+        db_table = 'nba_team_elo_data'
