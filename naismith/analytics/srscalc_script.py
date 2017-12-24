@@ -94,27 +94,16 @@ def srscalc(srsdata,calcmode='Numpy LS'):
       for j in range(0,30):
         if math.isnan(U[i,j]):
           U[i,j]=0
-    #print U[0,:]
-    #print p
-    
-    #print('SVD results follow')
+
     #Trying to use SVD as shown in https://codeandfootball.wordpress.com/2011/04/12/issues-with-the-simple-ranking-system/
     #To resolve singular issues. The idea is that we solve an approximation of the original system.
     
     svd_R1,svd_s,svd_R2=np.linalg.svd(U)
     
     svd_s.tolist()
-    #print(svd_s)
     svd_s_inv=[d**(-1) for d in svd_s]
     svd_s_inv=np.asarray(svd_s_inv)
-    #print(svd_s_inv)
-    #SVD testing block
-    #C=np.dot(svd_R1,np.dot(np.diag(svd_s),svd_R2))
     D=np.dot(svd_R1.transpose(),np.dot(np.diag(svd_s_inv),svd_R2.transpose()))
-    print('Printing D')
-    print D
-    print('Printing p')
-    print p
     X=np.dot(D,p)
     
   srs_dict=[]
@@ -124,7 +113,6 @@ def srscalc(srsdata,calcmode='Numpy LS'):
     game=dict(zip(srs_headers,[i+1,X[i],p[i]]))
     srs_dict.append(game)
   
-  #print srs_dict
   return srs_dict
 
 def srs_month_since_date(date, no_months=1): #date in "Seconds Since Epoch"

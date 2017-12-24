@@ -59,7 +59,7 @@ if burke_solve==1:
 else:
     burkelist=None
 #Debug
-print('Printing Burke Ratings:')
+print('Printing Burke Ratings.')
 if burkelist!=None:
   for i, burke_value in enumerate(burkelist):
       print('Burke rating of team '+team_abbreviation(i+1)+' is '+str(burke_value[0]))

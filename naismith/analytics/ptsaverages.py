@@ -107,7 +107,6 @@ for i in range(1,31):
 conn.close()
 
 list_of_means.sort(key=lambda x:x['team_mean'], reverse=True)
-pprint(list_of_means)
 
 #Write list of trimmed point differentials to a file for use by other programs
 csvfile_out = open(wkdir+'analytics/'+'adj_pts_diff_vector.csv','wb')
