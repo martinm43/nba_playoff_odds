@@ -13,11 +13,10 @@ def dos(pts_a,pts_b):
 def expected_dos(rank_a,rank_b,env_factor=2.0,expect_factor=0.025):
     return -1+2.0/(1+np.exp(-expect_factor*(rank_a-rank_b-env_factor)))
 
-def DoS_calculation_error(s_array,def_env_factor, def_expect_factor):
+def DoS_calculation_error(s_array,def_env_factor, def_expect_factor,dos_factor=2):
     
     #defaults
     init_rank=1000 #what a "neutral team" is valued at
-    dos_factor=25 #factor applied to change value based on expected performance vs actual
     
     #arrays
     ranks=np.ones(30)*init_rank
@@ -42,17 +41,27 @@ if __name__=='__main__':
     #input variables to function
     start_date=epochtime('Oct 1 2016')
     end_date=epochtime('May 1 2017')
+    test_env_factor=2
+    test_expect_factor=0.001
     s_b=BballrefScores.select().where(BballrefScores.datetime>=start_date,\
                                 BballrefScores.datetime<=end_date)
     #Convert into universal format
     s_array=[(i.away_team_id,i.away_pts,i.home_team_id,i.home_pts) for i in s_b]
 
-    test_values=np.linspace(0.0024,0.0028) #value appears to be on the order of 0.01?
+    test_values=np.linspace(0.000,0.006,100) #value appears to be on the order of 0.01?
+    #print(test_values)
+
     #Crude investigation into the possible ranges of "ideal values"
+    plt.figure()
     ave_game_errors=[(i,np.sqrt(DoS_calculation_error(s_array,.75,i)/(2*len(s_array)))) for i in test_values]
-    for i in ave_game_errors:
-	  print i
-      
+    ave_game_errors=np.asarray(ave_game_errors)
+    #for i in ave_game_errors:
+    #	  print i
+    plt.plot(ave_game_errors[:,0],ave_game_errors[:,1])
+
+    #Plot the probability charts for a win and for a loss (expected range of scores)
     dos_differences=np.linspace(-300,300)
-    y=[expected_dos(i,0) for i in dos_differences]
+    y=[expected_dos(i,0,env_factor=test_env_factor,expect_factor=test_expect_factor) for i in dos_differences]
+    plt.figure()
     plt.plot(dos_differences,y)
+    plt.show()
