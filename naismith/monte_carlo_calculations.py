@@ -114,11 +114,11 @@ worksheet=workbook.add_worksheet()
 #bold format for headers and appropriate widths
 bold14=workbook.add_format({'bold':True,'font_size':14})
 bold14.set_align('center')
-worksheet.set_column('A:A',35)
-worksheet.set_column('B:B',35)
-worksheet.set_column('C:C',35)
-worksheet.set_column('D:D',35)
-worksheet.set_column('E:E',35)
+worksheet.set_column('A:A',15)
+worksheet.set_column('B:B',15)
+worksheet.set_column('C:C',15)
+worksheet.set_column('D:D',15)
+worksheet.set_column('E:E',15)
 
 #Centering
 centformat=workbook.add_format()
@@ -143,6 +143,9 @@ for date,ht,at,diff,prob in (fancy_out):
   worksheet.write(row,col+3,diff,centformat)
   worksheet.write(row,col+4,prob,centformat)
   row += 1
+
+#conditional formatting
+worksheet.conditional_format('E2:E'+str(len(fancy_out)),{'type':'3_color_scale'})
 
 workbook.close()
 
