@@ -9,8 +9,6 @@ import csv,os
 from analytics.srscalc_script import srscalc
 from string_conversion_tools import team_abbreviation
 
-#print(srscalc)
-
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
 #Handling Burke solver's dependence on scipy.
@@ -21,10 +19,6 @@ try:
     burke_solve=1
 except ImportError:
     print('Burke solution method not available')
-    
-    
-
-
 srsdata=[]
 
 import sqlite3
@@ -51,9 +45,6 @@ srsdata=nba_api_srsdata
 
 #Convert the data into integers (this will not be necessary if using DB data)
 srsdata=[[int(m) for m in l] for l in srsdata]
-
-#Calculate SRS via blow-up proof approximation.
-srsdicts=srscalc(srsdata)
 
 if burke_solve==1:
     #Calculate Burke SRS
@@ -124,14 +115,14 @@ centformat.set_align('center')
 worksheet.write('A1','Date',bold14)
 worksheet.write('B1','Home Team',bold14)
 worksheet.write('C1','Away Team',bold14)
-worksheet.write('D1','Away Rating Differential',bold14)
+worksheet.write('D1','Away Chosen Rating Differential',bold14)
 worksheet.write('E1','Away Team Win Probability',bold14)
 
-#row=1
-#col=0
+row=1
+col=0
 
 #Write the data
-#for name,sugar,volume,price in (data):
+for name,sugar,volume,price in (data):
 #  worksheet.write(row,col,name)
 #  worksheet.write(row,col+1,sugar,centformat)
 #  worksheet.write(row,col+2,volume,centformat)
