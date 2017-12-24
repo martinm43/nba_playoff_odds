@@ -120,11 +120,6 @@ worksheet.set_column('C:C',35)
 worksheet.set_column('D:D',35)
 worksheet.set_column('E:E',35)
 
-#Cash formatting
-#cashformat=workbook.add_format()
-#cashformat.set_num_format(0x2c)
-#cashformat.set_align('center')
-
 #Centering
 centformat=workbook.add_format()
 centformat.set_align('center')
@@ -140,14 +135,14 @@ row=1
 col=0
 
 #Write the data
-# for date,name,sugar,volume,price in (data):
- # worksheet.write(row,col,name)
- # worksheet.write(row,col+1,sugar,centformat)
- # worksheet.write(row,col+2,volume,centformat)
- # worksheet.write(row,col+3,price/100.0,cashformat)
- # worksheet.write(row,col+3,price/100.0,cashformat)
- # row += 1
-
+for date,ht,at,diff,prob in (fancy_out):
+  col=0
+  worksheet.write(row,col,date)
+  worksheet.write(row,col+1,ht,centformat)
+  worksheet.write(row,col+2,at,centformat)
+  worksheet.write(row,col+3,diff,centformat)
+  worksheet.write(row,col+4,prob,centformat)
+  row += 1
 
 workbook.close()
 
