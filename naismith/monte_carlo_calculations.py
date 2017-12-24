@@ -111,8 +111,10 @@ worksheet=workbook.add_worksheet()
 #bold format for headers and appropriate widths
 bold14=workbook.add_format({'bold':True,'font_size':14})
 bold14.set_align('center')
+bold14.set_align('vcenter')
 bold14.set_text_wrap()
-worksheet.set_column('A:A',15)
+
+worksheet.set_column('A:A',22)
 worksheet.set_column('B:B',15)
 worksheet.set_column('C:C',15)
 worksheet.set_column('D:D',15)
@@ -121,6 +123,16 @@ worksheet.set_column('E:E',15)
 #Centering
 centformat=workbook.add_format()
 centformat.set_align('center')
+
+#Number formats
+diffformat=workbook.add_format()
+pctformat=workbook.add_format()
+
+diffformat.set_num_format('0.00')
+pctformat.set_num_format('0.00%')
+
+diffformat.set_align('center')
+pctformat.set_align('center')
 
 #Add headers to the xlsx.
 worksheet.write('A1','Date',bold14)
@@ -138,8 +150,8 @@ for date,ht,at,diff,prob in (fancy_out):
   worksheet.write(row,col,date)
   worksheet.write(row,col+1,ht,centformat)
   worksheet.write(row,col+2,at,centformat)
-  worksheet.write(row,col+3,diff,centformat)
-  worksheet.write(row,col+4,prob,centformat)
+  worksheet.write(row,col+3,diff,diffformat)
+  worksheet.write(row,col+4,prob,pctformat)
   row += 1
 
 #conditional formatting
