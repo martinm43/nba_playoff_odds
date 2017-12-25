@@ -43,9 +43,11 @@ model_selection=input('Please enter the type of model to be applied: ')
 if model_selection==1:
 	model_csv='analytics/adj_pts_diff_vector.csv'
 	model_function=pts_regress
+        model_str='Points'
 if model_selection==2:
 	model_csv='burke_vector.csv'
 	model_function=burke_regress
+        model_str='Burke Rating'
 
 with open(wkdir+model_csv,'rb') as srsfile:
 	rankdata = csv.reader(srsfile,delimiter=',')
@@ -138,7 +140,7 @@ pctformat.set_align('center')
 worksheet.write('A1','Date',bold14)
 worksheet.write('B1','Home Team',bold14)
 worksheet.write('C1','Away Team',bold14)
-worksheet.write('D1','Away - Home\n Differential',bold14)
+worksheet.write('D1','Away - Home\n '+model_str+' \nDifferential',bold14)
 worksheet.write('E1','Away Team\n Win Probability',bold14)
 
 row=1
