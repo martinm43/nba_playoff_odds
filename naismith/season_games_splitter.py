@@ -1,12 +1,23 @@
-#MAM - 16 Jan 16 
+"""
+Season Games Splitter
 
-#Parsing data obtained from basketball-reference.com 
-#for use in analyses. Your first Python program. 
+This program splits the season into "games that have already been played"
+and determines which games have already been won.
+
+Automatic mode is triggered by adding "AUTO" to the script invocation.
+In automatic mode, the current season is cut based on the current date 
+(Not yet implemented.)
+
+--MA Miller
+
+"""
 
 
 #Replace Excel Program with Python routine.
 import sqlite3
-import os
+import os,sys,time
+#get the conversion function
+from dbtools.access_nba_data import epochtime
 
 #CSV output function
 #Part Two: Write out a file containing all games played
@@ -20,18 +31,17 @@ def list_to_csv(csvfile,list_of_lists):
     csvfile_out.close()
     return 1
 
-#get the conversion function
-from dbtools.access_nba_data import epochtime
+if sys.argv[1] == "AUTO":
+    season=raw_input('Season under consideration: ')
+    cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
+else:
+    season=raw_input('Season under consideration: ')
+    cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
 
 #strings for getting to file locations 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 filename='nba_data.sqlite'
 
-#Grab date, season for consideration
-season=raw_input('Season under consideration: ')
-#season = 2016
-cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
-#cutdate='Jan 1 2016'
 season_start=epochtime('Oct 15 '+season)-31536000
 cutdate=epochtime(cutdate)
 
@@ -41,8 +51,6 @@ c=conn.cursor()
 str_input='select id, datetime, start_time, away_team_id,away_pts,home_team_id,home_pts,date \
           from bballref_scores where season_year='+str(season)
 ballrows=c.execute(str_input).fetchall()
-#print('ballrows')
-#pprint(ballrows)
 
 #Dec 29 2016 edit: Obtain an up-to-date list of wins from the nba_py_api_data database
 c=conn.cursor()
@@ -67,20 +75,3 @@ print('Number of games already played: '+str(len(pastdata)))
 list_to_csv(wkdir+'outfile_wins.csv',winrows)
 list_to_csv(wkdir+'outfile_future_games.csv',futuredata)
 
-#TO DO
-#Change above logic for splitting season to generate a day and month
-#Obtain win/loss records using Scoreboard.E/W Standings By Day and write out W/L to 
-#ouftile_wins.csv
-
-#Merge this with the Monte_Carlo_Calculations and Monte_Carlo_Simulation script
-#Handle differing simulation methods by using vectorized version as estimate
-#No reason that a 300 line or so script can't be used to do this
-
-
-
-
-
-
-
-
-	

@@ -1,10 +1,19 @@
-#MAM - 24 Sep 2016
-#Adding models from another file.
+"""
 
-#Parsing data obtained from basketball-reference.com 
-#for use in analyses. Data to be used for Monte Carlo simulation.
+Monte Carlo Calculations
 
-#Replace Excel Program with Python routine. Get what you need.
+Uses one of a set of static team ratings previously generated in order to generate 
+* a csv for use in monte carlo simulation
+* an Excel file for seeing upcoming games
+
+Human automation requirements: choosing a preferred solution method
+Ascending numbers should denote "fancier" solution methods. 
+
+As of Dec 25 2017, method is 2 - Burke (Accounts for SOS and HTA)
+
+"""
+
+
 import csv,os,xlsxwriter
 from analytics.morey import SRS_regress,burke_regress,pts_regress
 from teamind.teamind import teamind

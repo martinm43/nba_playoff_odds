@@ -1,9 +1,20 @@
-#19 December 2016
-#The purpose of this script is to calculate onetime ratings of all the teams 
-#that can then be used to calculate the binominal win probabilities for Monte 
-#Carlo simulation.
+"""
+Ratings_Calculations
 
-#MAM
+This script calculates the Burke ratings for NBA teams over a given time period with a given 
+maximum/minimum margin of victory and average home team advantage for use in the projections
+scripts. 
+
+Automation requirements
+
+Human input: Automatic input
+
+Start date for analysis: 6 weeks before
+End date for analysis: current date
+Maximum margin of victory: 15
+Average home court advantage: 2
+
+"""
 
 import csv,os
 from string_conversion_tools import team_abbreviation
