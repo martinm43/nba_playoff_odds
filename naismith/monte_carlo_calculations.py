@@ -43,9 +43,11 @@ model_selection=input('Please enter the type of model to be applied: ')
 if model_selection==1:
 	model_csv='analytics/adj_pts_diff_vector.csv'
 	model_function=pts_regress
+        model_str='Points'
 if model_selection==2:
 	model_csv='burke_vector.csv'
 	model_function=burke_regress
+        model_str='Burke Rating'
 
 with open(wkdir+model_csv,'rb') as srsfile:
 	rankdata = csv.reader(srsfile,delimiter=',')
@@ -93,10 +95,7 @@ csvfile_out.close()
 
 #Print a "fancy/human readable" version of the above
 fancy_out=list(zip(date_out,home_out, away_out, dsrs_data, winpct_data))
-#print('fancyout')
-#pprint(fancy_out[0])
 fancy_out=[[row[0],team_abbreviation(row[1]),team_abbreviation(row[2]),row[3],row[4]] for row in fancy_out]
-#pprint(fancy_out)
 csvfile_out = open(wkdir+'coming_games_Excel.csv','wb')
 csvwriter = csv.writer(csvfile_out)
 csvwriter.writerow(['Date','Home Team','Away Team','Away Differential','Away Team Win Probability'])
@@ -105,49 +104,60 @@ for row in fancy_out:
 	csvwriter.writerow(row)
 csvfile_out.close()
 
-#Output a formatted file that you can show and view easily
+print('Binomial win percentages have been calculated.')
 
-#Write an xlsx
+#Output a formatted file that you can show and view easily - Write an xlsx
 workbook=xlsxwriter.Workbook('Future_Games_Report.xlsx')
 worksheet=workbook.add_worksheet()
 
 #bold format for headers and appropriate widths
 bold14=workbook.add_format({'bold':True,'font_size':14})
 bold14.set_align('center')
-worksheet.set_column('A:A',35)
-worksheet.set_column('B:B',35)
-worksheet.set_column('C:C',35)
-worksheet.set_column('D:D',35)
-worksheet.set_column('E:E',35)
+bold14.set_align('vcenter')
+bold14.set_text_wrap()
 
-#Cash formatting
-#cashformat=workbook.add_format()
-#cashformat.set_num_format(0x2c)
-#cashformat.set_align('center')
+worksheet.set_column('A:A',22)
+worksheet.set_column('B:B',15)
+worksheet.set_column('C:C',15)
+worksheet.set_column('D:D',15)
+worksheet.set_column('E:E',15)
 
 #Centering
 centformat=workbook.add_format()
 centformat.set_align('center')
 
+#Number formats
+diffformat=workbook.add_format()
+pctformat=workbook.add_format()
+
+diffformat.set_num_format('0.00')
+pctformat.set_num_format('0.00%')
+
+diffformat.set_align('center')
+pctformat.set_align('center')
+
 #Add headers to the xlsx.
 worksheet.write('A1','Date',bold14)
 worksheet.write('B1','Home Team',bold14)
 worksheet.write('C1','Away Team',bold14)
-worksheet.write('D1','Away - Home Differential',bold14)
-worksheet.write('E1','Away Team Win Probability',bold14)
+worksheet.write('D1','Away - Home\n '+model_str+' \nDifferential',bold14)
+worksheet.write('E1','Away Team\n Win Probability',bold14)
 
 row=1
 col=0
 
 #Write the data
-# for date,name,sugar,volume,price in (data):
- # worksheet.write(row,col,name)
- # worksheet.write(row,col+1,sugar,centformat)
- # worksheet.write(row,col+2,volume,centformat)
- # worksheet.write(row,col+3,price/100.0,cashformat)
- # worksheet.write(row,col+3,price/100.0,cashformat)
- # row += 1
+for date,ht,at,diff,prob in (fancy_out):
+  col=0
+  worksheet.write(row,col,date)
+  worksheet.write(row,col+1,ht,centformat)
+  worksheet.write(row,col+2,at,centformat)
+  worksheet.write(row,col+3,diff,diffformat)
+  worksheet.write(row,col+4,prob,pctformat)
+  row += 1
 
+#conditional formatting
+worksheet.conditional_format('E2:E'+str(len(fancy_out)),{'type':'3_color_scale'})
 
 workbook.close()
 

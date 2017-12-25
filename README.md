@@ -23,18 +23,9 @@ calculations behind them are unverified.
 
 To do/considering:
 
-*Major: Recalculate rest data. Old table was based on really old calculations, poorly
-documented, and had significant errors.
 *Compare "burke calc" predictions to actual game results by
 	*creating a table of burke results for each game
 	*comparing the burke results to the actual results
-*DONE: Major: fix indexing error between Boston and Brooklyn in NBA_PY_API_DATA
-*DONE: removing unused legacy calculation tables as above (anything related to our srs calculations)
-*DONE: Pythagorean wins expectation function
-*Reviewing and reperforming rest calculations
- *DONE: if rest=0 at beginning of season set to 72
- *DONE: proper ids based on year, game number, and home/away? (optional)
- *investigate the negative rest occurences in the new year.
 *storing playoff odds in a table/figuring out how to automate them in order to produce "odds of making the playoffs" guides
 *tiebreaker logic for playoffs
 *implementing the above "Python 3" library for srscalc
@@ -43,14 +34,14 @@ documented, and had significant errors.
 *Making output file optional
 *Laptop: perform regression using Burke odds
 *figuring out how to email them/playoff predictions/expected outcomes of games to personal account
-*DONE: difference over sum and derby based modelling 
-	*DONE: Tuning work to be completed - next phase is visual tuning
-	*DONE: Asked Lydia - rezeroing is the best option in high variance league
-                 a way of incorporating known values about teams (e.g. sum(PER))
-                 would be ideal
-*DONE: import results for month of October on Nov 1
-	- Recurring task. Import data as required every week or so? Takes only few seconds
 *Inserting missing games using bballreference data into nba_py - have a backfill flag
-	*DONE: Fixed issues missing data caused with average MOV calculation
 *Remove or disable srscalc for now until issue fixed
 *PEP/static code analysis 
+
+Dec 24 2017
+
+Major release. Program renamed and reset to 1.0
+For future major release:
+ *Full automation so games results can be examined
+Elo ratings optional - other rating systems may do better. Functionality satisfied already.
+For a minor release: any of the above functionality

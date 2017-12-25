@@ -65,8 +65,6 @@ gamepairs=mcrows[:,0:1]
 #pprint(gamepairs[0])
 winprobs=mcrows[:,3].T
 
-#print(hometeams)
-
 ngames=len(winprobs)
 nsims=10000
 
@@ -78,21 +76,14 @@ print('~100000 simulations at a time on an 8GB memory computer')
 
 mcsimgames=np.random.uniform(size=(ngames,nsims))
 
-#print(mcsimgames.shape)
-
 simwinprobs=np.tile(winprobs,(nsims,1)).T
 
 
-#print(simwinprobs.T.shape)
-#print(simwinprobs)
 awaywins=mcsimgames<simwinprobs
 homewins=np.invert(awaywins)
 
 awaywins=np.asarray(awaywins,dtype=int)
 homewins=np.asarray(homewins,dtype=int)
-
-#print(awaywins)
-#print(homewins)
 
 awayteams=np.tile(awayteams,(nsims,1)).T
 hometeams=np.tile(hometeams,(nsims,1)).T

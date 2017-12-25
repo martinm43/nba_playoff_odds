@@ -52,7 +52,6 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
             for l in line.keys():
                 game['home_'+l]=line[l]
         is_away_team = not is_away_team #next team by default is the opposite home sit'n of the current team
-        #print is_away_team
         num_teams+=1
         if num_teams==2:
             gameslist.append(game)
@@ -81,12 +80,6 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
          g['season_year']=2018 #hardcoded season
   
 #Add a table containing the nba_py scoreboard data to the nba_data.sqlite database
-#print('Preparing to write to nba working database. Please stand by...')
-
-#tablename='nba_py_api_data'
-
-#table_initializer(wkdir+dbname,tablename,month_games_list[0],month_games_list,automode='on')
-
 #Using Peewee ORM
 
 #1 - check result
