@@ -59,6 +59,12 @@ def teams_query():
   pprint(teams)
   return teams
 
+#Get current season
+#Get year
+#Is may this year to come or has it past
+#if it has past then current nba season is year+1
+#if not current year
+
 if __name__=='__main__':
   #Not yet tested
   start_input=raw_input('Please enter a start date, format May 6 2016')

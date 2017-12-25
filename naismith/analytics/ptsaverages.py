@@ -1,7 +1,18 @@
-#-*-coding:utf8;-*-
-#qpy:2
-#qpy:console
+"""  
+ptsaverages
 
+This script calculates the "average margin of victory" based on a date
+period and the start date/end date for analysis.
+
+AUTO mode will be triggered by using AUTO after the script.
+
+Human inputs that need to be automated: Automatic input
+
+Maximum margin of victory: 15
+Start date: 6 weeks before analysis
+End date: Current day
+
+"""
 import sqlite3,os,csv
 from pprint import pprint
 from dbtools.access_nba_data import epochtime
@@ -20,8 +31,6 @@ analysis_start_date=raw_input('Enter start date for analysis (e.g. Jan 1 2016): 
 analysis_end_date=raw_input('Enter end date for analysis (e.g. Feb 1 2016): ')
 analysis_start_date=epochtime(analysis_start_date)
 analysis_end_date=epochtime(analysis_end_date)
-#analysis_start_date='Nov 1 2016'
-#analysis_end_date='Dec 25 2016'
 
 teamdict=[{'team_id':'1','team_name':'ATL','conf':'E'},
 {'team_id':'2','team_name':'BOS','conf':'E'},
@@ -89,11 +98,7 @@ for i in range(1,31):
   #filter out huge results
   scores=np.asarray(query_result)
   
-  #print('Before score cut')
-  #print(scores)
   scores=score_bound(scores,score_cut)
-  #print('After score cut')
-  #print(scores)
 
   team_name=[row['team_name'] for row in teamdict if row['team_id']==team_id][0]
   print('Avg margin of victory for '+team_name+' : '+'{:1.4}'.format(scores.mean()))
