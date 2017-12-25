@@ -11,5 +11,7 @@ def standings_generation():
   execfile(wkdir+'monte_carlo_calculations.py')
 
 if __name__=='__main__':
+    print('Standings Projector and Playoffs Odds Calculator, v1.0')
+    print('MA Miller, 2017')
     standings_generation()    
 
