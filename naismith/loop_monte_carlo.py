@@ -9,7 +9,7 @@
 from __future__ import division
 
 #Replace Excel Program with Python routine. Get what you need.
-import csv, os, random, sys
+import csv, os, random
 import numpy as np
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
@@ -71,12 +71,8 @@ winrows = np.asarray(winrows)
 
 all_sims = []
 
-#custom simulation number. cutoff arbitrary
-if int(sys.argv[1])>int(500000):
-  print(sys.argv[1]>500000)
-  ite=int(500000)
-else:
-  ite=int(sys.argv[1])  
+#Automatic mode has hardcoded number of simulations.
+ite=250000
 
 print('Number of pending iterations: '+str(ite))
 

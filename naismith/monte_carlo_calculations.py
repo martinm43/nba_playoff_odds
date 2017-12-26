@@ -45,10 +45,12 @@ future_data=projdata
 #Opening the calculated SRS or other measurement file
 srs_data=[]
 ##obtaining ranks - choose ranking method based on user input
+#Automatic model selection using Burke rating model
 print('Model selection: ')
 print('Model 1: Points')
 print('Model 2: Burke (accounts for SoS and home strength)')
-model_selection=input('Please enter the type of model to be applied: ')
+model_selection=2
+print('Automatic mode, model selection is 2, Burke')
 if model_selection==1:
 	model_csv='analytics/adj_pts_diff_vector.csv'
 	model_function=pts_regress

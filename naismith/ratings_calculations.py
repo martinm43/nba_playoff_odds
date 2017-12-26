@@ -51,12 +51,21 @@ srsdata=[[int(m) for m in l] for l in srsdata]
 
 if burke_solve==1:
     #Calculate Burke SRS
-    analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
-    analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
-    max_MOV=float(raw_input('Enter max margin of victory for Burke-type analysis: '))
-    home_team_adv=float(raw_input('Enter presumed home team advantage: '))
-    analysis_start_date=epochtime(analysis_start_date)
-    analysis_end_date=epochtime(analysis_end_date)
+    
+    #Legacy manual code.
+    #analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
+    #analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
+    #max_MOV=float(raw_input('Enter max margin of victory for Burke-type analysis: '))
+    #home_team_adv=float(raw_input('Enter presumed home team advantage: '))
+    #analysis_start_date=epochtime(analysis_start_date)
+    #analysis_end_date=epochtime(analysis_end_date)
+    
+    #New automated code.
+    analysis_start_date=time.time()-6*7*86400 #two weeks ago
+    analysis_end_date=time.time()
+    max_MOV=15.0
+    home_team_adv=2.0
+
     nba_api_srsdata_query_str='SELECT away_standard_id, away_PTS, home_standard_id, home_PTS\
                              from nba_py_api_data WHERE day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)
     nba_api_srsdata=c.execute(nba_api_srsdata_query_str).fetchall()

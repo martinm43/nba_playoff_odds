@@ -24,13 +24,19 @@ db_folder=os.path.dirname(os.path.realpath(__file__))+'/'
 sql_folder=os.path.dirname(os.path.realpath(__file__))+'/'
 wkdir=os.path.dirname(os.path.realpath(__file__))+'/'
 
-score_cut=raw_input('Please enter the maximum margin of victory/defeat (abs value): ')
-score_cut=float(score_cut)
+#Legacy manual code
+#score_cut=raw_input('Please enter the maximum margin of victory/defeat (abs value): ')
+#score_cut=float(score_cut)
 
-analysis_start_date=raw_input('Enter start date for analysis (e.g. Jan 1 2016): ')
-analysis_end_date=raw_input('Enter end date for analysis (e.g. Feb 1 2016): ')
-analysis_start_date=epochtime(analysis_start_date)
-analysis_end_date=epochtime(analysis_end_date)
+#analysis_start_date=raw_input('Enter start date for analysis (e.g. Jan 1 2016): ')
+#analysis_end_date=raw_input('Enter end date for analysis (e.g. Feb 1 2016): ')
+#analysis_start_date=epochtime(analysis_start_date)
+#analysis_end_date=epochtime(analysis_end_date)
+
+#New automated code
+score_cut=15.0
+analysis_start_date=time.time()-6*7*86400 #6 weeks prior, 7 days in a week, 86400 sec in a day
+analysis_end_date=time.time()
 
 teamdict=[{'team_id':'1','team_name':'ATL','conf':'E'},
 {'team_id':'2','team_name':'BOS','conf':'E'},
