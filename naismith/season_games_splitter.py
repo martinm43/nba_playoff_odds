@@ -31,12 +31,8 @@ def list_to_csv(csvfile,list_of_lists):
     csvfile_out.close()
     return 1
 
-if sys.argv[1] == "AUTO":
-    season=raw_input('Season under consideration: ')
-    cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
-else:
-    season=raw_input('Season under consideration: ')
-    cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
+season=raw_input('Season under consideration: ')
+cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
 
 #strings for getting to file locations 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
