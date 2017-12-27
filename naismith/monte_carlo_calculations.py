@@ -18,12 +18,19 @@ import csv,os,xlsxwriter
 from analytics.morey import SRS_regress,burke_regress,pts_regress
 from teamind.teamind import teamind
 from string_conversion_tools import team_abbreviation
+import datetime
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
 home_out=[]
 away_out=[]
 date_out=[]
+
+#datestring.
+now=datetime.datetime.now()
+now_year=now.year.__str__()
+now_month=now.month.__str__()
+now_day=now.day.__str__()
 
 #Use previously created list of future games
 projdata=[]
@@ -118,7 +125,7 @@ csvfile_out.close()
 print('Binomial win percentages have been calculated.')
 
 #Output a formatted file that you can show and view easily - Write an xlsx
-workbook=xlsxwriter.Workbook('Future_Games_Report.xlsx')
+workbook=xlsxwriter.Workbook('Future_Games_Report_'+now_year+now_month+now_day+'.xlsx')
 worksheet=workbook.add_worksheet()
 
 #bold format for headers and appropriate widths

@@ -11,6 +11,13 @@ from __future__ import division
 #Replace Excel Program with Python routine. Get what you need.
 import csv, os, random
 import numpy as np
+import datetime
+
+now=datetime.datetime.now()
+now_year=now.year.__str__()
+now_month=now.month.__str__()
+now_day=now.day.__str__()
+
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -72,7 +79,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #Automatic mode has hardcoded number of simulations.
-ite=250000
+ite=50000
 
 print('Number of pending iterations: '+str(ite))
 
@@ -145,7 +152,7 @@ for t in east:
 
 print 'Number of Simulations: ' + str(ite)
 
-csvfile_out = open(wkdir+'MC_sim_results_Excel.txt','wb')
+csvfile_out = open(wkdir+'MC_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
 csvwriter = csv.writer(csvfile_out)
 csvwriter.writerow(['NBA Western Conference'])
 i=1
