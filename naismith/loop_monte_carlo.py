@@ -79,7 +79,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #Automatic mode has hardcoded number of simulations.
-ite=50000
+ite=500000
 
 print('Number of pending iterations: '+str(ite))
 
