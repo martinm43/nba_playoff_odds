@@ -73,9 +73,7 @@ teamdict=[{'team_id':'1','team_name':'ATL','conf':'E'},
 def score_bound(score_array,score_limit):
   import numpy as np
   #Fixing "null scores" problem
-  #print(score_array)
   score_array=score_array[score_array != np.array(None)]
-  #print(score_array)
   score_array=score_array.clip(max=score_limit)
   score_array=score_array.clip(min=-score_limit)
   return score_array 
@@ -83,7 +81,6 @@ def score_bound(score_array,score_limit):
 conn=sqlite3.connect(os.path.join(db_folder,'nba_data.sqlite'))
 c=conn.cursor()
 
-#print 'SQL script executor'
 list_of_means=[]
 vector_of_means=[]
 for i in range(1,31):
