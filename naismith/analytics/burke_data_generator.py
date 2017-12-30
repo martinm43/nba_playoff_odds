@@ -42,7 +42,6 @@ for year_num in range(start_year,end_year):
     daysecs=24*60*60
     monthsecs=daysecs*30
     
-    #placeholder array
     all_burke_calcs=[]
 
     while calc_date < end_date:
@@ -79,12 +78,6 @@ for year_num in range(start_year,end_year):
 table_initializer(cwd+dbname,table_name,burke_dicts_array[0],burke_dicts_array,automode='on')
 
 #Plots for visually examining the "burkse calc" plots in question
-#plot_team_id=0
-#plt.plot(all_burke_calcs[:,plot_team_id])
-##plt.plot(ave_burke_calcs[:,plot_team_id])
-#plt.ylabel('team Burke score')
-#plt.xlabel('days since tracking began')
-#plt.show()
     
 
     

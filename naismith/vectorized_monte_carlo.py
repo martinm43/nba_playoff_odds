@@ -62,7 +62,6 @@ mcrows=np.asarray(mcrows,dtype=float)
 hometeams=mcrows[:,0].T
 awayteams=mcrows[:,1].T
 gamepairs=mcrows[:,0:1]
-#pprint(gamepairs[0])
 winprobs=mcrows[:,3].T
 
 ngames=len(winprobs)
@@ -123,7 +122,6 @@ biglist.sort(key=lambda x:x[2],reverse=True)
 west = [row for row in biglist if row[1]=='W']
 east = [row for row in biglist if row[1]=='E']
 
-#printing scheme for seeds
 print 'West'
 i=1
 for t in west:

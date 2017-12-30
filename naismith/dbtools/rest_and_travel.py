@@ -20,7 +20,6 @@ def team_rest_calc_v2(ballrows,season_year):
   srd_headers=['team_id','game_id','datetime','resttime','id','is_away','away_streak','season_year']
   season_rest_data=[]
   for i in range(1,31):
-    #print('Calculating rest days for games of team '+str(i))
     #NB: need to softcode this because of strike seasons
     team_game_ids=[(i,row["id"],row["datetime"]) for row in ballrows\
                 if (row["away_team_id"]==i or row["home_team_id"]==i)]
@@ -50,10 +49,7 @@ def team_rest_calc_v2(ballrows,season_year):
     
     #zip each list with the dictionary key
     for game in team_time_data:
-      #print game
-      #print srd_headers
       game.append(season_year)
-      #pprint(game)
       game=dict(zip(srd_headers,game))
       season_rest_data.append(game)
     

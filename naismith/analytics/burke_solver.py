@@ -42,8 +42,6 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
   S = numpy.zeros(s_cols) 
   # Loading M and S with game data 
   for col,gamedata in enumerate(game):
-    #print(col)
-    #print(gamedata)     
     gameNum=col
     home,away,homescore,awayscore = gamedata 
     # In the csv data, teams are numbered starting at 1 
@@ -98,7 +96,6 @@ if __name__=='__main__':
   start_secs=epochtime('oct 1 2015')
   end_secs=epochtime('may 1 2016')
   gameslist=games_query(start_secs,end_secs)
-  #pprint(gameslist)
   #list comprehend this into the format required by the program
   game=[[g[2],g[0],g[3],g[1]] for g in gameslist]
   print(len(game))

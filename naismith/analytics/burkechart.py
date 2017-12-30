@@ -22,7 +22,6 @@ calc_date=start_date
 daysecs=24*60*60
 monthsecs=daysecs*30
 
-#placeholder array
 all_burke_calcs=[]
 
 while calc_date < end_date:
@@ -40,7 +39,6 @@ for i in range(0,len(all_burke_calcs[0,:])):
     
 plot_team_id=8
 plt.plot(all_burke_calcs[:,plot_team_id])
-#plt.plot(ave_burke_calcs[:,plot_team_id])
 plt.ylabel('team Burke score')
 plt.xlabel('days since tracking began')
 plt.show()

@@ -49,7 +49,6 @@ if __name__=='__main__':
     s_array=[(i.away_team_id,i.away_pts,i.home_team_id,i.home_pts) for i in s_b]
 
     test_values=np.linspace(0.000,0.006,100) #value appears to be on the order of 0.01?
-    #print(test_values)
 
     #Crude investigation into the possible ranges of "ideal values"
     plt.figure()

@@ -84,7 +84,6 @@ ite=100000
 print('Number of pending iterations: '+str(ite))
 
 for i in range (ite):
-    #print '{:.2%}'.format(i/ite) + ' Percent Complete'
     sim_dat=[]
     sim_dat_gen=[row[1] if random.uniform(0,1) < float(row[3]) else row[0] for row in mcrows]
     #Calculate number of wins for each team
@@ -137,7 +136,6 @@ biglist.sort(key=lambda x:x[2],reverse=True)
 west = [row for row in biglist if row[1]=='W']
 east = [row for row in biglist if row[1]=='E']
 
-#printing scheme for seeds
 print 'West'
 i=1
 for t in west:
