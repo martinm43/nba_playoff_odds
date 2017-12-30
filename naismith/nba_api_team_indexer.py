@@ -3,10 +3,9 @@ nba_py api"""
 
 import sqlite3
 import os
-#from pprint import pprint
 
+#Constants
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
-
 conn = sqlite3.connect(os.path.join(wkdir, 'nba_data.sqlite'))
 c = conn.cursor()
 

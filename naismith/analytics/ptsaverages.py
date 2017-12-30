@@ -1,4 +1,4 @@
-"""  
+"""
 ptsaverages
 
 This script calculates the "average margin of victory" based on a date
@@ -13,16 +13,19 @@ Start date: 6 weeks before analysis
 End date: Current day
 
 """
-import sqlite3,os,csv
+import sqlite3
+import os
+import csv
+import time
 from pprint import pprint
 from dbtools.access_nba_data import epochtime
 import numpy as np
 
-home_team_adv=2.0
+home_team_adv = 2.0
 
-db_folder=os.path.dirname(os.path.realpath(__file__))+'/'
-sql_folder=os.path.dirname(os.path.realpath(__file__))+'/'
-wkdir=os.path.dirname(os.path.realpath(__file__))+'/'
+db_folder = os.path.dirname(os.path.realpath(__file__))+'/'
+sql_folder = os.path.dirname(os.path.realpath(__file__))+'/'
+wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
 #Legacy manual code
 #score_cut=raw_input('Please enter the maximum margin of victory/defeat (abs value): ')
@@ -34,87 +37,89 @@ wkdir=os.path.dirname(os.path.realpath(__file__))+'/'
 #analysis_end_date=epochtime(analysis_end_date)
 
 #New automated code
-score_cut=15.0
-analysis_start_date=time.time()-6*7*86400 #6 weeks prior, 7 days in a week, 86400 sec in a day
-analysis_end_date=time.time()
+score_cut = 15.0
+analysis_start_date = time.time()-6*7*86400 #6 weeks prior, 7 days in a week, 86400 sec in a day
+analysis_end_date = time.time()
 
-teamdict=[{'team_id':'1','team_name':'ATL','conf':'E'},
-{'team_id':'2','team_name':'BOS','conf':'E'},
-{'team_id':'3','team_name':'BRK','conf':'E'},
-{'team_id':'4','team_name':'CHA','conf':'E'},
-{'team_id':'5','team_name':'CHI','conf':'E'},
-{'team_id':'6','team_name':'CLE','conf':'E'},
-{'team_id':'7','team_name':'DAL','conf':'W'},
-{'team_id':'8','team_name':'DEN','conf':'W'},
-{'team_id':'9','team_name':'DET','conf':'E'},
-{'team_id':'10','team_name':'GSW','conf':'W'},
-{'team_id':'11','team_name':'HOU','conf':'W'},
-{'team_id':'12','team_name':'IND','conf':'E'},
-{'team_id':'13','team_name':'LAC','conf':'W'},
-{'team_id':'14','team_name':'LAL','conf':'W'},
-{'team_id':'15','team_name':'MEM','conf':'W'},
-{'team_id':'16','team_name':'MIA','conf':'E'},
-{'team_id':'17','team_name':'MIL','conf':'E'},
-{'team_id':'18','team_name':'MIN','conf':'W'},
-{'team_id':'19','team_name':'NOP','conf':'W'},
-{'team_id':'20','team_name':'NYK','conf':'E'},
-{'team_id':'21','team_name':'OKC','conf':'W'},
-{'team_id':'22','team_name':'ORL','conf':'E'},
-{'team_id':'23','team_name':'PHI','conf':'E'},
-{'team_id':'24','team_name':'PHX','conf':'W'},
-{'team_id':'25','team_name':'POR','conf':'W'},
-{'team_id':'26','team_name':'SAC','conf':'W'},
-{'team_id':'27','team_name':'SAS','conf':'W'},
-{'team_id':'28','team_name':'TOR','conf':'E'},
-{'team_id':'29','team_name':'UTA','conf':'W'},
-{'team_id':'30','team_name':'WAS','conf':'E'}]
+teamdict = [{'team_id':'1', 'team_name':'ATL', 'conf':'E'},
+            {'team_id':'2', 'team_name':'BOS', 'conf':'E'},
+            {'team_id':'3', 'team_name':'BRK', 'conf':'E'},
+            {'team_id':'4', 'team_name':'CHA', 'conf':'E'},
+            {'team_id':'5', 'team_name':'CHI', 'conf':'E'},
+            {'team_id':'6', 'team_name':'CLE', 'conf':'E'},
+            {'team_id':'7', 'team_name':'DAL', 'conf':'W'},
+            {'team_id':'8', 'team_name':'DEN', 'conf':'W'},
+            {'team_id':'9', 'team_name':'DET', 'conf':'E'},
+            {'team_id':'10', 'team_name':'GSW', 'conf':'W'},
+            {'team_id':'11', 'team_name':'HOU', 'conf':'W'},
+            {'team_id':'12', 'team_name':'IND', 'conf':'E'},
+            {'team_id':'13', 'team_name':'LAC', 'conf':'W'},
+            {'team_id':'14', 'team_name':'LAL', 'conf':'W'},
+            {'team_id':'15', 'team_name':'MEM', 'conf':'W'},
+            {'team_id':'16', 'team_name':'MIA', 'conf':'E'},
+            {'team_id':'17', 'team_name':'MIL', 'conf':'E'},
+            {'team_id':'18', 'team_name':'MIN', 'conf':'W'},
+            {'team_id':'19', 'team_name':'NOP', 'conf':'W'},
+            {'team_id':'20', 'team_name':'NYK', 'conf':'E'},
+            {'team_id':'21', 'team_name':'OKC', 'conf':'W'},
+            {'team_id':'22', 'team_name':'ORL', 'conf':'E'},
+            {'team_id':'23', 'team_name':'PHI', 'conf':'E'},
+            {'team_id':'24', 'team_name':'PHX', 'conf':'W'},
+            {'team_id':'25', 'team_name':'POR', 'conf':'W'},
+            {'team_id':'26', 'team_name':'SAC', 'conf':'W'},
+            {'team_id':'27', 'team_name':'SAS', 'conf':'W'},
+            {'team_id':'28', 'team_name':'TOR', 'conf':'E'},
+            {'team_id':'29', 'team_name':'UTA', 'conf':'W'},
+            {'team_id':'30', 'team_name':'WAS', 'conf':'E'}]
 
 #Limit margin of victory
 def score_bound(score_array,score_limit):
-  import numpy as np
-  #Fixing "null scores" problem
-  score_array=score_array[score_array != np.array(None)]
-  score_array=score_array.clip(max=score_limit)
-  score_array=score_array.clip(min=-score_limit)
-  return score_array 
-  
-conn=sqlite3.connect(os.path.join(db_folder,'nba_data.sqlite'))
-c=conn.cursor()
+    #Fixing "null scores" problem
+    score_array = score_array[score_array != np.array(None)]
+    score_array = score_array.clip(max=score_limit)
+    score_array = score_array.clip(min=-score_limit)
+    return score_array
 
-list_of_means=[]
-vector_of_means=[]
-for i in range(1,31):
-  team_dict={}
-  team_id=str(i)
-  #Incorporating Date Limits
-  str_input='SELECT CASE WHEN away_standard_id='+team_id+\
-           ' THEN away_pts-home_pts+'+str(home_team_adv)+' WHEN home_standard_id='+team_id+\
-           ' THEN home_pts-away_pts-'+str(home_team_adv)+' END FROM nba_py_api_data WHERE\
-           (away_standard_id='+team_id+' OR home_standard_id='+team_id+') AND '+\
-           '(day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)+');'
+conn = sqlite3.connect(os.path.join(db_folder,'nba_data.sqlite'))
+c = conn.cursor()
 
-  if str_input.find('drop')==-1:
-    query_result=c.execute(str_input).fetchall()
+list_of_means = []
+vector_of_means = []
+for i in range(1, 31):
+    team_dict={}
+    team_id=str(i)
+    #Incorporating Date Limits
+    str_input = 'SELECT CASE WHEN away_standard_id='+team_id+\
+           ' THEN away_pts-home_pts+'+str(home_team_adv)+\
+           ' WHEN home_standard_id='+team_id+\
+           ' THEN home_pts-away_pts-'+str(home_team_adv)+\
+           ' END FROM nba_py_api_data WHERE\
+           (away_standard_id='+team_id+\
+           ' OR home_standard_id='+team_id+') AND '+\
+           '(day_datetime >= '+str(analysis_start_date)+\
+           ' AND day_datetime <= '+str(analysis_end_date)+');'
 
-  query_result=[q[0] for q in query_result]
+    if str_input.find('drop') == -1:
+        query_result = c.execute(str_input).fetchall()
 
-  #filter out huge results
-  scores=np.asarray(query_result)
-  
-  scores=score_bound(scores,score_cut)
+    query_result = [q[0] for q in query_result]
 
-  team_name=[row['team_name'] for row in teamdict if row['team_id']==team_id][0]
-  print('Avg margin of victory for '+team_name+' : '+'{:1.4}'.format(scores.mean()))
-  team_dict['team_name']=team_name
-  team_dict['team_mean']=scores.mean()
-  list_of_means.append(team_dict)
-  vector_of_means.append([scores.mean()])
-  team_dict={}
-  
-  
+    #filter out huge results
+    scores = np.asarray(query_result)
+
+    scores = score_bound(scores,score_cut)
+
+    team_name = [row['team_name'] for row in teamdict if row['team_id'] == team_id][0]
+    print('Avg margin of victory for '+team_name+' : '+'{:1.4}'.format(scores.mean()))
+    team_dict['team_name'] = team_name
+    team_dict['team_mean'] = scores.mean()
+    list_of_means.append(team_dict)
+    vector_of_means.append([scores.mean()])
+    team_dict = {}
+
 conn.close()
 
-list_of_means.sort(key=lambda x:x['team_mean'], reverse=True)
+list_of_means.sort(key = lambda x:x['team_mean'], reverse = True)
 
 #Write list of trimmed point differentials to a file for use by other programs
 csvfile_out = open(wkdir+'analytics/'+'adj_pts_diff_vector.csv','wb')
