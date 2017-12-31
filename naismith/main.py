@@ -12,7 +12,7 @@ def standings_generation():
     execfile(working_directory+'analytics/ptsaverages.py')
     execfile(working_directory+'ratings_calculations.py')
     execfile(working_directory+'monte_carlo_calculations.py')
-    execfile(working_directory+'loop_monte_carlo.py')
+    execfile(working_directory+'monte_carlo_standings_simulator.py')
 
 if __name__ == '__main__':
     print 'Standings Projector and Playoffs Odds Calculator, v1.0'
