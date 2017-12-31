@@ -8,7 +8,6 @@ from dbtools.dbtools import table_initializer
 from dbtools.access_nba_data import epochdate_nba_api,epochtime_nba_api
 from dbtools.nba_data_models import NbaPyApiData
 from teamind.teamind import teamind
-from pprint import pprint
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 dbname='nba_data.sqlite'
@@ -21,18 +20,12 @@ nba_py.HAS_PANDAS=0
 month_games_list=[]
 
 #Do this manually. 
-#scoreboard_month=raw_input('Enter month to update(1-12 format): ')
-#scoreboard_month=int(scoreboard_month)
 now=datetime.datetime.now()
 scoreboard_month=now.month
 scoreboard_min_day=max(now.day-7,1) #careful to keep a min day.
 scoreboard_max_day=now.day-1
 
-#single day edit
-##scoreboard_month=12
-##scoreboard_min_day=28
-##scoreboard_max_day=31
-
+print('Gathering and consolidating NBA data from past seven days')
 for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
     g=nba_py.Scoreboard(day=scoreboard_day,month=scoreboard_month) #if updating pre 2017 add year.
     #Obtain game information from the "linescore" method of the Scoreboard class
@@ -66,11 +59,9 @@ for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
          #game date - condensed
          gamedate=g['home_GAME_DATE_EST']
          gamedate=gamedate[:10]
-         print(gamedate)
          g['GAME_DATE_EST']=gamedate
          g['full_date']=epochdate_nba_api(gamedate)
          g['day_datetime']=epochtime_nba_api(gamedate)
-         print(g['full_date'])
          g.pop('home_GAME_DATE_EST',None)
          g.pop('away_GAME_DATE_EST',None)
          month_games_list.append(g)
@@ -91,6 +82,7 @@ for g in gameslist:
       g[k_new]=g[k]
       del g[k]
 
-pprint(gameslist)
+print('Consolidation complete, preparing to insert')
 #2 - insert
 NbaPyApiData.insert_many(gameslist).upsert().execute()
+print('Data inserted into target database nba_data.sqlite')
