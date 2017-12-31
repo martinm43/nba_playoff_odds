@@ -75,6 +75,7 @@ teamdict = [{'team_id':'1', 'team_name':'ATL', 'conf':'E'},
 #Limit margin of victory
 def score_bound(score_array,score_limit):
     #Fixing "null scores" problem
+    import numpy as np
     score_array = score_array[score_array != np.array(None)]
     score_array = score_array.clip(max=score_limit)
     score_array = score_array.clip(min=-score_limit)
