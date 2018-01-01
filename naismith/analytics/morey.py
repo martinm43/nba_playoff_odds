@@ -10,7 +10,7 @@ def SRS_regress(dSRS):
 
 def burke_regress(dBurke):
 	import math
-	return 1/(1+math.exp(-1*(0.15+dBurke*0.25)))
+	return 1/(1+math.exp(-1*(0.15+dBurke*0.2)))
   
 if __name__=='__main__':
   print(SRS_regress(2))
