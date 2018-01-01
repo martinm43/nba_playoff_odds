@@ -28,9 +28,7 @@ date_out=[]
 
 #datestring.
 now=datetime.datetime.now()
-now_year=now.year.__str__()
-now_month=now.month.__str__()
-now_day=now.day.__str__()
+now_str=now.strftime('%Y%m%d')
 
 #Use previously created list of future games
 projdata=[]

@@ -15,10 +15,7 @@ from tabulate import tabulate
 
 #
 now=datetime.datetime.now()
-now_year=now.year.__str__()
-now_month=now.month.__str__()
-now_day=now.day.__str__()
-
+now_str=now.strftime('%Y%m%d')
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -80,7 +77,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #Automatic mode has hardcoded number of simulations.
-ite=1000
+ite=100000
 
 print('Number of pending iterations: '+str(ite))
 
@@ -151,7 +148,7 @@ for t in east:
 
 print 'Number of Simulations: ' + str(ite)
 
-csvfile_out = open(wkdir+'MC_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
+csvfile_out = open(wkdir+'MC_'+str(ite)+'_iter_'+now_str+'.txt','wb')
 csvwriter = csv.writer(csvfile_out)
 csvwriter.writerow(['NBA Western Conference'])
 i=1
