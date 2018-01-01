@@ -1,18 +1,19 @@
-#MAM - 16 Jan 16 
-#Dicts and printing added on 12-2-16. 
-#Runtime about 1 min 50 sec
+"""
+Monte Carlo Standings Simulator
 
-#Parsing data obtained from basketball-reference.com 
-#for use in analyses. Data to be used for Monte Carlo simulation.
+Determines average projected positions and odds of each team making the playoffs.
 
-#Floating point division only!
+"""
 from __future__ import division
 
-#Replace Excel Program with Python routine. Get what you need.
-import csv, os, random
+import csv
+import os
+import random
 import numpy as np
 import datetime
+from tabulate import tabulate
 
+#
 now=datetime.datetime.now()
 now_year=now.year.__str__()
 now_month=now.month.__str__()
@@ -79,7 +80,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #Automatic mode has hardcoded number of simulations.
-ite=100000
+ite=1000
 
 print('Number of pending iterations: '+str(ite))
 

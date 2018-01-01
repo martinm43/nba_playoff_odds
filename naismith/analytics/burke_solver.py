@@ -16,11 +16,7 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
 
   import csv 
   import numpy 
-  try:
-    import scipy.optimize
-  except:
-    print('Cannot import scipy optimization module.')
-    return 
+
   if impmode=='bballref':
       game=[[g[2],g[0],g[3],g[1]] for g in game]
   # list of game,home,away,homescore,awayscore 
@@ -46,9 +42,9 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
     home,away,homescore,awayscore = gamedata 
     # In the csv data, teams are numbered starting at 1 
     # So we let home-team advantage be 'team 0' in our matrix 
-    M[0, col] = 1.0 # home team advantage 
-    M[int(home), col] = 1.0 
-    M[int(away), col] = -1.0 
+    M[0, col] = home_team_adv 
+    M[int(home), col] = home_team_adv
+    M[int(away), col] = -home_team_adv
     
     diff_score=int(homescore) - int(awayscore)
     if diff_score >max_MOV:
@@ -86,17 +82,3 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
           print('Team '+str(t[0]+1)+' has a calculated Burke Score of '+str(t[1]))
   return teamStrength
   
-if __name__=='__main__':
-  
-  print('this is main')
-  from access_nba_data import epochtime, games_query
-  #get list of games in format "home,away,homescore,awayscore"
-  #start_date=raw_input('Start date: ')
-  #end_date=raw_input('End date: ')
-  start_secs=epochtime('oct 1 2015')
-  end_secs=epochtime('may 1 2016')
-  gameslist=games_query(start_secs,end_secs)
-  #list comprehend this into the format required by the program
-  game=[[g[2],g[0],g[3],g[1]] for g in gameslist]
-  print(len(game))
-  burke_calc(game, impmode=None)
