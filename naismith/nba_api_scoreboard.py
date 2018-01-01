@@ -21,13 +21,12 @@ month_games_list=[]
 
 #Do this manually. 
 now=datetime.datetime.now()
-scoreboard_month=now.month
-scoreboard_min_day=max(now.day-7,1) #careful to keep a min day.
-scoreboard_max_day=now.day-1
 
-print('Gathering and consolidating NBA data from past seven days')
-for scoreboard_day in range(scoreboard_min_day, scoreboard_max_day+1):
-    g=nba_py.Scoreboard(day=scoreboard_day,month=scoreboard_month) #if updating pre 2017 add year.
+print('Gathering and consolidating NBA data from past days')
+for i in range(7,0,-1): #starting from a week before.
+    target_day=now-datetime.timedelta(days=i)
+    g=nba_py.Scoreboard(day=target_day.day,month=target_day.month,year=target_day.year) 
+    print('Processing data from '+target_day.__str__()[:10])
     #Obtain game information from the "linescore" method of the Scoreboard class
     #This data is arranged in pairs. Odd teams are away teams and even teams are home teams.
     line_score_list=g.line_score()
