@@ -54,7 +54,7 @@ srs_data=[]
 print('Model selection: ')
 print('Model 1: Points')
 print('Model 2: Burke (accounts for SoS and home strength)')
-model_selection=2
+model_selection=1 #Need to retune burke calc
 print('Automatic mode, model selection is 2, Burke')
 if model_selection==1:
 	model_csv='analytics/adj_pts_diff_vector.csv'
@@ -121,7 +121,7 @@ csvfile_out.close()
 print('Binomial win percentages have been calculated.')
 
 #Output a formatted file that you can show and view easily - Write an xlsx
-workbook=xlsxwriter.Workbook('Future_Games_Report_'+now_year+now_month+now_day+'.xlsx')
+workbook=xlsxwriter.Workbook('Future_Games_Report_'+now_str+'.xlsx')
 worksheet=workbook.add_worksheet()
 
 #bold format for headers and appropriate widths

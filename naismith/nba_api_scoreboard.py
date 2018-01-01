@@ -5,7 +5,7 @@
 
 import nba_py, os, datetime
 from dbtools.dbtools import table_initializer
-from dbtools.access_nba_data import epochdate_nba_api,epochtime_nba_api
+from dbtools.access_nba_data import epochdate_nba_api,epochtime_nba_api,current_season
 from dbtools.nba_data_models import NbaPyApiData
 from teamind.teamind import teamind
 
@@ -67,7 +67,7 @@ for i in range(7,0,-1): #starting from a week before.
          #ids to be added later
          g['away_standard_id']=0
          g['home_standard_id']=0
-         g['season_year']=2018 #hardcoded season
+         g['season_year']=current_season() #hardcoded season
   
 #Add a table containing the nba_py scoreboard data to the nba_data.sqlite database
 #Using Peewee ORM
