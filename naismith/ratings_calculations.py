@@ -17,6 +17,7 @@ Average home court advantage: 2
 """
 
 import csv,os
+import time
 from string_conversion_tools import team_abbreviation
 import sqlite3
 from dbtools.access_nba_data import epochtime
@@ -63,8 +64,8 @@ if burke_solve==1:
     #New automated code.
     analysis_start_date=time.time()-6*7*86400 #two weeks ago
     analysis_end_date=time.time()
-    max_MOV=15.0
-    home_team_adv=2.0
+    max_MOV=30.0
+    home_team_adv=0
 
     nba_api_srsdata_query_str='SELECT away_standard_id, away_PTS, home_standard_id, home_PTS\
                              from nba_py_api_data WHERE day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)

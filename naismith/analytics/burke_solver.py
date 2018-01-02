@@ -43,9 +43,9 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
     home,away,homescore,awayscore = gamedata 
     # In the csv data, teams are numbered starting at 1 
     # So we let home-team advantage be 'team 0' in our matrix 
-    M[0, col] = home_team_adv 
-    M[int(home), col] = home_team_adv
-    M[int(away), col] = -home_team_adv
+    M[0, col] = 1.0
+    M[int(home), col] = 1.0
+    M[int(away), col] = -1.0
     
     diff_score=int(homescore) - int(awayscore)
     if diff_score >max_MOV:
@@ -53,7 +53,6 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
     elif diff_score < -max_MOV:
         diff_score=-max_MOV
     S[col] = diff_score
-    
 
   # Now, if our theoretical model is correct, we should be able # to find a performance-factor vector W such that W*M == S 
   # 
@@ -61,8 +60,7 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
   # so what we are looking for instead is W which results in S' 
   # such that the least-mean-squares difference between S and S' 
   # is minimized. 
-  # Initial guess at team weightings: 
-  # 2.0 points home-team advantage, and all teams equally strong 
+  
   init_W = numpy.array([home_team_adv]+[0.0]*numTeams) 
 
   def errorfn(w,m,s): 

@@ -15,10 +15,7 @@ from tabulate import tabulate
 
 #
 now=datetime.datetime.now()
-now_year=now.year.__str__()
-now_month=now.month.__str__()
-now_day=now.day.__str__()
-
+now_str=now.strftime('%Y%m%d')
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -147,8 +144,6 @@ west_table=tabulate(west,headers=["Team Name","Average Wins in Simulations"])
 east_table=tabulate(east,headers=["Team Name","Average Wins in Simulations"])
 
 file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
-
-print 'Summary of Results, '+now.strftime('%Y-%m-%d')+'\n'
 
 print 'Total number of iterations: '+str(ite)
 
