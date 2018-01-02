@@ -15,7 +15,10 @@ from tabulate import tabulate
 
 #
 now=datetime.datetime.now()
-now_str=now.strftime('%Y%m%d')
+now_year=now.year.__str__()
+now_month=now.month.__str__()
+now_day=now.day.__str__()
+
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -77,7 +80,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #Automatic mode has hardcoded number of simulations.
-ite=100000
+ite=1
 
 print('Number of pending iterations: '+str(ite))
 
@@ -144,6 +147,8 @@ west_table=tabulate(west,headers=["Team Name","Average Wins in Simulations"])
 east_table=tabulate(east,headers=["Team Name","Average Wins in Simulations"])
 
 file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
+
+print 'Summary of Results, '+now.strftime('%Y-%m-%d')+'\n'
 
 print 'Total number of iterations: '+str(ite)
 
