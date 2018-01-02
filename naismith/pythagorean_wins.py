@@ -10,6 +10,7 @@ from string_conversion_tools import team_abbreviation
 from dbtools.access_nba_data import epochtime, current_season
 import time
 import sys
+from tabulate import tabulate
 
 def pythagorean_wins(team_id_num,year_start_num,win_exp=14,numgames=82,\
 			mincalcdate=0.0,\
@@ -98,4 +99,5 @@ if __name__=='__main__':
   for i in range(1,31):
     results_list.append([team_abbreviation(i),pythagorean_wins(i,2018,win_exp=16.5,source_option="nba_py_api_data"\
     ,mincalcdate=epochtime(sys.argv[1]),maxcalcdate=epochtime(sys.argv[2]))])
-  pprint(sorted(results_list, key=lambda x: x[1])) #reverse=True for desc
+  table=tabulate(sorted(results_list, key=lambda x: x[1]),headers=["Team (abbrev.)","Number of Wins by Pythagorean Win Expectation"]) 
+  print table
