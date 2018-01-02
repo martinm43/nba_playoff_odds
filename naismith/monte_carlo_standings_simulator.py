@@ -80,7 +80,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #Automatic mode has hardcoded number of simulations.
-ite=1000
+ite=1
 
 print('Number of pending iterations: '+str(ite))
 
@@ -119,10 +119,11 @@ for row in all_sims:
 
 avwins=np.percentile(all_sims,50,axis=0)
 
-#Print to screen
+###Print to screen and to file###
+
 i=1
 biglist=[]
-print "Team (Conf): Median Wins"
+
 for t in avwins:
    slist=[]
    slist.append([row['team_name'] for row in teamdict if row['team_id']==str(i)][0])
@@ -134,47 +135,33 @@ for t in avwins:
 #use lambda exp to sort by column
 biglist.sort(key=lambda x:x[2],reverse=True)
 
+#Extract average wins and team abbreviations.
 west = [row for row in biglist if row[1]=='W']
 east = [row for row in biglist if row[1]=='E']
+west = [i[1] for i in enumerate(west)]
+east = [i[1] for i in enumerate(east)]
+west = [[i[0],i[2]] for i in west]
+east = [[i[0],i[2]] for i in east]
 
-print 'West'
-i=1
-for t in west:
-#   print str(i)+': \t'+t[0] +' \t'+str(t[2])
-   i=i+1
+west_table=tabulate(west,headers=["Team Name","Average Wins in Simulations"])
+east_table=tabulate(east,headers=["Team Name","Average Wins in Simulations"])
+
+file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
+
+print 'Summary of Results, '+now.strftime('%Y-%m-%d')+'\n'
+
+print 'Total number of iterations: '+str(ite)
+
+print 'Western Conference\n'
+print west_table
+print 'Eastern Conference\n'
+print east_table
 print '\n'
-print 'East'
-i=1
-for t in east:
-#   print str(i)+': \t'+t[0] +' \t'+str(t[2])
-   i=i+1
-
-print 'Number of Simulations: ' + str(ite)
-
-csvfile_out = open(wkdir+'MC_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
-csvwriter = csv.writer(csvfile_out)
-csvwriter.writerow(['NBA Western Conference'])
-i=1
-for t in enumerate(west):
-   print t
-   csvwriter.writerow([str(t[0]+1),t[1][0],t[1][1],t[1][2]])
-   
-csvwriter.writerow("")
-csvwriter.writerow(['NBA Eastern Conference'])
-i=1
-for t in enumerate(east):
-   print t
-   csvwriter.writerow([str(t[0]+1),t[1][0],t[1][1],t[1][2]])
-
-csvwriter.writerow([])
-csvwriter.writerow(['Playoff Odds For Each Team'])
-
+print 'Playoff Odds For Each Team\n'
 
 #Reporting playoff odds
 for i in range(1,31):
     oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{:.4g}%'.format(float(playoff_results.count(i))/float(ite)*100.00)
     print(oddsrow)
-    csvwriter.writerow([oddsrow])
 
-csvwriter.writerow(['Number of Simulations: '+str(ite)])
-csvfile_out.close()
+file_out.close()
