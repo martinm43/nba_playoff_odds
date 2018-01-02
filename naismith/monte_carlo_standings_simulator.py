@@ -154,6 +154,7 @@ print 'Total number of iterations: '+str(ite)
 
 print 'Western Conference\n'
 print west_table
+print '\n'
 print 'Eastern Conference\n'
 print east_table
 print '\n'
