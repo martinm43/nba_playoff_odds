@@ -99,5 +99,7 @@ if __name__=='__main__':
   for i in range(1,31):
     results_list.append([team_abbreviation(i),pythagorean_wins(i,2018,win_exp=16.5,source_option="nba_py_api_data"\
     ,mincalcdate=epochtime(sys.argv[1]),maxcalcdate=epochtime(sys.argv[2]))])
+  
+  results_list=[[i[0],'{:.0f}'.format(i[1])] for i in results_list]
   table=tabulate(sorted(results_list, key=lambda x: x[1]),headers=["Team (abbrev.)","Number of Wins by Pythagorean Win Expectation"]) 
   print table
