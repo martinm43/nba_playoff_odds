@@ -80,7 +80,7 @@ winrows = np.asarray(winrows)
 all_sims = []
 
 #Automatic mode has hardcoded number of simulations.
-ite=100000
+ite=1
 
 print('Number of pending iterations: '+str(ite))
 
@@ -146,7 +146,7 @@ east = [[i[0],i[2]] for i in east]
 west_table=tabulate(west,headers=["Team Name","Average Wins in Simulations"])
 east_table=tabulate(east,headers=["Team Name","Average Wins in Simulations"])
 
-file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
+### Writing to screen. ###
 
 print 'Summary of Results, '+now.strftime('%Y-%m-%d')+'\n'
 
@@ -164,5 +164,24 @@ print 'Playoff Odds For Each Team\n'
 for i in range(1,31):
     oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{:.4g}%'.format(float(playoff_results.count(i))/float(ite)*100.00)
     print(oddsrow)
+
+###Writing to file.###
+file_out=open(wkdir+'Summary_'+str(ite)+'_iter_'+now.strftime('%Y-%m-%d')+'.txt','wb')
+file_out.write('Summary of Results, '+now.strftime('%Y-%m-%d')+'\n')
+
+file_out.write('Total number of iterations: '+str(ite)+'\n\n')
+
+file_out.write('Western Conference\n')
+file_out.write(west_table)
+file_out.write('\n\n')
+file_out.write('Eastern Conference\n')
+file_out.write(east_table)
+file_out.write('\n\n')
+file_out.write('Playoff Odds For Each Team\n')
+
+#Reporting playoff odds
+for i in range(1,31):
+    oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{:.4g}%'.format(float(playoff_results.count(i))/float(ite)*100.00)+'\n'
+    file_out.write(oddsrow)
 
 file_out.close()
