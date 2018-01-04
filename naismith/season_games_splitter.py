@@ -17,7 +17,7 @@ In automatic mode, the current season is cut based on the current date
 import sqlite3
 import os,sys,time
 #get the conversion function
-from dbtools.access_nba_data import epochtime
+from dbtools.access_nba_data import epochtime,current_season
 
 #CSV output function
 #Part Two: Write out a file containing all games played
@@ -31,19 +31,22 @@ def list_to_csv(csvfile,list_of_lists):
     csvfile_out.close()
     return 1
 
-if sys.argv[1] == "AUTO":
-    season=raw_input('Season under consideration: ')
-    cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
-else:
-    season=raw_input('Season under consideration: ')
-    cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
+#Legacy manual options
+#season=raw_input('Season under consideration: ')
+#cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
+#cutdate=epochtime(cutdate)
+
+#New automated options - brief concept test
+season=str(current_season())
+cutdate=time.time()
 
 #strings for getting to file locations 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 filename='nba_data.sqlite'
 
+#ISSUE: This is a poor solution to "trying to determine the start date of a season"
+#that requires fixing.
 season_start=epochtime('Oct 15 '+season)-31536000
-cutdate=epochtime(cutdate)
 
 #create ballrows list of tuples (all games) using the database
 conn=sqlite3.connect(wkdir+filename)

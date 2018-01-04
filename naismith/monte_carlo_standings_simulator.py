@@ -1,16 +1,24 @@
-#MAM - 16 Jan 16 
-#Dicts and printing added on 12-2-16. 
-#Runtime about 1 min 50 sec
+"""
+Monte Carlo Standings Simulator
 
-#Parsing data obtained from basketball-reference.com 
-#for use in analyses. Data to be used for Monte Carlo simulation.
+Determines average projected positions and odds of each team making the playoffs.
 
-#Floating point division only!
+"""
 from __future__ import division
 
-#Replace Excel Program with Python routine. Get what you need.
-import csv, os, random, sys
+import csv
+import os
+import random
 import numpy as np
+import datetime
+from tabulate import tabulate
+
+#
+now=datetime.datetime.now()
+now_year=now.year.__str__()
+now_month=now.month.__str__()
+now_day=now.day.__str__()
+
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -71,17 +79,12 @@ winrows = np.asarray(winrows)
 
 all_sims = []
 
-#custom simulation number. cutoff arbitrary
-if int(sys.argv[1])>int(500000):
-  print(sys.argv[1]>500000)
-  ite=int(500000)
-else:
-  ite=int(sys.argv[1])  
+#Automatic mode has hardcoded number of simulations.
+ite=100000
 
 print('Number of pending iterations: '+str(ite))
 
 for i in range (ite):
-    #print '{:.2%}'.format(i/ite) + ' Percent Complete'
     sim_dat=[]
     sim_dat_gen=[row[1] if random.uniform(0,1) < float(row[3]) else row[0] for row in mcrows]
     #Calculate number of wins for each team
@@ -116,10 +119,11 @@ for row in all_sims:
 
 avwins=np.percentile(all_sims,50,axis=0)
 
-#Print to screen
+###Print to screen and to file###
+
 i=1
 biglist=[]
-print "Team (Conf): Median Wins"
+
 for t in avwins:
    slist=[]
    slist.append([row['team_name'] for row in teamdict if row['team_id']==str(i)][0])
@@ -131,48 +135,34 @@ for t in avwins:
 #use lambda exp to sort by column
 biglist.sort(key=lambda x:x[2],reverse=True)
 
+#Extract average wins and team abbreviations.
 west = [row for row in biglist if row[1]=='W']
 east = [row for row in biglist if row[1]=='E']
+west = [i[1] for i in enumerate(west)]
+east = [i[1] for i in enumerate(east)]
+west = [[i[0],i[2]] for i in west]
+east = [[i[0],i[2]] for i in east]
 
-#printing scheme for seeds
-print 'West'
-i=1
-for t in west:
-#   print str(i)+': \t'+t[0] +' \t'+str(t[2])
-   i=i+1
+west_table=tabulate(west,headers=["Team Name","Average Wins in Simulations"])
+east_table=tabulate(east,headers=["Team Name","Average Wins in Simulations"])
+
+file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
+
+print 'Summary of Results, '+now.strftime('%Y-%m-%d')+'\n'
+
+print 'Total number of iterations: '+str(ite)
+
+print 'Western Conference\n'
+print west_table
 print '\n'
-print 'East'
-i=1
-for t in east:
-#   print str(i)+': \t'+t[0] +' \t'+str(t[2])
-   i=i+1
-
-print 'Number of Simulations: ' + str(ite)
-
-csvfile_out = open(wkdir+'MC_sim_results_Excel.txt','wb')
-csvwriter = csv.writer(csvfile_out)
-csvwriter.writerow(['NBA Western Conference'])
-i=1
-for t in enumerate(west):
-   print t
-   csvwriter.writerow([str(t[0]+1),t[1][0],t[1][1],t[1][2]])
-   
-csvwriter.writerow("")
-csvwriter.writerow(['NBA Eastern Conference'])
-i=1
-for t in enumerate(east):
-   print t
-   csvwriter.writerow([str(t[0]+1),t[1][0],t[1][1],t[1][2]])
-
-csvwriter.writerow([])
-csvwriter.writerow(['Playoff Odds For Each Team'])
-
+print 'Eastern Conference\n'
+print east_table
+print '\n'
+print 'Playoff Odds For Each Team\n'
 
 #Reporting playoff odds
 for i in range(1,31):
     oddsrow='Team '+id_to_name(i,teamdict)+' has a playoff probability of '+'{:.4g}%'.format(float(playoff_results.count(i))/float(ite)*100.00)
     print(oddsrow)
-    csvwriter.writerow([oddsrow])
 
-csvwriter.writerow(['Number of Simulations: '+str(ite)])
-csvfile_out.close()
+file_out.close()

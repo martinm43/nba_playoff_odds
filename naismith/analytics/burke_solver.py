@@ -16,11 +16,8 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
 
   import csv 
   import numpy 
-  try:
-    import scipy.optimize
-  except:
-    print('Cannot import scipy optimization module.')
-    return 
+  import scipy
+
   if impmode=='bballref':
       game=[[g[2],g[0],g[3],g[1]] for g in game]
   # list of game,home,away,homescore,awayscore 
@@ -42,15 +39,13 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
   S = numpy.zeros(s_cols) 
   # Loading M and S with game data 
   for col,gamedata in enumerate(game):
-    #print(col)
-    #print(gamedata)     
     gameNum=col
     home,away,homescore,awayscore = gamedata 
     # In the csv data, teams are numbered starting at 1 
     # So we let home-team advantage be 'team 0' in our matrix 
-    M[0, col] = 1.0 # home team advantage 
-    M[int(home), col] = 1.0 
-    M[int(away), col] = -1.0 
+    M[0, col] = 1.0
+    M[int(home), col] = 1.0
+    M[int(away), col] = -1.0
     
     diff_score=int(homescore) - int(awayscore)
     if diff_score >max_MOV:
@@ -58,7 +53,6 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
     elif diff_score < -max_MOV:
         diff_score=-max_MOV
     S[col] = diff_score
-    
 
   # Now, if our theoretical model is correct, we should be able # to find a performance-factor vector W such that W*M == S 
   # 
@@ -66,8 +60,7 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
   # so what we are looking for instead is W which results in S' 
   # such that the least-mean-squares difference between S and S' 
   # is minimized. 
-  # Initial guess at team weightings: 
-  # 2.0 points home-team advantage, and all teams equally strong 
+  
   init_W = numpy.array([home_team_adv]+[0.0]*numTeams) 
 
   def errorfn(w,m,s): 
@@ -88,18 +81,3 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
           print('Team '+str(t[0]+1)+' has a calculated Burke Score of '+str(t[1]))
   return teamStrength
   
-if __name__=='__main__':
-  
-  print('this is main')
-  from access_nba_data import epochtime, games_query
-  #get list of games in format "home,away,homescore,awayscore"
-  #start_date=raw_input('Start date: ')
-  #end_date=raw_input('End date: ')
-  start_secs=epochtime('oct 1 2015')
-  end_secs=epochtime('may 1 2016')
-  gameslist=games_query(start_secs,end_secs)
-  #pprint(gameslist)
-  #list comprehend this into the format required by the program
-  game=[[g[2],g[0],g[3],g[1]] for g in gameslist]
-  print(len(game))
-  burke_calc(game, impmode=None)

@@ -7,7 +7,6 @@ from __future__ import division
 
 #MAM
 import sys
-#print(sys.path)
 
 #from .access_nba_data import epochtime, games_query 
 import math
@@ -50,7 +49,6 @@ def srscalc(srsdata,calcmode='Numpy LS'):
   for i in range(1,31):
     games[i-1]=[sublist[2] for sublist in srsdata].count(i)+[sublist[0] for sublist in srsdata].count(i)
   
-  #print(games)
   
   W=np.zeros((30,30))
     
@@ -64,7 +62,6 @@ def srscalc(srsdata,calcmode='Numpy LS'):
   #December 29 2016 Edit - Use Corrected Point Differentials
   #Raptors' sequence of absurd wins (45+ win over ATL, other 30+ wins) break
   #system to point where this kind of has to be done. - MAM
-  #p=point_diff(srsdata)
   p=[]
   with open(wkdir+'adj_pts_diff_vector.csv','rb') as srsfile:
 	rankdata = csv.reader(srsfile,delimiter=',')
@@ -84,10 +81,8 @@ def srscalc(srsdata,calcmode='Numpy LS'):
   #Calculation options.
   if calcmode=='Numpy LS':
     #handling old seasons by converting nans
-    #practical but slow, can do better
     for i in range(0,len(p)):
       if math.isnan(p[i]):
-        #print('NaN detected, corrected')
         p[i]=0
     
     for i in range(0,30):

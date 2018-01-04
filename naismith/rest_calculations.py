@@ -30,7 +30,6 @@ for season_year in range(1997,2018):
         rest_array[0,:]=np.asarray([game_date_array[0,0],24*7.0])
 
         for i in range(1,len(game_date_array)):
-            #print(game_date_array[i,:])
             rest_array[i,0]=game_date_array[i,0]
             rest_array[i,1]=game_date_array[i,1]-game_date_array[i-1,1]
             rest_array[i,1]=rest_array[i,1]/3600.0 #to hours

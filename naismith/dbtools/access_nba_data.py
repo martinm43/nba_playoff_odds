@@ -59,11 +59,20 @@ def teams_query():
   pprint(teams)
   return teams
 
-#Get current season
-#Get year
-#Is may this year to come or has it past
-#if it has past then current nba season is year+1
-#if not current year
+
+def current_season():
+    """Get current NBA season"""
+    #Get current season
+    #Get year
+    #Is may this year to come or has it past
+    #if it has past then current nba season is year+1
+    #if not current year
+    now=datetime.datetime.now()
+    if now.month<5:
+        season=now.year
+    else:
+        season=now.year+1
+    return season
 
 if __name__=='__main__':
   #Not yet tested

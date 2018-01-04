@@ -18,12 +18,17 @@ import csv,os,xlsxwriter
 from analytics.morey import SRS_regress,burke_regress,pts_regress
 from teamind.teamind import teamind
 from string_conversion_tools import team_abbreviation
+import datetime
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
 home_out=[]
 away_out=[]
 date_out=[]
+
+#datestring.
+now=datetime.datetime.now()
+now_str=now.strftime('%Y%m%d')
 
 #Use previously created list of future games
 projdata=[]
@@ -45,10 +50,12 @@ future_data=projdata
 #Opening the calculated SRS or other measurement file
 srs_data=[]
 ##obtaining ranks - choose ranking method based on user input
+#Automatic model selection using Burke rating model
 print('Model selection: ')
 print('Model 1: Points')
 print('Model 2: Burke (accounts for SoS and home strength)')
-model_selection=input('Please enter the type of model to be applied: ')
+model_selection=1 #Need to retune burke calc
+print('Automatic mode, model selection is 2, Burke')
 if model_selection==1:
 	model_csv='analytics/adj_pts_diff_vector.csv'
 	model_function=pts_regress
@@ -83,7 +90,6 @@ for row in projdata:
     
 	#No need to convert to string. Append does that for you.
 	dsrs_data.append(dsrs)
-	#print dsrs_str
 	
 	#what is the win percentage?
 	winpct_data.append(model_function(dsrs))	
@@ -97,7 +103,6 @@ future_out=list(zip(home_out, away_out, dsrs_data, winpct_data))
 csvfile_out = open(wkdir+'outfile_mcsims.csv','wb')
 csvwriter = csv.writer(csvfile_out)
 for row in future_out:
-	#print(row)
 	#Only need to print the visiting and home team scores and names.
 	csvwriter.writerow(row)
 csvfile_out.close()
@@ -116,7 +121,7 @@ csvfile_out.close()
 print('Binomial win percentages have been calculated.')
 
 #Output a formatted file that you can show and view easily - Write an xlsx
-workbook=xlsxwriter.Workbook('Future_Games_Report.xlsx')
+workbook=xlsxwriter.Workbook('Future_Games_Report_'+now_str+'.xlsx')
 worksheet=workbook.add_worksheet()
 
 #bold format for headers and appropriate widths

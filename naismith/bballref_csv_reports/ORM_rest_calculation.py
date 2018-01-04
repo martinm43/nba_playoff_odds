@@ -20,7 +20,6 @@ def ORM_bballref_rest_calc(calc_season_year):
         del r['team_id']
         del r['game_id']
 
-    #print(rest_dicts[0].keys())
     
     SQLITE_MAX_VARIABLE_NUMBER=max_sql_variables()
     
