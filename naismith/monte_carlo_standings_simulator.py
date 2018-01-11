@@ -15,10 +15,6 @@ from tabulate import tabulate
 
 #
 now=datetime.datetime.now()
-now_year=now.year.__str__()
-now_month=now.month.__str__()
-now_day=now.day.__str__()
-
 
 wkdir = os.path.dirname(os.path.realpath(__file__))+'/'
 
@@ -146,9 +142,6 @@ east = [[i[0],i[2]] for i in east]
 west_table=tabulate(west,headers=["Team Name","Average Wins in Simulations"])
 east_table=tabulate(east,headers=["Team Name","Average Wins in Simulations"])
 
-#Printing to screen and then writing to file.
-file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
-
 print 'Summary of Results, '+now.strftime('%Y-%m-%d')+'\n'
 
 print 'Total number of iterations: '+str(ite)+'\n'
@@ -170,7 +163,7 @@ print 'Writing to file.'
 
 #Repeat commands above but write the information to a file.
 
-file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now_year+now_month+now_day+'.txt','wb')
+file_out = open(wkdir+'Summary_'+str(ite)+'_iter_'+now.strftime('%Y-%m-%d')+'.txt','wb')
 
 file_out.write('Summary of Results, '+now.strftime('%Y-%m-%d')+'\n\n')
 
@@ -182,12 +175,13 @@ file_out.write('\n\n')
 file_out.write('Eastern Conference\n')
 file_out.write(east_table)
 file_out.write('\n\n')
-file_out.write('Estimated Playoff Odds For Each Team\n')
+
+file_out.write('Estimated Odds of Making the Playoffs For Each Team\n')
 
 #Reporting playoff odds
 for i in range(1,31):
     oddsrow=id_to_name(i,teamdict)+' has '+'{:.4g}%'.format(float(playoff_results.count(i))/float(ite)*100.00)+' chance of making the playoffs\n'
-    file_out.write(oddsrow)
+    file_out.write('Playoff Odds For Each Team\n')
 
 file_out.close()
 
