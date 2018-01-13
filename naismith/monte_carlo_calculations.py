@@ -54,7 +54,7 @@ srs_data=[]
 print('Model selection: ')
 print('Model 1: Points')
 print('Model 2: Burke (accounts for SoS and home strength)')
-model_selection=1 #Need to retune burke calc
+model_selection=2 #Need to retune burke calc
 print('Automatic mode, model selection is 2, Burke')
 if model_selection==1:
 	model_csv='analytics/adj_pts_diff_vector.csv'
