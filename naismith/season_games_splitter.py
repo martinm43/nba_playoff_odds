@@ -74,7 +74,5 @@ print('Number of games already played: '+str(len(pastdata)))
 #Write out the results
 list_to_csv(wkdir+'outfile_wins.csv',winrows)
 
-#sort futuredata then print it.
-futuredata.sort(key=lambda x:x[0])
 list_to_csv(wkdir+'outfile_future_games.csv',futuredata)
 
