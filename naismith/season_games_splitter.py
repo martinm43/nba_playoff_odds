@@ -16,6 +16,7 @@ In automatic mode, the current season is cut based on the current date
 #Replace Excel Program with Python routine.
 import sqlite3
 import os,sys,time
+from pprint import pprint
 #get the conversion function
 from dbtools.access_nba_data import epochtime,current_season
 
@@ -30,11 +31,6 @@ def list_to_csv(csvfile,list_of_lists):
         csvwriter.writerow(row)
     csvfile_out.close()
     return 1
-
-#Legacy manual options
-#season=raw_input('Season under consideration: ')
-#cutdate=raw_input('Date to start from? e.g. JAN 1 2016: ')
-#cutdate=epochtime(cutdate)
 
 #New automated options - brief concept test
 season=str(current_season())
@@ -52,8 +48,9 @@ season_start=epochtime('Oct 15 '+season)-31536000
 conn=sqlite3.connect(wkdir+filename)
 c=conn.cursor()
 str_input='select id, datetime, start_time, away_team_id,away_pts,home_team_id,home_pts,date \
-          from bballref_scores where season_year='+str(season)
+          from bballref_scores where season_year='+str(season)+' order by datetime asc'
 ballrows=c.execute(str_input).fetchall()
+pprint(ballrows)
 
 #Dec 29 2016 edit: Obtain an up-to-date list of wins from the nba_py_api_data database
 c=conn.cursor()
