@@ -49,27 +49,30 @@ future_data=projdata
 
 #Opening the calculated SRS or other measurement file
 srs_data=[]
-##obtaining ranks - choose ranking method based on user input
-#Automatic model selection using Burke rating model
-print('Model selection: ')
-print('Model 1: Points')
-print('Model 2: Burke (accounts for SoS and home strength)')
-model_selection=2 #Need to retune burke calc
-print('Automatic mode, model selection is 2, Burke')
-if model_selection==1:
-	model_csv='analytics/adj_pts_diff_vector.csv'
-	model_function=pts_regress
-        model_str='Points'
-if model_selection==2:
-	model_csv='burke_vector.csv'
-	model_function=burke_regress
-        model_str='Burke Rating'
 
+#Using Burke rating by default, and switching over to pts differential if burke 
+#rating not available.
+
+print('Using first model selection, Burke ratings (incorporating SOS and home team advantage')
+model_csv='burke_vector.csv'
+model_function=burke_regress
+model_str='Burke Rating'
 with open(wkdir+model_csv,'rb') as srsfile:
 	rankdata = csv.reader(srsfile,delimiter=',')
-	for row in rankdata:
+        for row in rankdata:
 		srs_data.append(row)
 	srsfile.close
+
+if srs_data==[]:
+	print('Length of SRS data 0. Burke ratings likely not calculated. Defaulting to pts differential')
+ 	model_csv='analytics/adj_pts_diff_vector.csv'
+	model_function=pts_regress
+        model_str='Points'
+	with open(wkdir+model_csv,'rb') as srsfile:
+		rankdata = csv.reader(srsfile,delimiter=',')
+        	for row in rankdata:
+			srs_data.append(row)
+		srsfile.close
 
 dsrs_data=[]
 winpct_data=[]	
