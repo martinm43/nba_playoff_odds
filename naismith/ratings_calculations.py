@@ -9,7 +9,7 @@ Automation requirements
 
 Human input: Automatic input
 
-Start date for analysis: 6 weeks before
+Start date for analysis: 8 weeks before
 End date for analysis: current date
 Maximum margin of victory: 15
 Average home court advantage: 2
@@ -62,7 +62,7 @@ if burke_solve==1:
     #analysis_end_date=epochtime(analysis_end_date)
     
     #New automated code.
-    analysis_start_date=time.time()-6*7*86400 #two weeks ago
+    analysis_start_date=time.time()-8*7*86400 #two weeks ago
     analysis_end_date=time.time()
     max_MOV=30.0
     home_team_adv=0

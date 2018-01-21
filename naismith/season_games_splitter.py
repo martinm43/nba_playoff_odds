@@ -50,7 +50,6 @@ c=conn.cursor()
 str_input='select id, datetime, start_time, away_team_id,away_pts,home_team_id,home_pts,date \
           from bballref_scores where season_year='+str(season)+' order by datetime asc'
 ballrows=c.execute(str_input).fetchall()
-pprint(ballrows)
 
 #Dec 29 2016 edit: Obtain an up-to-date list of wins from the nba_py_api_data database
 c=conn.cursor()
