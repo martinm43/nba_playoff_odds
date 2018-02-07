@@ -9,7 +9,6 @@ Automation requirements
 
 Human input: Automatic input
 
-Start date for analysis: 8 weeks before
 End date for analysis: current date
 Maximum margin of victory: 15
 Average home court advantage: 2
@@ -62,17 +61,17 @@ if burke_solve==1:
     #analysis_end_date=epochtime(analysis_end_date)
     
     #New automated code.
-    analysis_start_date=time.time()-8*7*86400 #two weeks ago
+    analysis_start_date=time.time()-12*7*86400 #twelve weeks ago
     analysis_end_date=time.time()
     max_MOV=30.0
-    home_team_adv=0
+    home_team_adv=2.0
 
     nba_api_srsdata_query_str='SELECT away_standard_id, away_PTS, home_standard_id, home_PTS\
                              from nba_py_api_data WHERE day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)
     nba_api_srsdata=c.execute(nba_api_srsdata_query_str).fetchall()
     srsdata=nba_api_srsdata
     burke_data=[[s[2],s[0],s[3],s[1]] for s in srsdata if s[1] is not None]
-    burkelist=burke_calc(burke_data,impmode=None,max_MOV=max_MOV,home_team_adv=home_team_adv)
+    burkelist=burke_calc(burke_data,impmode=None,max_MOV=max_MOV,home_team_adv=home_team_adv,win_floor=6.0)
     burkelist=[[b] for b in burkelist]
 else:
     burkelist=None

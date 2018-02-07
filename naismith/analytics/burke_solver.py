@@ -1,7 +1,7 @@
 #all thanks to StackOverflow!
 #minor edits made
 
-def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=2.0):
+def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=2.0,win_floor=4.0):
 
   """ 
   game = list of games in standard format away_team,away_pts,home_team,home_pts
@@ -52,6 +52,14 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
         diff_score=max_MOV
     elif diff_score < -max_MOV:
         diff_score=-max_MOV
+    #Granting a bonus based on "actually winning the game". This is intended to account
+    #for teams like Cleveland or GSW that can "win games when it counts". A crude adjustment
+    #for teams with significantly different talent levels from other teams.
+    if diff_score>0: #bonuses for a win
+        diff_score=max(win_floor,diff_score)
+    else: #demerits for a loss
+        diff_score=min(-win_floor,diff_score)
+    print ([home,away,homescore,awayscore,diff_score])
     S[col] = diff_score
 
   # Now, if our theoretical model is correct, we should be able # to find a performance-factor vector W such that W*M == S 
@@ -80,4 +88,4 @@ def burke_calc(game,impmode='bballref',printing='off',max_MOV=9.0,home_team_adv=
       for t in enumerate(teamStrength):
           print('Team '+str(t[0]+1)+' has a calculated Burke Score of '+str(t[1]))
   return teamStrength
-  
+
