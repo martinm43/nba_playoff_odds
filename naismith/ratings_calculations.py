@@ -37,7 +37,6 @@ except ImportError:
 
 srsdata=[]
 
-tablename='nba_py_api_data'
 filename='nba_data.sqlite'
 conn=sqlite3.connect(wkdir+filename)
 c=conn.cursor()
@@ -52,22 +51,14 @@ srsdata=[[int(m) for m in l] for l in srsdata]
 if burke_solve==1:
     #Calculate Burke SRS
     
-    #Legacy manual code.
-    #analysis_start_date=raw_input('Enter start date for Burke-type analysis (e.g. Jan 1 2016): ')
-    #analysis_end_date=raw_input('Enter end date for Burke-type analysis (e.g. Feb 1 2016): ')
-    #max_MOV=float(raw_input('Enter max margin of victory for Burke-type analysis: '))
-    #home_team_adv=float(raw_input('Enter presumed home team advantage: '))
-    #analysis_start_date=epochtime(analysis_start_date)
-    #analysis_end_date=epochtime(analysis_end_date)
-    
     #New automated code.
-    analysis_start_date=time.time()-12*7*86400 #twelve weeks ago
+    analysis_start_date=time.time()-12*7*86400 #N weeks*days*seconds
     analysis_end_date=time.time()
-    max_MOV=30.0
+    max_MOV=20.0
     home_team_adv=2.0
 
-    nba_api_srsdata_query_str='SELECT away_standard_id, away_PTS, home_standard_id, home_PTS\
-                             from nba_py_api_data WHERE day_datetime >= '+str(analysis_start_date)+' AND day_datetime <= '+str(analysis_end_date)
+    nba_api_srsdata_query_str='SELECT away_team_id, away_PTS, home_team_id, home_PTS\
+                             from bballref_scores WHERE datetime >= '+str(analysis_start_date)+' AND datetime <= '+str(analysis_end_date)
     nba_api_srsdata=c.execute(nba_api_srsdata_query_str).fetchall()
     srsdata=nba_api_srsdata
     burke_data=[[s[2],s[0],s[3],s[1]] for s in srsdata if s[1] is not None]
