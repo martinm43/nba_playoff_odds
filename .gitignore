@@ -1,5 +1,6 @@
 # Database files
 *.sqlite
+*.sqlite-journal
 
 # Results files
 *.txt
