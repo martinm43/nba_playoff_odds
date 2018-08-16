@@ -6,3 +6,6 @@
 
 # Python files, bytecode
 *.pyc
+
+#IPython Notebooks
+*.ipynb
