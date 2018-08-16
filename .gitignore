@@ -1,0 +1,8 @@
+# Database files
+*.sqlite
+
+# Results files
+*.txt
+
+# Python files, bytecode
+*.pyc
