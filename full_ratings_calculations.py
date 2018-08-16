@@ -1,13 +1,8 @@
 """
 Full_Ratings_Calculations
 
-This script calculates the run differentials, pythagorean win expectations,
-and Burke ratings for MLB teams over a given time period with a given
-maximum/minimum margin of victory and average home team advantage for use in the projections
-scripts.
-
-LINTED minus variable names.
-
+To calculate a NBA standings table similar to the MLB one
+for a given date range. TBD!
 """
 
 
