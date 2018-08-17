@@ -50,9 +50,14 @@ for x in future_games_list:
     x.append(SRS_regress(SRS_diff))
 pprint(future_games_list)
 
-"""
+#CALL THE FUNCTION!
+team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
+pprint(team_results)
+
+#Format the results into a table
 teams = Team.select()
 
+"""
 teams_dict = [
     dict(zip(['Team', 'Division'], [i.mlbgames_name, i.division])) for i in teams]
 for i, d in enumerate(teams_dict):
