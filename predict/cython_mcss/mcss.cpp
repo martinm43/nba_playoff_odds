@@ -11,7 +11,7 @@
 #include <armadillo>
 #include "mcss.hpp"
 
-#define MAX_ITER 100
+#define MAX_ITER 50000
 
 using namespace std;
 using namespace arma;
@@ -77,6 +77,162 @@ double SRS_regress(double rating_away, double rating_home)
     float m=0.15;
     float b=-0.15;
     return (double) 1.0/(1.0 + exp(-1*(m*(rating_home-rating_away)+b)));
+}
+
+//Functions accepting void (using raw SQL written by author)
+//and returning matrices for mcss_function (the monte carlo simulation)
+
+mat return_future_games(){
+
+    sqlite3 *db;
+    int rc;
+    string DatabaseName("mlb_data.sqlite");
+    mat error_matrix = ones<mat>(1,1);
+    mat Head_To_Head = zeros<mat>(30,30);
+
+
+    /* S1 - GETTING LIST OF KNOWN WINS */
+    string SQLStatement;
+
+    SQLStatement =  "select count(*) from "
+                    "games as g inner join srs_ratings as ra on "
+                    "ra.team_id=g.away_team inner join srs_ratings as rh on "
+                    "rh.team_id=g.home_team where g.scheduled_date >= datetime('now') "
+                    "and ra.rating_date = (select max(rating_date) from srs_ratings) "
+                    "and rh.rating_date = (select max(rating_date) from srs_ratings);";
+
+    sqlite3_stmt *stmt;
+
+    rc = sqlite3_open(DatabaseName.c_str(), &db);
+    if( rc ){
+     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+     sqlite3_close(db);
+     return error_matrix;
+    }
+    
+    rc = sqlite3_prepare_v2(db, SQLStatement.c_str(),
+                            -1, &stmt, NULL);
+    if (rc != SQLITE_OK) {
+        cerr << "SELECT failed: " << sqlite3_errmsg(db) << endl;
+        sqlite3_finalize(stmt);
+        return error_matrix;
+    }
+
+    static int num_future_games;
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+
+        num_future_games = sqlite3_column_int(stmt,0);
+    }
+
+    cout << "Number of games to predict: " << num_future_games << endl;
+
+    mat future_games = zeros<mat>(num_future_games,3);
+
+
+    SQLStatement =  "select g.away_team, ra.rating, g.home_team, rh.rating from "
+                    "games as g inner join srs_ratings as ra on "
+                    "ra.team_id=g.away_team inner join srs_ratings as rh on "
+                    "rh.team_id=g.home_team where g.scheduled_date >= datetime('now') "
+                    "and ra.rating_date = (select max(rating_date) from srs_ratings) "
+                    "and rh.rating_date = (select max(rating_date) from srs_ratings) "
+                    "order by g.id asc";
+
+    rc = sqlite3_prepare_v2(db, SQLStatement.c_str(),
+                            -1, &stmt, NULL);
+
+    if (rc != SQLITE_OK) {
+        cerr << "SELECT failed: " << sqlite3_errmsg(db) << endl;
+        sqlite3_finalize(stmt);
+        return error_matrix;
+    }
+
+    int future_games_row = 0;
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+
+         //Debug print to screen - example (away team, away rtg, home team, home rtg)
+         future_games.row(future_games_row)[0] = sqlite3_column_int(stmt,0);
+         future_games.row(future_games_row)[1] = sqlite3_column_int(stmt,2);
+
+         double away_team_rtg = sqlite3_column_double(stmt,1);
+         double home_team_rtg = sqlite3_column_double(stmt,3);
+
+         future_games.row(future_games_row)[2] = SRS_regress(away_team_rtg,home_team_rtg);
+         /*
+            TO DO: Add the actual calculation of the binomial win odds to the array. It may not be 
+            possible within ihis loop, in order to allow for debugging against its Python counterpart.
+            Be careful! Also you'll have to expand the array/perform additional downstream calculations - MAM
+         */
+         future_games_row++;
+         //cout << future_games_row << endl;
+    }
+
+    sqlite3_finalize(stmt);
+
+    if (rc == SQLITE_OK) {
+        cerr << "Processing of future games' binomial win probabilities is complete." << endl;
+    }
+    
+    //cout << future_games << endl;
+    return future_games;
+}
+
+stdteamvec return_league_teams(){
+
+    stdteamvec list_of_teams;
+
+    stdteamvec error_team_list;
+    Team error_team(-1,"ERROR","ERROR","ERROR","ERROR",-99);
+    error_team_list.push_back(error_team);
+
+    sqlite3 *db;
+    int rc;
+    string DatabaseName("mlb_data.sqlite");
+
+    /* S1 - GETTING LIST OF KNOWN WINS */
+    string SQLStatement;
+
+    SQLStatement = "select t.id,t.mlbgames_name,t.abbreviation,t.division,t.league,s.rating "
+                    "from teams as t "
+                    "inner join SRS_Ratings as s "
+                    "on s.team_id=t.id "
+                    "where s.rating <> 0 "
+                    "and s.rating_date = (select rating_date from SRS_ratings "
+                    "order by rating_date desc limit 1) "
+                    "order by t.id asc ";
+
+    sqlite3_stmt *stmt;
+
+    rc = sqlite3_open(DatabaseName.c_str(), &db);
+    if( rc ){
+     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+     sqlite3_close(db);
+     return error_team_list;
+    }
+    
+    rc = sqlite3_prepare_v2(db, SQLStatement.c_str(),
+                            -1, &stmt, NULL);
+    if (rc != SQLITE_OK) {
+        cerr << "SELECT failed: " << sqlite3_errmsg(db) << endl;
+        sqlite3_finalize(stmt);
+        return error_team_list;
+    }
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+
+        int team_id = sqlite3_column_int(stmt,0);
+        string mlbgames_name = string(reinterpret_cast<const char *>(sqlite3_column_text(stmt,1)));
+        string abbreviation = string(reinterpret_cast<const char *>(sqlite3_column_text(stmt,2)));
+        string division = string(reinterpret_cast<const char *>(sqlite3_column_text(stmt,3)));
+        string league = string(reinterpret_cast<const char *>(sqlite3_column_text(stmt,4)));
+        float rating = sqlite3_column_double(stmt,5);
+        list_of_teams.push_back(Team(team_id,mlbgames_name,abbreviation,division,league,rating));
+   
+    }
+
+    cout << "Games successfully entered" << endl;
+    return list_of_teams;
 }
 
 //The Monte Carlo "muscle." All SQL based functions are abstracted outside this loop
@@ -258,11 +414,8 @@ int main()
     stdteamvec teams;
 
     mat head_to_head_results;
-    head_to_head_results = return_head_to_head();
     mat future_games;
-    future_games = return_future_games();
     mat simulation_results;
-    teams = return_league_teams();
     simulation_results = mcss_function(head_to_head_results,future_games,teams);
     
     /* S2 - GETTING THE TEAMS AND THEIR MOST RECENT RATINGS */
