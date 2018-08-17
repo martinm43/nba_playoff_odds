@@ -325,38 +325,38 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
         vector<Team>::const_iterator first = sim_teams.begin();
         vector<Team>::const_iterator mid = sim_teams.begin() + half_size;
         vector<Team>::const_iterator last = sim_teams.end();
-        vector<Team> amer_league(first,mid);
-        vector<Team> nat_league(mid+1,last); //When you split, you need to start one more entry over.
+        vector<Team> east_conf(first,mid);
+        vector<Team> west_conf(mid+1,last); //When you split, you need to start one more entry over.
 
         //American League Wildcard Teams
-        vector<Team>::const_iterator amer_league_ac_first = amer_league.begin()+1;
-        vector<Team>::const_iterator amer_league_ac_end = amer_league.begin()+4;
-        vector<Team> amer_league_wc(amer_league_ac_first,amer_league_ac_end);
-        amer_league_wc.insert(amer_league_wc.end(),amer_league.begin()+6,amer_league.begin()+9);
-        amer_league_wc.insert(amer_league_wc.end(),amer_league.begin()+11,amer_league.begin()+14);
+        vector<Team>::const_iterator east_conf_ac_first = east_conf.begin()+1;
+        vector<Team>::const_iterator east_conf_ac_end = east_conf.begin()+4;
+        vector<Team> east_conf_wc(east_conf_ac_first,east_conf_ac_end);
+        east_conf_wc.insert(east_conf_wc.end(),east_conf.begin()+6,east_conf.begin()+9);
+        east_conf_wc.insert(east_conf_wc.end(),east_conf.begin()+11,east_conf.begin()+14);
 
         //Sort then print - TO DO: convert to a generic struct don't use the name struct
-        sort(amer_league_wc.begin(),amer_league_wc.end(),wins_sort());
-        for(vector<Team>::iterator it = amer_league_wc.begin(); it != amer_league_wc.end(); ++it){
+        sort(east_conf_wc.begin(),east_conf_wc.end(),wins_sort());
+        for(vector<Team>::iterator it = east_conf_wc.begin(); it != east_conf_wc.end(); ++it){
                 string team_name = (*it).get_mlbgames_name();
         }
 
         //National League Wildcard Teams
-        vector<Team>::const_iterator nat_league_ac_first = nat_league.begin()+1;
-        vector<Team>::const_iterator nat_league_ac_end = nat_league.begin()+4;
-        vector<Team> nat_league_wc(nat_league_ac_first,nat_league_ac_end);
-        nat_league_wc.insert(nat_league_wc.end(),nat_league.begin()+6,nat_league.begin()+9);
-        nat_league_wc.insert(nat_league_wc.end(),nat_league.begin()+11,nat_league.begin()+14);
+        vector<Team>::const_iterator west_conf_ac_first = west_conf.begin()+1;
+        vector<Team>::const_iterator west_conf_ac_end = west_conf.begin()+4;
+        vector<Team> west_conf_wc(west_conf_ac_first,west_conf_ac_end);
+        west_conf_wc.insert(west_conf_wc.end(),west_conf.begin()+6,west_conf.begin()+9);
+        west_conf_wc.insert(west_conf_wc.end(),west_conf.begin()+11,west_conf.begin()+14);
 
         //Sort then print - TO DO: convert to a generic struct don't use the name struct
-        sort(nat_league_wc.begin(),nat_league_wc.end(),wins_sort());
-        for(vector<Team>::iterator it = nat_league_wc.begin(); it != nat_league_wc.end(); ++it){
+        sort(west_conf_wc.begin(),west_conf_wc.end(),wins_sort());
+        for(vector<Team>::iterator it = west_conf_wc.begin(); it != west_conf_wc.end(); ++it){
                 string team_name = (*it).get_mlbgames_name();
         }
 
         for(int i=0;i<2;i++){
-                int al_wc_team_id = amer_league_wc[i].get_team_id();
-                int nl_wc_team_id = nat_league_wc[i].get_team_id();
+                int al_wc_team_id = east_conf_wc[i].get_team_id();
+                int nl_wc_team_id = west_conf_wc[i].get_team_id();
                 sim_playoff_total.row(al_wc_team_id-1)[1]++;
                 sim_playoff_total.row(nl_wc_team_id-1)[1]++;
         }
@@ -403,96 +403,6 @@ stdvecvec simulations_result_vectorized(stdvecvec head_to_head_list_python, stdv
 //C++ Printing and processing function.
 int main()
 {
-
-    sqlite3 *db;
-    int rc;
-    string SQLStatement;
-    string DatabaseName("mlb_data.sqlite");
-    sqlite3_stmt *stmt;
-
-    cout << "running main" << endl;
-    stdteamvec teams;
-
-    mat head_to_head_results;
-    mat future_games;
-    mat simulation_results;
-    simulation_results = mcss_function(head_to_head_results,future_games,teams);
-    
-    /* S2 - GETTING THE TEAMS AND THEIR MOST RECENT RATINGS */
-
-    rc = sqlite3_open(DatabaseName.c_str(), &db);
-    if( rc ){
-     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-     sqlite3_close(db);
-     return 1;
-    }
-    
-    SQLStatement =  "select t.id,t.mlbgames_name,t.abbreviation,t.division,t.league,s.rating "
-                    "from teams as t "
-                    "inner join SRS_Ratings as s "
-                    "on s.team_id=t.id "
-                    "where s.rating <> 0 "
-                    "and s.rating_date = (select rating_date from SRS_ratings "
-                    "order by rating_date desc limit 1) "
-                    "order by t.id asc ";
-
-    rc = sqlite3_prepare_v2(db, SQLStatement.c_str(),
-                            -1, &stmt, NULL);
-
-    if (rc != SQLITE_OK) {
-        cerr << "SELECT failed: " << sqlite3_errmsg(db) << endl;
-        sqlite3_finalize(stmt);
-        return 1;
-    }
-
-    for(int i=0;i<30;i++){
-        float wild_card_odds = simulation_results.row(i)[1];
-        float division_odds = simulation_results.row(i)[0];
-        float playoff_odds = simulation_results.row(i)[0] + simulation_results.row(i)[1];
-        teams[i].set_wild_card_odds(wild_card_odds);
-        teams[i].set_division_odds(division_odds);
-        teams[i].set_playoff_odds(playoff_odds);
-        teams[i].set_total_wins(simulation_results.row(i)[2]);
-    }
-
-
-    sort(teams.begin(),teams.end(),teams_sort());
-
-
-    //Heading printing.
-    cout << left << setw(14) << "Division " << "|" 
-         << left << setw(13) << " Team " << "|" 
-         << left << setw(10) << " Average Wins " << "|"
-         << left << setw(10) << " Wild Card Odds " << "|"
-         << left << setw(10) << " Division Odds " << "|"
-         << left << setw(10) << " Playoff Odds " << endl;
-
-    int header_length = 90; //trial and error
-
-    //Enumerating teams.
-    for(int i=0;i<30;i++){
-            if( (i == 0) || (i == 5) || (i == 10) || (i == 15) | (i == 20) | (i == 25)){
-                for(int i=0;i<header_length;i++){
-                cout<<"*";
-                }
-            cout<<endl;
-            }
-        //cout << teams[i].get_division() << endl;
-        string team_division = teams[i].get_division();
-        string team_name = teams[i].get_mlbgames_name();
-        int team_wins = teams[i].get_total_wins();
-        float wild_card_odds = teams[i].get_wild_card_odds();
-        float division_odds = teams[i].get_division_odds();
-        float playoff_odds = teams[i].get_playoff_odds();
-        cout << left << setw(13) << team_division << " | " 
-             << left << setw(11) << team_name << " | " 
-             << right << setw(12) << team_wins << " | " 
-             << fixed << setprecision(1) << right << setw(13) << wild_card_odds*100.0 << "%" << " | " 
-             << fixed << setprecision(1) << right << setw(12) << division_odds*100.0 << "%" << " | " 
-             << fixed << setprecision(1) << right << setw(11) << playoff_odds*100.0 << "%" << endl;
-    }
-    cout << endl;
-    cout << "Total number of simulations: " << MAX_ITER << endl;
 
 return 0;
 }
