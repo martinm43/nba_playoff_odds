@@ -47,14 +47,12 @@ def pythagorean_wins(Game,\
     else:
       return 0
 
-"""
-def league_pythagorean_wins(season_year,mincalcdate,maxcalcdate,source_option="bballref_scores",win_exp=16.5):
+def league_pythagorean_wins(GAME_ORM,mincalcdatetime,maxcalcdatetime,win_exp=16.5):
   results_list=[]
   for i in range(1,31):
-    results_list.append([team_abbreviation(i),pythagorean_wins(i,season_year,win_exp=win_exp,source_option=source_option\
-    ,mincalcdate=epochtime(mincalcdate),maxcalcdate=epochtime(maxcalcdate))])
+    results_list.append([i,pythagorean_wins(GAME_ORM,i,win_exp=win_exp,\
+    mincalcdatetime=mincalcdatetime,maxcalcdatetime=maxcalcdatetime)])
   return sorted(results_list, key=lambda x: x[1])
-"""
 """
 if __name__=='__main__':
   results_list=[]

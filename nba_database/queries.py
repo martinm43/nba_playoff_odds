@@ -28,3 +28,13 @@ def games_query(start_datetime,end_datetime):
                     for g in played_games]
     return played_games
 
+def team_abbreviation(team_alphabetical_id):
+    """
+    Converts team numerical ids into team names.
+    """
+    from nba_data_models import ProApiTeams
+    s_query = ProApiTeams.select(ProApiTeams.abbreviation).\
+      where(ProApiTeams.bball_ref == team_alphabetical_id)
+    s_result = s_query[0]
+    return s_result.abbreviation
+
