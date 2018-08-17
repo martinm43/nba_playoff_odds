@@ -328,47 +328,13 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
         vector<Team> east_conf(first,mid);
         vector<Team> west_conf(mid+1,last); //When you split, you need to start one more entry over.
 
-        //American League Wildcard Teams
-        vector<Team>::const_iterator east_conf_ac_first = east_conf.begin()+1;
-        vector<Team>::const_iterator east_conf_ac_end = east_conf.begin()+4;
-        vector<Team> east_conf_wc(east_conf_ac_first,east_conf_ac_end);
-        east_conf_wc.insert(east_conf_wc.end(),east_conf.begin()+6,east_conf.begin()+9);
-        east_conf_wc.insert(east_conf_wc.end(),east_conf.begin()+11,east_conf.begin()+14);
-
-        //Sort then print - TO DO: convert to a generic struct don't use the name struct
-        sort(east_conf_wc.begin(),east_conf_wc.end(),wins_sort());
-        for(vector<Team>::iterator it = east_conf_wc.begin(); it != east_conf_wc.end(); ++it){
-                string team_name = (*it).get_mlbgames_name();
-        }
-
-        //National League Wildcard Teams
-        vector<Team>::const_iterator west_conf_ac_first = west_conf.begin()+1;
-        vector<Team>::const_iterator west_conf_ac_end = west_conf.begin()+4;
-        vector<Team> west_conf_wc(west_conf_ac_first,west_conf_ac_end);
-        west_conf_wc.insert(west_conf_wc.end(),west_conf.begin()+6,west_conf.begin()+9);
-        west_conf_wc.insert(west_conf_wc.end(),west_conf.begin()+11,west_conf.begin()+14);
-
-        //Sort then print - TO DO: convert to a generic struct don't use the name struct
-        sort(west_conf_wc.begin(),west_conf_wc.end(),wins_sort());
-        for(vector<Team>::iterator it = west_conf_wc.begin(); it != west_conf_wc.end(); ++it){
-                string team_name = (*it).get_mlbgames_name();
-        }
-
-        for(int i=0;i<2;i++){
-                int al_wc_team_id = east_conf_wc[i].get_team_id();
-                int nl_wc_team_id = west_conf_wc[i].get_team_id();
-                sim_playoff_total.row(al_wc_team_id-1)[1]++;
-                sim_playoff_total.row(nl_wc_team_id-1)[1]++;
-        }
-
-
        //iterate through list of teams to determine division winners.
         for(int i=0;i<30;i++){
             string team_name = sim_teams[i].get_mlbgames_name();
             string team_division = sim_teams[i].get_division();
             int team_id = sim_teams[i].get_team_id();
 
-            if( (i == 0) || (i == 5) || (i == 10) || (i == 15) | (i == 20) | (i == 25)){
+            if( ((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))){
                 sim_playoff_total.row(team_id-1)[0]++;
             }
             /* need to sort the teams that aren't leaders in each league
