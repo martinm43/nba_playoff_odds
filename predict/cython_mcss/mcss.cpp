@@ -11,7 +11,7 @@
 #include <armadillo>
 #include "mcss.hpp"
 
-#define MAX_ITER 50
+#define MAX_ITER 50000
 
 using namespace std;
 using namespace arma;
@@ -333,7 +333,6 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             string team_name = sim_teams[i].get_mlbgames_name();
             string team_division = sim_teams[i].get_division();
             int team_id = sim_teams[i].get_team_id();
-            int total_wins = sim_teams[i].get_total_wins();
             //cout << team_name << ":" << team_division << ":" << total_wins << endl;
             if( ((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))){
                 sim_playoff_total.row(team_id-1)[0]++;

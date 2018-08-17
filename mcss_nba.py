@@ -24,9 +24,9 @@ def format_percent(percent_float):
     return str(percent_float) + '%'
 
 #Set parameters for analysis
-start_datetime = datetime(2010,10,1)
-end_datetime = datetime(2011,01,1)
-season_year = 2011
+start_datetime = datetime(1997,10,1)
+end_datetime = datetime(1998,03,1)
+season_year = 1998
 
 # Get List Of Known Wins
 games_list = games_query(start_datetime,end_datetime)
@@ -51,11 +51,11 @@ for x in future_games_list:
 #pprint(future_games_list)
 
 #CALL THE FUNCTION!
-pprint(games_won_list_cpp)
-pprint(future_games_list)
-pprint(teams_list)
+#pprint(games_won_list_cpp)
+#pprint(future_games_list)
+#pprint(teams_list)
 team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
-pprint(team_results)
+#pprint(team_results)
 
 #Format the results into a table
 teams = Team.select().order_by(Team.bball_ref)
@@ -90,3 +90,4 @@ results_table = tabulate(
 #Print your results:
 print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
 print(results_table)
+print("Note that the earlier 'division winners seeded higher' logic is not implemented in this progam")
