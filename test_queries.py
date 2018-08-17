@@ -7,7 +7,7 @@ from nba_database.queries import games_query
 #Analytics imports
 from analytics.SRS import SRS
 
-start_datetime = datetime(2016,01,01)
+start_datetime = datetime(1997,01,01)
 end_datetime = datetime(2016,03,31)
 
 games_list=games_query(start_datetime,end_datetime)

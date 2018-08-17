@@ -6,11 +6,22 @@ def SRS(
         home_team_adv=2.0,
         win_floor=4.0):
     """
+
+    Inputs:
+
     game = list of games in standard format away_team,away_pts,home_team,home_pts
     impmode = file importation mode
     printing = debug printing optional
     max_MOV = maximum margin of victory
-    home_team_adv = presumed home team advantage  """
+    home_team_adv = presumed home team advantage  
+
+
+
+    Outputs:
+    An array of team ratings in the alphabetical order corresponding to the overall league.
+    E.G in the NBA: ATL ... WAS
+
+    """
 
     import math
     import datetime
