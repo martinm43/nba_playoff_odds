@@ -5,6 +5,7 @@
 #Choose working directory.
 from nba_data_models import BballrefScores as Game
 import time, datetime
+import numpy as np
 
 ###################
 # Time Conversion #

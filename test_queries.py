@@ -15,7 +15,7 @@ end_datetime = datetime(2008,04,30)
 
 games_list=games_query(start_datetime,end_datetime)
 
-pprint(games_won_query(games_list))
+pprint(games_won_query(games_list, return_format="matrix"))
 
 #Pythagorean Wins Testing
 lpw_results = league_pythagorean_wins(Game,mincalcdatetime=epochtime(start_datetime),\
