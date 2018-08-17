@@ -347,7 +347,6 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
     for(int i=0;i<30;i++){
         sim_playoff_total.row(i)[0] = sim_playoff_total.row(i)[0]/MAX_ITER;
         sim_playoff_total.row(i)[1] = sim_playoff_total.row(i)[1]/MAX_ITER;
-        sim_playoff_total.row(i)[2] = sim_playoff_total.row(i)[2]/MAX_ITER;
     }
 
     cout << MAX_ITER << " simulations complete." << endl;
