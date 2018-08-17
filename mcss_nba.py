@@ -24,9 +24,9 @@ def format_percent(percent_float):
     return str(percent_float) + '%'
 
 #Set parameters for analysis
-start_datetime = datetime(2013,10,1)
-end_datetime = datetime(2014,03,1)
-season_year = 2014
+start_datetime = datetime(2010,10,1)
+end_datetime = datetime(2011,01,1)
+season_year = 2011
 
 # Get List Of Known Wins
 games_list = games_query(start_datetime,end_datetime)
@@ -57,7 +57,6 @@ pprint(teams_list)
 team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
 pprint(team_results)
 
-"""
 #Format the results into a table
 teams = Team.select().order_by(Team.bball_ref)
 
@@ -91,4 +90,3 @@ results_table = tabulate(
 #Print your results:
 print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
 print(results_table)
-"""
