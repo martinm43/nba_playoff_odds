@@ -3,12 +3,8 @@
 #qpy:console
 
 #Choose working directory.
-import os
-cwd=os.getcwd()
-
-import sqlite3
+from nba_data_models import BballrefScores
 import time, datetime
-from pprint import pprint
 
 def epochtime(str_time):
   """
@@ -17,65 +13,42 @@ def epochtime(str_time):
   datetime_obj=datetime.datetime.strptime(str_time,"%b %d %Y")
   return time.mktime(datetime_obj.timetuple())
 
-def stringtime(epoch_time_num):
-  return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(epoch_time_num))
+def games_query(start_datetime,end_datetime,return_format="list"):
+    """
+    Returns the number of games won to date in either a straight
+    numerical list, a list of dicts, or a head to head matrix
+    """
+    played_games = Game.select().where(
+        Game.scheduled_date < end_datetime,
+        Game.scheduled_date > start_datetime).order_by(Game.scheduled_date)
 
-"""
-def epochtime_numeric_month(str_time):
-  datetime_obj=datetime.datetime.strptime(str_time,"%m %d %Y")
-  return time.mktime(datetime_obj.timetuple())
-
-def epochdate_nba_api(str_time):
-  datetime_obj=datetime.datetime.strptime(str_time,"%Y-%m-%d").strftime('%a %b %d %Y')
-  return datetime_obj
-  
-def epochtime_nba_api(str_time):
-  datetime_obj=datetime.datetime.strptime(str_time,"%Y-%m-%d")
-  return time.mktime(datetime_obj.timetuple())
-
-def games_query(start,end,datemode='off',source_table='bballref_scores'):
-  db_dir='nba_data.sqlite'
-  conn=sqlite3.connect(db_dir)
-  c=conn.cursor()
-  source_table=='bballref_scores':
-    if datemode=='off':
-        str_input='SELECT away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
-                  WHERE datetime BETWEEN '+str(start)+' AND '+str(end)
+    played_games = [[g.away_team, g.away_runs, g.home_team, g.home_runs]
+                    for g in played_games]
+    winlist = [x[0] if x[1] > x[3] else x[2] for x in played_games]
+    winrows = []
+    if return_format == 'list_of_lists':
+        winlist = [x[0] if x[1] > x[3] else x[2] for x in played_games]
+        winrows = []
+        for i in range(1, 31):
+            winrows.append([winlist.count(i)])
+        return_value = winrows
+    elif return_format == 'list':
+        winlist = [x[0] if x[1] > x[3] else x[2] for x in played_games]
+        winrows = []
+        for i in range(1, 31):
+            winrows.append(winlist.count(i))
+        return_value = winrows
+    elif return_format == 'matrix':
+        win_matrix = np.zeros((30, 30))
+        for x in played_games:
+            if x[1] > x[3]:
+                win_matrix[x[0] - 1, x[2] - 1] += 1
+            elif x[3] > x[1]:
+                win_matrix[x[2] - 1, x[0] - 1] += 1
+        return win_matrix
     else:
-        str_input='SELECT date,away_team_id, away_pts, home_team_id, home_pts FROM bballref_scores\
-                  WHERE datetime BETWEEN '+str(start)+' AND '+str(end)
-  games=c.execute(str_input).fetchall()
-  return games
+        print('invalid option')
+        return_value = 0
+    return return_value
 
-def teams_query():
-  print(cwd+'/nba_data.sqlite')
-  conn=sqlite3.connect(cwd+'/nba_data.sqlite')
-  c=conn.cursor()
-  str_input='SELECT bball_ref_id,abbreviation,conf_or_league FROM pro_api_teams'
-  teams=c.execute(str_input).fetchall()
-  pprint(teams)
-  return teams
-
-
-def current_season():
-    #Get current season
-    #Get year
-    #Is may this year to come or has it past
-    #if it has past then current nba season is year+1
-    #if not current year
-    now=datetime.datetime.now()
-    if now.month<5:
-        season=now.year
-    else:
-        season=now.year+1
-    return season
-
-if __name__=='__main__':
-  #Not yet tested
-  start_input=raw_input('Please enter a start date, format May 6 2016')
-  start_secs=epochtime(start_input)
-  end_input=raw_input('Please enter an end date, format May 20, 2016')
-  end_secs=epochtime(end_input)
-  print(len(games_query(start_secs,end_secs,datemode='On')))
-  
 """
