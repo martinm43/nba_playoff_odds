@@ -3,7 +3,7 @@
 #qpy:console
 
 #Choose working directory.
-from nba_data_models import BballrefScores
+from nba_data_models import BballrefScores as Game
 import time, datetime
 
 def epochtime(str_time):
@@ -13,42 +13,18 @@ def epochtime(str_time):
   datetime_obj=datetime.datetime.strptime(str_time,"%b %d %Y")
   return time.mktime(datetime_obj.timetuple())
 
-def games_query(start_datetime,end_datetime,return_format="list"):
+def games_query(start_datetime,end_datetime):
     """
-    Returns the number of games won to date in either a straight
-    numerical list, a list of dicts, or a head to head matrix
+    Input: datetime objects
+    Output: [away_team, away_pts, home_team, home_pts] list
     """
+    start_epochtime=time.mktime(start_datetime.timetuple())
+    end_epochtime=time.mktime(end_datetime.timetuple())
     played_games = Game.select().where(
-        Game.scheduled_date < end_datetime,
-        Game.scheduled_date > start_datetime).order_by(Game.scheduled_date)
+        Game.datetime < end_epochtime,
+        Game.datetime > start_epochtime).order_by(Game.datetime)
 
-    played_games = [[g.away_team, g.away_runs, g.home_team, g.home_runs]
+    played_games = [[g.away_team_id, g.away_pts, g.home_team_id, g.home_pts]
                     for g in played_games]
-    winlist = [x[0] if x[1] > x[3] else x[2] for x in played_games]
-    winrows = []
-    if return_format == 'list_of_lists':
-        winlist = [x[0] if x[1] > x[3] else x[2] for x in played_games]
-        winrows = []
-        for i in range(1, 31):
-            winrows.append([winlist.count(i)])
-        return_value = winrows
-    elif return_format == 'list':
-        winlist = [x[0] if x[1] > x[3] else x[2] for x in played_games]
-        winrows = []
-        for i in range(1, 31):
-            winrows.append(winlist.count(i))
-        return_value = winrows
-    elif return_format == 'matrix':
-        win_matrix = np.zeros((30, 30))
-        for x in played_games:
-            if x[1] > x[3]:
-                win_matrix[x[0] - 1, x[2] - 1] += 1
-            elif x[3] > x[1]:
-                win_matrix[x[2] - 1, x[0] - 1] += 1
-        return win_matrix
-    else:
-        print('invalid option')
-        return_value = 0
-    return return_value
+    return played_games
 
-"""
