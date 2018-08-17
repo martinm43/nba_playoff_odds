@@ -252,7 +252,7 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
     mat MCSS_Head_To_Head = zeros<mat>(30,30);
     mat Sim_Total = zeros<mat>(30,30);
     mat debug_total = zeros<mat>(30,30);
-    mat sim_playoff_total = zeros<mat>(30,3);
+    mat sim_playoff_total = zeros<mat>(30,2); // [Wins, Playoff Odds], other columns can be added later.
     mat error_matrix = ones<mat>(1,1);
 
     mat Head_To_Head = mat_head_to_head;
@@ -308,7 +308,7 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
         mat total_wins = sum(debug_total.t());
 
         for(int i=0;i<30;i++){
-            sim_playoff_total.row(i)[2] = sim_playoff_total.row(i)[2] +  total_wins[i];
+            sim_playoff_total.row(i)[1] = sim_playoff_total.row(i)[1] +  total_wins[i];
             //cout << sim_playoff_total.row(i)[2] << endl;
         }
         //Create a copy of the teams list, only defined in the scope of this loop
@@ -333,7 +333,8 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             string team_name = sim_teams[i].get_mlbgames_name();
             string team_division = sim_teams[i].get_division();
             int team_id = sim_teams[i].get_team_id();
-
+            int total_wins = sim_teams[i].get_total_wins();
+            //cout << team_name << ":" << team_division << ":" << total_wins << endl;
             if( ((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))){
                 sim_playoff_total.row(team_id-1)[0]++;
             }

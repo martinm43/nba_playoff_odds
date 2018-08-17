@@ -51,12 +51,12 @@ struct teams_sort
 {
     inline bool operator()(const Team& Team1, const Team& Team2)
     {
-        if (Team1.get_division() == Team2.get_division())
+        if (Team1.get_league() == Team2.get_league())
             if (Team1.get_total_wins() > Team2.get_total_wins())
                 return true;
             else
                 return false;
-        else if (Team1.get_division() < Team2.get_division())
+        else if (Team1.get_league() < Team2.get_league())
             return true;
         else
             return false;
