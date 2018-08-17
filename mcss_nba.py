@@ -2,43 +2,44 @@
 Endfile for testing integration with the mcss.cpp shared library
 Using the python library developed using C++ to rapidly speed up how standings are printed and presented
 and allow for integration with more 'modern' interfaces -think flask or Django
+
 """
 
+#Future import first
 from __future__ import print_function, division
-
-from tabulate import tabulate
-from mcss_ext2 import simulations_result_vectorized
+#Standard imports
 from pprint import pprint
-from mlb_data_models import Team, database
-
-# define a "percentization function":
-
-
+from datetime import datetime
+#Third party imports
+from tabulate import tabulate
+#Library imports
+from predict.cython_mcss.mcss_ext2 import simulations_result_vectorized
+from analytics.SRS import SRS
+from nba_database.nba_data_models import ProApiTeams as Team
+from nba_database.nba_data_models import database
+from nba_database.queries import games_query, games_won_query
+#Custom local function for formatting
 def format_percent(percent_float):
     return str(percent_float) + '%'
 
+#Set parameters for analysis
+start_datetime = datetime(2015,10,1)
+end_datetime = datetime(2016,03,1)
 
-# get list of known wins
-from supports import games_won_to_date, future_games_list
-games_won_list_cpp = games_won_to_date(return_format="matrix").tolist()
-fg_list_cpp = future_games_list()
+# Get List Of Known Wins
+games_list = games_query(start_datetime,end_datetime)
+games_won_list_cpp = games_won_query(games_list,return_format="matrix").tolist()
+pprint(games_won_list_cpp)
 
-# get the team rating data
-query = database.execute_sql("select * from recent_ratings")
-teams_list=[]
-for q in query:
-    team=[]
-    team.append(int(q[0]))
-    team.append(q[1])
-    team.append(q[2])
-    team.append(q[3])
-    team.append(q[4])
-    team.append(float(q[5]))
-    teams_list.append(team)
+# Get Team Ratings (and create Team object list)
+ratings_list=SRS(games_query(start_datetime,end_datetime)).tolist() #get ratings for that time.
+teams_list=Team.select().order_by(Team.bball_ref)
+teams_list=[[x.bball_ref, x.team_name, x.abbreviation,\
+                    x.division, x.conf_or_league] for x in teams_list]
+for i, x in enumerate(teams_list):
+    x.append(ratings_list[i])
 
-
-team_results = simulations_result_vectorized(games_won_list_cpp, fg_list_cpp,teams_list)
-
+"""
 teams = Team.select()
 
 teams_dict = [
@@ -76,3 +77,4 @@ results_table = tabulate(
     numalign='left')
 
 print(results_table)
+"""

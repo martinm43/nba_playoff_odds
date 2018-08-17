@@ -131,6 +131,7 @@ class ProApiTeams(BaseModel):
     conf_or_league = TextField(null=True)
     team = IntegerField(db_column='team_id', null=True)
     team_name = TextField(null=True)
+    division = TextField(null=True)
 
     class Meta:
         db_table = 'pro_api_teams'
