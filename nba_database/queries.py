@@ -82,3 +82,9 @@ def games_won_query(played_games,return_format="list"):
         return_value = 0
     return return_value
 
+def future_games_query(season_datetime, season_year):
+    season_epochtime = epochtime(season_datetime)
+    query = Game.select().where(Game.datetime>=season_epochtime,\
+                                Game.season_year==season_year)
+    matches = [[x.away_team_id,x.home_team_id] for x in query]
+    return matches
