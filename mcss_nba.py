@@ -24,9 +24,9 @@ def format_percent(percent_float):
     return str(percent_float) + '%'
 
 #Set parameters for analysis
-start_datetime = datetime(2015,10,1)
-end_datetime = datetime(2016,03,1)
-season_year = 2016
+start_datetime = datetime(2013,10,1)
+end_datetime = datetime(2014,03,1)
+season_year = 2014
 
 # Get List Of Known Wins
 games_list = games_query(start_datetime,end_datetime)
@@ -55,42 +55,35 @@ team_results = simulations_result_vectorized(games_won_list_cpp, future_games_li
 pprint(team_results)
 
 #Format the results into a table
-teams = Team.select()
+teams = Team.select().order_by(Team.bball_ref)
 
 teams_dict = [
-    dict(zip(['Team', 'Division'], [i.team_name, i.division])) for i in teams]
-"""
-for i, d in enumerate(teams_dict):
-    d['Win Division'] = round(team_results[i][0] * 100.0, 1)
-    d['Win Wild Card'] = round(team_results[i][1] * 100.0, 1)
-    d['Avg. Wins'] = round(team_results[i][2], 1)
-    d['Make Playoffs'] = d['Win Division'] + d['Win Wild Card']
-    # Convert into percentages for printing
-    d['Win Division'] = format_percent(d['Win Division'])
-    d['Win Wild Card'] = format_percent(d['Win Wild Card'])
-    d['Make Playoffs'] = format_percent(d['Make Playoffs'])
+    dict(zip(['Team', 'Conference'], [i.team_name, i.conf_or_league])) for i in teams]
 
-teams_dict.sort(key=lambda x: (x['Division'], -x['Avg. Wins']))
+for i, d in enumerate(teams_dict):
+    d['Avg. Wins'] = round(team_results[i][1], 1)
+    d['Playoff %'] = round(team_results[i][0] * 100.0, 1)
+    # Convert into percentages for printing
+    d['Playoff %'] = format_percent(d['Playoff %'])
+
+teams_dict.sort(key=lambda x: (x['Conference'], -x['Avg. Wins']))
 
 team_tuples = [
-    (d['Division'],
+    (d['Conference'],
      d['Team'],
      d['Avg. Wins'],
-     d['Win Division'],
-     d['Win Wild Card'],
-     d['Make Playoffs']) for d in teams_dict]
+     d['Playoff %']) for d in teams_dict]
 
 results_table = tabulate(
     team_tuples,
     headers=[
-        'Division',
+        'Conference',
         'Team',
         'Avg. Wins',
-        'Win Division',
-        'Win Wild Card',
-        'Make Playoffs'],
+        'Playoff %'],
     tablefmt='rst',
     numalign='left')
 
+#Print your results:
+print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
 print(results_table)
-"""
