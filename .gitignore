@@ -11,3 +11,7 @@
 
 #IPython Notebooks
 *.ipynb
+
+#Cpython and C++ codes.
+*.o
+*.so

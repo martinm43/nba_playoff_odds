@@ -39,7 +39,7 @@ teams_list=[[x.bball_ref, x.team_name, x.abbreviation,\
                     x.division, x.conf_or_league] for x in teams_list]
 for i, x in enumerate(teams_list):
     x.append(ratings_list[i])
-pprint(teams_list)
+#pprint(teams_list)
 
 #Get future games (away_team, home_team, home_team_win_probability)
 future_games_list = future_games_query(end_datetime, 2016)
@@ -48,7 +48,7 @@ for x in future_games_list:
     home_team_rating=teams_list[x[1]-1][5]
     SRS_diff=home_team_rating-away_team_rating
     x.append(SRS_regress(SRS_diff))
-pprint(future_games_list)
+#pprint(future_games_list)
 
 #CALL THE FUNCTION!
 team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
@@ -57,9 +57,9 @@ pprint(team_results)
 #Format the results into a table
 teams = Team.select()
 
-"""
 teams_dict = [
-    dict(zip(['Team', 'Division'], [i.mlbgames_name, i.division])) for i in teams]
+    dict(zip(['Team', 'Division'], [i.team_name, i.division])) for i in teams]
+"""
 for i, d in enumerate(teams_dict):
     d['Win Division'] = round(team_results[i][0] * 100.0, 1)
     d['Win Wild Card'] = round(team_results[i][1] * 100.0, 1)
