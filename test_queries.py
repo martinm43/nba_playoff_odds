@@ -10,8 +10,8 @@ from nba_database.supports import epochtime
 from analytics.SRS import SRS
 from analytics.pythag import pythagorean_wins, league_pythagorean_wins
 
-start_datetime = datetime(2015,10,01)
-end_datetime = datetime(2016,04,30)
+start_datetime = datetime(1997,10,01)
+end_datetime = datetime(1998,04,30)
 
 games_list=games_query(start_datetime,end_datetime)
 
