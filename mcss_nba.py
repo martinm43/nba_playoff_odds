@@ -42,7 +42,7 @@ for i, x in enumerate(teams_list):
 #pprint(teams_list)
 
 #Get future games (away_team, home_team, home_team_win_probability)
-future_games_list = future_games_query(end_datetime, 2016)
+future_games_list = future_games_query(end_datetime, season_year)
 for x in future_games_list:
     away_team_rating=teams_list[x[0]-1][5]
     home_team_rating=teams_list[x[1]-1][5]
@@ -51,9 +51,13 @@ for x in future_games_list:
 #pprint(future_games_list)
 
 #CALL THE FUNCTION!
+pprint(games_won_list_cpp)
+pprint(future_games_list)
+pprint(teams_list)
 team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
 pprint(team_results)
 
+"""
 #Format the results into a table
 teams = Team.select().order_by(Team.bball_ref)
 
@@ -87,3 +91,4 @@ results_table = tabulate(
 #Print your results:
 print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
 print(results_table)
+"""
