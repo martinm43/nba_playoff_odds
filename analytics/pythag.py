@@ -12,7 +12,7 @@ from tabulate import tabulate
 def pythagorean_wins(Game,team_id_num,year_start_num,win_exp=14,numgames=82,\
 			mincalcdate=0.0,\
 			maxcalcdate=999999999999.9,\
-			source_option='nba_py_api_data'):
+			source_option='bballref_scores'):
     """
     Game: a peewee ORM object passed from a main file.
     """
@@ -54,7 +54,7 @@ def pythagorean_wins(Game,team_id_num,year_start_num,win_exp=14,numgames=82,\
     else:
       return 0
 
-def league_pythagorean_wins(season_year,mincalcdate,maxcalcdate,source_option="nba_py_api_data",win_exp=16.5):
+def league_pythagorean_wins(season_year,mincalcdate,maxcalcdate,source_option="bballref_scores",win_exp=16.5):
   results_list=[]
   for i in range(1,31):
     results_list.append([team_abbreviation(i),pythagorean_wins(i,season_year,win_exp=win_exp,source_option=source_option\
@@ -65,7 +65,7 @@ def league_pythagorean_wins(season_year,mincalcdate,maxcalcdate,source_option="n
 if __name__=='__main__':
   results_list=[]
   for i in range(1,31):
-    results_list.append([team_abbreviation(i),pythagorean_wins(i,2018,win_exp=16.5,source_option="nba_py_api_data"\
+    results_list.append([team_abbreviation(i),pythagorean_wins(i,2018,win_exp=16.5,source_option="bballref_scores"\
     ,mincalcdate=epochtime(sys.argv[1]),maxcalcdate=epochtime(sys.argv[2]))])
   
   results_list=[[i[0],'{:.0f}'.format(i[1])] for i in results_list]
