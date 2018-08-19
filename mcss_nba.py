@@ -100,11 +100,12 @@ def playoff_odds_print(team_results):
 #Print your results:
 
 if __name__=="__main__":
-    start_datetime = datetime(2017,10,1)
-    end_datetime = datetime(2016,03,1)
+    start_datetime = datetime(2016,10,1)
+    end_datetime = datetime(2017,03,1)
     season_year = 2017
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
     results_table = playoff_odds_print(results)
+    print(results)
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
     print(results_table)
     print("Note that the earlier 'division winners seeded higher' logic is not implemented in this progam")
