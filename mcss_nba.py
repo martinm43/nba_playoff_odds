@@ -24,9 +24,9 @@ def format_percent(percent_float):
     return str(percent_float) + '%'
 
 #Set parameters for analysis
-start_datetime = datetime(1997,10,1)
-end_datetime = datetime(1998,03,1)
-season_year = 1998
+start_datetime = datetime(2016,10,1)
+end_datetime = datetime(2017,03,1)
+season_year = 2017
 
 # Get List Of Known Wins
 games_list = games_query(start_datetime,end_datetime)
