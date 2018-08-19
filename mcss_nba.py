@@ -109,6 +109,7 @@ if __name__=="__main__":
     print(results)
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
     print(results_table)
-    print("Note that the earlier 'division winners seeded higher' logic is not implemented in this progam")
+    print("Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"+\
+          "and home court advantage for the first round. That logic has not yet been implemented in this progam")
 
     
