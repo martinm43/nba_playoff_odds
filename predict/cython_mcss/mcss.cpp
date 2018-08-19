@@ -11,7 +11,7 @@
 #include <armadillo>
 #include "mcss.hpp"
 
-#define MAX_ITER 50000
+#define MAX_ITER 1000
 
 using namespace std;
 using namespace arma;

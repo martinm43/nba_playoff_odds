@@ -55,6 +55,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year):
         #pprint(teams_list)
         team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
         #pprint(team_results)
+        team_results = [[x[0]*100.0, x[1]] for x in team_results]
         return team_results
     
 def playoff_odds_print(team_results):
@@ -73,7 +74,7 @@ def playoff_odds_print(team_results):
     
     for i, d in enumerate(teams_dict):
         d['Avg. Wins'] = round(team_results[i][1], 1)
-        d['Playoff %'] = round(team_results[i][0] * 100.0, 1)
+        d['Playoff %'] = round(team_results[i][0], 1)
         # Convert into percentages for printing
         d['Playoff %'] = format_percent(d['Playoff %'])
     
