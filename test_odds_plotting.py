@@ -28,10 +28,16 @@ while b < datetime(season_year,5,1):
     
 odds_array = np.asarray(odds_list)
 
+#Get team data
+i=0
+team_data = odds_array[:,i]
+
 plt.xlabel('Date')
 plt.ylabel('Team Playoff Odds')
 plt.title('NBA Team Playoff Odds, '+str(season_year))
-plt.legend(handles=team_labels)
 
-plt.plot(odds_array)
+print("Length of dates list: "+str(len(dates_list)))
+print("Length of odds list: "+str(len(team_data)))
+
+plt.plot(dates_list,team_data)
 plt.show()
