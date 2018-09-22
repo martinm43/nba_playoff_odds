@@ -1,4 +1,4 @@
-Date,Start (ET),Visitor/Neutral,PTS,Home/Neutral,PTS,,,Attend.,Notes
+Date,Start (ET),Visitor/Neutral,Visitor_PTS,Home/Neutral,Home_PTS,x1,x2,Attend.,Notes
 Tue Oct 17 2017,8:01p,Boston Celtics,99,Cleveland Cavaliers,102,Box Score,,20562,
 Tue Oct 17 2017,10:30p,Houston Rockets,122,Golden State Warriors,121,Box Score,,19596,
 Wed Oct 18 2017,7:30p,Milwaukee Bucks,108,Boston Celtics,100,Box Score,,18624,
