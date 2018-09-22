@@ -31,6 +31,17 @@ def team_abbreviation(team_alphabetical_id):
     s_result = s_query[0]
     return s_result.abbreviation
 
+def full_name_to_id(full_team_name):
+    """
+    Converts 'normal team names', provides the rest of the data needed for processing 
+    Team id
+    """
+    from nba_data_models import ProApiTeams
+    s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
+      where(ProApiTeams.full_team_name == full_team_name)
+    s_result = s_query[0]
+    return s_result.bball_ref
+
 ################################
 # Getting Information On Games #
 ################################
