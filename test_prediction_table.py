@@ -101,9 +101,9 @@ def playoff_odds_print(team_results):
 #Print your results:
 
 if __name__=="__main__":
-    start_datetime = datetime(2016,10,1)
-    end_datetime = datetime(2017,02,1)
-    season_year = 2017
+    start_datetime = datetime(2017,10,1)
+    end_datetime = datetime(2018,02,1)
+    season_year = 2018
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
     results_table = playoff_odds_print(results)
     print(results)
