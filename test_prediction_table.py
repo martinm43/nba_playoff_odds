@@ -11,7 +11,7 @@ from __future__ import print_function, division
 from nba_database.nba_data_models import ProApiTeams as Team
 from datetime import datetime
 
-def playoff_odds_calc(start_datetime, end_datetime, season_year):
+def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_date=None,input_season_year=None,auto='ON'):
         #Standard imports
         #from pprint import pprint
         #Third party imports
@@ -27,6 +27,16 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year):
             print("Start date is after end date, please check inputs")
             return 1
         
+        if auto == 'OFF':
+            predict_date = input_predict_date
+            predict_season_year = input_season_year
+        elif auto == 'ON':
+            predict_date = end_datetime
+            predict_season_year = season_year
+        else:
+            print('Input for auto mode not valid')
+            return 1
+
         # Get List Of Known Wins
         games_list = games_query(start_datetime,end_datetime)
         games_won_list_cpp = games_won_query(games_list,return_format="matrix").tolist()
@@ -41,7 +51,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year):
         #pprint(teams_list)
         
         #Get future games (away_team, home_team, home_team_win_probability)
-        future_games_list = future_games_query(end_datetime, season_year)
+        future_games_list = future_games_query(predict_date, predict_season_year)
         for x in future_games_list:
             away_team_rating=teams_list[x[0]-1][5]
             home_team_rating=teams_list[x[1]-1][5]
@@ -101,9 +111,9 @@ def playoff_odds_print(team_results):
 #Print your results:
 
 if __name__=="__main__":
-    start_datetime = datetime(2016,10,1)
-    end_datetime = datetime(2017,02,1)
-    season_year = 2017
+    start_datetime = datetime(2017,10,1)
+    end_datetime = datetime(2018,04,1)
+    season_year = 2018
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
     results_table = playoff_odds_print(results)
     print(results)
