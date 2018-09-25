@@ -8,13 +8,13 @@ from pprint import pprint
 from nba_database.queries import team_abbreviation
 
 #Dates
-a = datetime(2016,10,1)
-b = datetime(2016,12,1)
-season_year = 2017
+a = datetime(2017,10,1)
+b = datetime(2017,12,1)
+season_year = 2018
 team_labels = [team_abbreviation(i) for i in range(1,30)]
 
 #Team ID
-i=0
+i=28
 
 odds_list = []
 x_odds = playoff_odds_calc(a,b,season_year)

@@ -11,7 +11,9 @@ from __future__ import print_function, division
 from nba_database.nba_data_models import ProApiTeams as Team
 from datetime import datetime
 
-def playoff_odds_calc(start_datetime, end_datetime, season_year):
+from pprint import pprint
+
+def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_date=None,input_season_year=None,auto='ON'):
         #Standard imports
         #from pprint import pprint
         #Third party imports
@@ -22,15 +24,32 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year):
 
         from nba_database.queries import games_query, games_won_query, future_games_query
         
+        import numpy as np
+
         #Test results/inputs
         if end_datetime < start_datetime:
             print("Start date is after end date, please check inputs")
             return 1
         
+        if auto == 'OFF':
+            predict_date = input_predict_date
+            predict_season_year = input_season_year
+        elif auto == 'ON':
+            predict_date = end_datetime
+            predict_season_year = season_year
+        else:
+            print('Input for auto mode not valid')
+            return 1
+
         # Get List Of Known Wins
         games_list = games_query(start_datetime,end_datetime)
         games_won_list_cpp = games_won_query(games_list,return_format="matrix").tolist()
-        
+
+        pprint(games_won_list_cpp)
+        if auto == 'OFF':
+            gwl = np.zeros((30,30))
+            games_won_list_cpp = gwl.tolist()
+
         # Get Team Ratings (and create Team object list)
         ratings_list=SRS(games_query(start_datetime,end_datetime)).tolist() #get ratings for that time.
         teams_list=Team.select().order_by(Team.bball_ref)
@@ -41,7 +60,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year):
         #pprint(teams_list)
         
         #Get future games (away_team, home_team, home_team_win_probability)
-        future_games_list = future_games_query(end_datetime, season_year)
+        future_games_list = future_games_query(predict_date, predict_season_year)
         for x in future_games_list:
             away_team_rating=teams_list[x[0]-1][5]
             home_team_rating=teams_list[x[1]-1][5]
@@ -102,7 +121,7 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
     start_datetime = datetime(2017,10,1)
-    end_datetime = datetime(2018,02,1)
+    end_datetime = datetime(2018,04,1)
     season_year = 2018
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
     results_table = playoff_odds_print(results)
