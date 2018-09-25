@@ -11,6 +11,8 @@ from __future__ import print_function, division
 from nba_database.nba_data_models import ProApiTeams as Team
 from datetime import datetime
 
+from pprint import pprint
+
 def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_date=None,input_season_year=None,auto='ON'):
         #Standard imports
         #from pprint import pprint
@@ -22,6 +24,8 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
 
         from nba_database.queries import games_query, games_won_query, future_games_query
         
+        import numpy as np
+
         #Test results/inputs
         if end_datetime < start_datetime:
             print("Start date is after end date, please check inputs")
@@ -40,7 +44,12 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
         # Get List Of Known Wins
         games_list = games_query(start_datetime,end_datetime)
         games_won_list_cpp = games_won_query(games_list,return_format="matrix").tolist()
-        
+
+        pprint(games_won_list_cpp)
+        if auto == 'OFF':
+            gwl = np.zeros((30,30))
+            games_won_list_cpp = gwl.tolist()
+
         # Get Team Ratings (and create Team object list)
         ratings_list=SRS(games_query(start_datetime,end_datetime)).tolist() #get ratings for that time.
         teams_list=Team.select().order_by(Team.bball_ref)
