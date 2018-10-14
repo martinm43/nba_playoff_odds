@@ -21,8 +21,15 @@ season_year = 2017
 team_labels = [team_abbreviation(i) for i in range(1,30)]
 
 #Team ID
-i=15
+#Atlantic division ids are 2, 3, 20, 23, 28.
+#Southeast: 1, 16, 22, 30, 4
+#Southwest: 10, 7, 11, 27, 15
+#Pacific: 10, 13, 14, 24, 26
+#Noethwest: 8, 18, 25, 21, 29
+#Central: 6, 5, 17, 12, 9
+division_team_id_list = [10,13,14,24,26]
 
+#Odds calculations
 odds_list = []
 x_odds = playoff_odds_calc(a,b,season_year)
 x_odds = [x[0] for x in x_odds]
@@ -40,17 +47,22 @@ while b < datetime(season_year,4,15):
     
 odds_array = np.asarray(odds_list)
 
+plt.figure(figsize=(7.5,7.5))
+plt.ylim(0,105) #so 100 shows up on the graph.
+
 #Get team data
-team_data = odds_array[:,i]
-N = len(team_data)
-average_count = 5
-average_team_data = running_mean(team_data,average_count)
-average_dates_list = dates_list[average_count-1:]
+for team_id_db in division_team_id_list:
+    team_id=team_id_db-1
+    team_data = odds_array[:,team_id]
+    N = len(team_data)
+    average_count = 5
+    average_team_data = running_mean(team_data,average_count)
+    average_dates_list = dates_list[average_count-1:]
+    #plt.plot(dates_list,team_data)
+    plt.plot(average_dates_list,average_team_data, label=team_abbreviation(team_id+1))
+
 plt.xlabel('Date')
 plt.ylabel('Team Playoff Odds')
-plt.title(team_abbreviation(i+1)+' Playoff Odds, '+str(season_year))
-plt.ylim(0,100)
-
-plt.plot(dates_list,team_data)
-plt.plot(average_dates_list,average_team_data)
+plt.title('Atlantic Division Playoff Odds '+str(season_year-1)+'-'+str(season_year))
+plt.legend()
 plt.show()
