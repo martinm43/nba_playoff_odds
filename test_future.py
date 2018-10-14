@@ -12,7 +12,8 @@ results=playoff_odds_calc(start_datetime,end_datetime,\
 results_table = playoff_odds_print(results)
 print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
 print(results_table)
-print("Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"+\
+print("Note that in 2014 and earlier, \n"+\
+"division winners were automatically given a top-four seed\n"+\
           "and home court advantage for the first round. That logic has not yet been implemented in this progam")
 
     

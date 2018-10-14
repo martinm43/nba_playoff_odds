@@ -45,7 +45,6 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
         games_list = games_query(start_datetime,end_datetime)
         games_won_list_cpp = games_won_query(games_list,return_format="matrix").tolist()
 
-        pprint(games_won_list_cpp)
         if auto == 'OFF':
             gwl = np.zeros((30,30))
             games_won_list_cpp = gwl.tolist()
