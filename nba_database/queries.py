@@ -54,6 +54,17 @@ def abbrev_to_id(team_abbrev):
     s_result = s_query[0]
     return s_result.bball_ref
 
+def id_to_name(team_id):
+    """
+    Converts 'normal team names', provides the rest of the data needed for processing 
+    Team id
+    """
+    from nba_data_models import ProApiTeams
+    s_query = ProApiTeams.select(ProApiTeams.team_name).\
+      where(ProApiTeams.bball_ref == team_id)
+    s_result = s_query[0]
+    return s_result.team_name
+
 ################################
 # Getting Information On Games #
 ################################
