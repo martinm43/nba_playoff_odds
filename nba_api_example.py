@@ -1,5 +1,6 @@
 # coding: utf-8
 from datetime import datetime
+import pytz
 from pprint import pprint
 
 def day_dict_list(game_date):
@@ -10,7 +11,8 @@ def day_dict_list(game_date):
 
     from nba_database.queries import epochtime, abbrev_to_id, id_to_name
 
-    s = ScoreboardV2(game_date=x_date)
+    #s = ScoreboardV2(game_date = x_date)
+    s = ScoreboardV2(game_date = game_date)
 
     day_results=s.line_score.get_dict()
     day_results_data=[dict(zip(day_results['headers'],x)) for x in day_results['data']]
@@ -27,7 +29,10 @@ def day_dict_list(game_date):
         game_dict['home_pts'] = home_team_data['PTS']
         game_dict['home_team_id'] = abbrev_to_id(home_team_data['TEAM_ABBREVIATION'])
         game_dict['home_team'] = id_to_name(game_dict['home_team_id'])
+
+        #This is required in order to deal with the 
         game_dict['datetime'] = epochtime(x_date)
+
         game_dict['date'] = x_date.strftime('%a %b %d %Y') 
         game_list.append(game_dict)
 
@@ -35,7 +40,7 @@ def day_dict_list(game_date):
 
 if __name__ == '__main__':
     from nba_database.nba_data_models import BballrefScores
-    x_date = datetime(2018,10,17)
+    x_date = datetime(2018,10,16,tzinfo=None)
     results = day_dict_list(x_date)
 
     for game in results:
@@ -43,6 +48,7 @@ if __name__ == '__main__':
         BballrefScores.update(
             away_pts=game['away_pts'],
             home_pts=game['home_pts']). where(
-                BballrefScores.datetime == game['datetime'],
+                game['datetime'] == BballrefScores.datetime,
                 BballrefScores.away_team_id == game['away_team_id'],
-                BballrefScores.home_team_id == game['home_team_id']).execute()
+                BballrefScores.home_team_id == game['home_team_id'],
+                BballrefScores.season_year == 2019).execute()
