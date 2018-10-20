@@ -3,10 +3,17 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import numpy as np
 
-from mcss_nba import playoff_odds_calc
+from prediction_table import playoff_odds_calc
 from pprint import pprint
 from nba_database.queries import team_abbreviation
 from nba_database.nba_data_models import ProApiTeams
+
+#Defining Inputs
+season_year = raw_input("Enter year: ")
+season_year = int(season_year)
+division_name = raw_input("Enter division. Options are \n"+\
+          "East: Atlantic, Central, Southeast \n"\
+          "West: Southwest, Pacific, Northwest \n")
 
 # Python Moving Average, taken by:
 # https://stackoverflow.com/questions/13728392/moving-average-or-running-mean
@@ -16,15 +23,13 @@ def running_mean(x, N):
    return (cumsum[N:] - cumsum[:-N]) / N
 
 #Dates
-a = datetime(2016,10,1)
-b = datetime(2016,12,1)
-season_year = 2017
+a = datetime(season_year-1,10,1)
+b = datetime(season_year-1,12,1)
 team_labels = [team_abbreviation(i) for i in range(1,30)]
 
 #Team ID
 #Possible divisions are Southeast, Atlantic, Central
 #Pacific, Southwest, Northwest
-division_name = "Central"
 query = ProApiTeams.select().where(ProApiTeams.division == division_name)
 division_team_id_list = [i.bball_ref for i in query]
 
@@ -47,7 +52,7 @@ while b < datetime(season_year,4,15):
     
 odds_array = np.asarray(odds_list)
 
-plt.figure(figsize=(5,5))
+plt.figure(figsize=(6,6))
 plt.ylim(0,105) #so 100 shows up on the graph.
 
 #Get team data
