@@ -40,14 +40,15 @@ def day_dict_list(game_date):
 
 if __name__ == '__main__':
     from nba_database.nba_data_models import BballrefScores
-    x_date = datetime(2018,10,16,tzinfo=None)
+    x_date = datetime(2018,10,18,tzinfo=None)
     results = day_dict_list(x_date)
 
     for game in results:
         pprint(game)
         BballrefScores.update(
             away_pts=game['away_pts'],
-            home_pts=game['home_pts']). where(
+            home_pts=game['home_pts'],
+            date=game['date']). where(
                 game['datetime'] == BballrefScores.datetime,
                 BballrefScores.away_team_id == game['away_team_id'],
                 BballrefScores.home_team_id == game['home_team_id'],
