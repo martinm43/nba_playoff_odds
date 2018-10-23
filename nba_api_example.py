@@ -40,7 +40,7 @@ def day_dict_list(game_date):
 
 if __name__ == '__main__':
     from nba_database.nba_data_models import BballrefScores
-    x_date = datetime(2018,10,18,tzinfo=None)
+    x_date = datetime(2018,10,20,tzinfo=None)
     results = day_dict_list(x_date)
 
     for game in results:
