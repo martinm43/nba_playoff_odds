@@ -1,5 +1,5 @@
 # coding: utf-8
-from test_prediction_table import playoff_odds_calc, playoff_odds_print
+from prediction_table import playoff_odds_calc, playoff_odds_print
 from datetime import datetime
 start_datetime=datetime(2018,2,1)
 end_datetime=datetime(2018,5,1)
