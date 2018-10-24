@@ -1,10 +1,10 @@
 # coding: utf-8
 from prediction_table import playoff_odds_calc, playoff_odds_print
 from datetime import datetime
-start_datetime=datetime(2018,2,1)
+start_datetime=datetime(2017,10,1)
 end_datetime=datetime(2018,5,1)
 season_year=2018
-input_predict_date=datetime(2017,10,1)
+input_predict_date=datetime(2017,10,23)
 input_season_year=2018
 results=playoff_odds_calc(start_datetime,end_datetime,\
         season_year,input_predict_date=input_predict_date,\
