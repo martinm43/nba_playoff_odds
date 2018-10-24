@@ -117,7 +117,7 @@ def playoff_odds_print(team_results):
 
 
 #Print your results:
-
+"""
 if __name__=="__main__":
     start_datetime = datetime(2017,10,1)
     end_datetime = datetime(2018,04,1)
@@ -129,5 +129,5 @@ if __name__=="__main__":
     print(results_table)
     print("Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"+\
           "and home court advantage for the first round. That logic has not yet been implemented in this progam")
-
+"""
     
