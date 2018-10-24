@@ -7,3 +7,5 @@ Project structure - folders:
 2. analytics - perform analyses
 3. predictions - perform predictions
 and the nba_data.sqlite database
+
+TO DO: troubleshoot the playoff odds calc app
