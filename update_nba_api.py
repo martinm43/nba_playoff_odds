@@ -39,8 +39,14 @@ def day_dict_list(game_date):
     return game_list
 
 if __name__ == '__main__':
+    import sys
     from nba_database.nba_data_models import BballrefScores
     x_date = datetime(2018,10,20,tzinfo=None)
+    try:
+        x_date = datetime.strptime(sys.argv[1],"%b %d %Y")
+    except ValueError:
+        print("Date entered in incorrect format")
+        x_date = datetime.today()
     results = day_dict_list(x_date)
 
     for game in results:

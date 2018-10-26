@@ -6,7 +6,7 @@ def pts_regress(dpts):
 
 def SRS_regress(dSRS):
   import math
-  return 1/(1+math.exp(-1*(0.15+dSRS*5))) #.35
+  return 1/(1+math.exp(-1*(0.15+dSRS*.5))) #.35
 
 def burke_regress(dBurke):
 	import math
