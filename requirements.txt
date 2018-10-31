@@ -4,21 +4,13 @@
 # predict/cython_mcss/cpp_setup.py: 7
 Cython == 0.29
 
-# old_scripts/monte_carlo_calculations.py: 17
-XlsxWriter == 1.0.5
+# prediction_table.py: 22,23
+# pythagorean_table.py: 12
+analytics == 0.6.5
 
 # nba_database/supports.py: 147
 chief-james == 1.0
 
-# old_scripts/DoScalc/DoS_calculation.py: 9
-# old_scripts/DoScalc/DoS_optimization.py: 7
-# old_scripts/analytics/burke_data_generator.py: 8
-# old_scripts/analytics/burkechart.py: 9
-# old_scripts/plotting/plot_burke.py: 11
-# old_scripts/plotting/plot_elo.py: 12
-# old_scripts/plotting/plot_score_vs_DoS.py: 9
-# old_scripts/plotting/plot_totals_fit.py: 16,17
-# old_scripts/points_totals.py: 7
 # test_odds_plotting.py: 3
 matplotlib == 2.2.3
 
@@ -28,70 +20,27 @@ nba_api == 1.0.6
 # analytics/SRS.py: 31
 # nba_database/queries.py: 8
 # nba_database/supports.py: 9,279
-# old_scripts/DoScalc/DoS_calculation.py: 4
-# old_scripts/DoScalc/DoS_optimization.py: 4
-# old_scripts/analytics/burke_data_generator.py: 7
-# old_scripts/analytics/burke_solver.py: 18
-# old_scripts/analytics/burkechart.py: 8
-# old_scripts/analytics/ptsaverages.py: 22,78
-# old_scripts/analytics/regress.py: 6
-# old_scripts/analytics/srs_check.py: 27,40
-# old_scripts/analytics/srscalc_script.py: 14
-# old_scripts/dbtools/rest_and_travel.py: 15
-# old_scripts/monte_carlo_standings_simulator.py: 12
-# old_scripts/plotting/plot_burke.py: 10
-# old_scripts/plotting/plot_totals_fit.py: 12
-# old_scripts/points_totals.py: 8
-# old_scripts/rest_calculations.py: 7
 # prediction_table.py: 27
 # test_odds_plotting.py: 4
 numpy == 1.15.3
 
 # extract_19_data.py: 3
-# extract_bballref_csv_importer.py: 3
-# old_scripts/analytics/regress.py: 4
-# old_scripts/bballref_csv_importer.py: 3
-# old_scripts/bballref_csv_reports/csv_to_dicts.py: 3
-# old_scripts/plotting/plot_score_vs_DoS.py: 7
-# old_scripts/plotting/plot_totals_fit.py: 13
-# old_scripts/points_totals.py: 6
 pandas == 0.23.0
 
 # nba_database/nba_data_models.py: 1
 peewee == 2.4.7
 
-# extract_bballref_csv_importer.py: 11
-# old_scripts/DoScalc/DoS_calculation.py: 5,6,10
-# old_scripts/DoScalc/DoS_optimization.py: 6
-# old_scripts/analytics/burke_data_generator.py: 13
-# old_scripts/analytics/ptsaverages.py: 21
-# old_scripts/bballref_ORM_query.py: 2
-# old_scripts/bballref_csv_importer.py: 11
-# old_scripts/bballref_csv_reports/ORM_rest_calculation.py: 5,6
-# old_scripts/burke_month_calc.py: 3
-# old_scripts/plotting/plot_burke.py: 8,9
-# old_scripts/plotting/plot_elo.py: 11
-# old_scripts/pythagorean_wins.py: 10
-# old_scripts/ratings_calculations.py: 22
-# old_scripts/rest_calculations.py: 4,5,9
-# old_scripts/season_games_splitter.py: 21
-# old_scripts/string_conversion_tools.py: 10
-pyodbc-database-tools == 1.0.3
-
 # update_nba_api.py: 3
 pytz == 2018.4
+
+# analytics/SRS.py: 32
+# nba_database/supports.py: 280
+scipy == 1.1.0
 
 # predict/cython_mcss/cpp_setup.py: 3,4
 setuptools == 39.0.1
 
-# old_scripts/analytics/regress.py: 5
-# old_scripts/plotting/plot_totals_fit.py: 15
-statsmodels == 0.9.0
-
 # analytics/pythag.py: 10
-# old_scripts/monte_carlo_standings_simulator.py: 14
-# old_scripts/pythagorean_wins.py: 13
-# predict/cython_mcss/mcss.py: 9
-# prediction_table.py: 84
+# prediction_table.py: 85
 # pythagorean_table.py: 6
 tabulate == 0.8.2

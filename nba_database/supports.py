@@ -10,7 +10,7 @@ import numpy as np
 
 from pprint import pprint
 
-from mlb_data_models import Team, Game, SRSRating, database
+#from mlb_data_models import Team, Game, SRSRating, database
 
 def big_inserter(
         db,

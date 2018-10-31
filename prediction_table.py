@@ -51,6 +51,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
 
         # Get Team Ratings (and create Team object list)
         ratings_list=SRS(games_query(start_datetime,end_datetime)).tolist() #get ratings for that time.
+        pprint(ratings_list)
         teams_list=Team.select().order_by(Team.bball_ref)
         teams_list=[[x.bball_ref, x.team_name, x.abbreviation,\
                             x.division, x.conf_or_league] for x in teams_list]
