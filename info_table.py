@@ -23,12 +23,26 @@ games_list=games_query(start_datetime,end_datetime)
 lpw_results = league_pythagorean_wins(Game,mincalcdatetime=epochtime(start_datetime),\
             maxcalcdatetime=epochtime(end_datetime))
 
-lpw_tuples = [(team_abbreviation(x[0]),round(x[1],0)) for x in lpw_results]
+srs_list = SRS(games_list)
+
+lpw_results.sort(key = lambda x:x[0])
+
+results = zip(lpw_results,srs_list)
+
+results = [[x[0][0],x[0][1],x[1]] for x in results]
+
+pprint(results)
+
+results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3)) for x in results]
+
+results_tuples.sort(key = lambda x:-x[2])
+
 results_table = tabulate(
-        lpw_tuples,
+        results_tuples,
         headers=[
             'Team',
-            'Pythag. Wins'],
+            'Pythag. Wins',
+            'Est. SRS'],
         tablefmt='rst',
         numalign='left')
 

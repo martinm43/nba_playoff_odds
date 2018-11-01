@@ -2,9 +2,9 @@ def SRS(
         game,
         impmode='bballref',
         printing='off',
-        max_MOV=9.0,
-        home_team_adv=2.0,
-        win_floor=4.0):
+        max_MOV=100.0,
+        home_team_adv=0.0,
+        win_floor=0.0):
     """
 
     Inputs:
