@@ -18,9 +18,15 @@ end_datetime = datetime(2018,11,01)
 games_list=games_query(start_datetime,end_datetime)
 
 #Custom SRS calculation options
-max_MOV = 10
-home_team_adv = 2.5
-win_floor = 5
+#max_MOV = 10
+#home_team_adv = 2.5
+#win_floor = 5
+max_MOV = raw_input("Please enter the maximum margin of victory: ")
+home_team_adv = raw_input("Please enter the assumed home team advantage: ")
+win_floor = raw_input("Please enter the minimum number of points awarded for a win: ")
+max_MOV = float(max_MOV)
+home_team_adv = float(home_team_adv)
+win_floor = float(win_floor)
 
 #Pythagorean Wins
 lpw_results = league_pythagorean_wins(Game,mincalcdatetime=epochtime(start_datetime),\
