@@ -17,13 +17,16 @@ end_datetime = datetime(2018,11,01)
 
 games_list=games_query(start_datetime,end_datetime)
 
-#pprint(games_won_query(games_list, return_format="matrix"))
+#Custom SRS calculation options
+max_MOV = 10
+home_team_adv = 2.5
+win_floor = 5
 
-#Pythagorean Wins Testing
+#Pythagorean Wins
 lpw_results = league_pythagorean_wins(Game,mincalcdatetime=epochtime(start_datetime),\
             maxcalcdatetime=epochtime(end_datetime))
 
-srs_list = SRS(games_list)
+srs_list = SRS(games_list, max_MOV = max_MOV, home_team_adv = home_team_adv, win_floor = win_floor)
 
 lpw_results.sort(key = lambda x:x[0])
 
