@@ -1,0 +1,14 @@
+# coding: utf-8
+def get_wins(team_id):
+    from nba_database.nba_data_models import BballrefScores as BS
+    from nba_database.queries import team_abbreviation
+    away_query = BS.select().where(BS.season_year == 2019, BS.away_team_id == team_id, BS.away_pts > 0)
+    away_results = [[i.away_pts, i.home_pts] for i in away_query]
+    away_wins_total = sum([1 if x[0] > x[1] else 0 for x in away_results])
+    away_games_total = len(away_results)
+    home_query = BS.select().where(BS.season_year == 2019, BS.home_team_id == team_id, BS.home_pts > 0)
+    home_results = [[i.home_pts, i.away_pts] for i in home_query]
+    home_wins_total = sum([1 if x[0] > x[1] else 0 for x in home_results])
+    home_games_total = len(home_results)
+    return {'away_wins_total':away_wins_total,'away_games_total':away_games_total,'home_wins_total':home_wins_total,'home_games_total':home_games_total}
+
