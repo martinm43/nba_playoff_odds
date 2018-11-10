@@ -14,9 +14,9 @@ from analytics.pythag import pythagorean_wins, league_pythagorean_wins
 from wins_script import get_wins
 
 #Query Testing
-start_datetime = datetime(2018,10,01)
-end_datetime = datetime(2018,11,10)
-season_year = 2019
+start_datetime = datetime(2017,10,01)
+end_datetime = datetime(2018,4,10)
+season_year = 2018
 games_list=games_query(start_datetime,end_datetime)
 
 #Custom SRS calculation options
