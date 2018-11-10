@@ -10,6 +10,8 @@ from nba_database.nba_data_models import BballrefScores as Game
 #Analytics imports
 from analytics.SRS import SRS
 from analytics.pythag import pythagorean_wins, league_pythagorean_wins
+#Wins script import
+from wins_script import get_wins
 
 #Query Testing
 start_datetime = datetime(2018,10,01)
@@ -18,15 +20,9 @@ end_datetime = datetime(2018,11,01)
 games_list=games_query(start_datetime,end_datetime)
 
 #Custom SRS calculation options
-#max_MOV = 10
-#home_team_adv = 2.5
-#win_floor = 5
-max_MOV = raw_input("Please enter the maximum margin of victory: ")
-home_team_adv = raw_input("Please enter the assumed home team advantage: ")
-win_floor = raw_input("Please enter the minimum number of points awarded for a win: ")
-max_MOV = float(max_MOV)
-home_team_adv = float(home_team_adv)
-win_floor = float(win_floor)
+max_MOV = 10
+home_team_adv = 2.5
+win_floor = 5
 
 #Pythagorean Wins
 lpw_results = league_pythagorean_wins(Game,mincalcdatetime=epochtime(start_datetime),\
@@ -39,8 +35,6 @@ lpw_results.sort(key = lambda x:x[0])
 results = zip(lpw_results,srs_list)
 
 results = [[x[0][0],x[0][1],x[1]] for x in results]
-
-pprint(results)
 
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3)) for x in results]
 
