@@ -53,5 +53,6 @@ pprint(season_dicts[0])
 with database.atomic() as txn:
      size = (SQLITE_MAX_VARIABLE_NUMBER // len(season_dicts[0])) - 1 
      # remove one to avoid issue if peewee adds some variable
-     for i in range(0, len(season_dicts), size):BballrefScores.insert_many(season_dicts[i:i+size]).upsert().execute()
+     for i in range(0, len(season_dicts), size):
+        BballrefScores.insert_many(season_dicts[i:i+size]).on_conflict_replace().execute()
   
