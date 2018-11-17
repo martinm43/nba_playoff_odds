@@ -78,7 +78,8 @@ def games_query(start_datetime,end_datetime):
     end_epochtime=epochtime(end_datetime)
     played_games = Game.select().where(
         Game.datetime < end_epochtime,
-        Game.datetime > start_epochtime).order_by(Game.datetime)
+        Game.datetime > start_epochtime,
+        Game.away_pts > 0).order_by(Game.datetime)
 
     played_games = [[g.away_team_id, g.away_pts, g.home_team_id, g.home_pts]
                     for g in played_games]
