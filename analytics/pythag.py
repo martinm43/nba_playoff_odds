@@ -23,12 +23,12 @@ def pythagorean_wins(Game,\
         	                 Game.away_team_id==team_id,\
 				 Game.datetime>=mincalcdatetime,\
 				 Game.datetime<=maxcalcdatetime)
-    team_away_pts=sum([p.away_pts for p in pts])
+    team_away_pts=sum([p.away_pts if p.away_pts is not None else 0 for p in pts])
     pts=Game.select(Game.home_pts).where(\
         	                 Game.home_team_id==team_id,\
 				 Game.datetime>=mincalcdatetime,\
 				 Game.datetime<=maxcalcdatetime)
-    team_home_pts=sum([p.home_pts for p in pts if p.home_pts is not None])
+    team_home_pts=sum([p.home_pts if p.home_pts is not None else 0 for p in pts])
     team_pts_for=team_away_pts+team_home_pts
     team_pts_against_home=Game.select(Game.away_pts).where(\
         	                                       Game.home_team_id==team_id,\
@@ -38,8 +38,8 @@ def pythagorean_wins(Game,\
         	                                       Game.away_team_id==team_id,\
 							 Game.datetime>=mincalcdatetime,\
      			        	               Game.datetime<=maxcalcdatetime)
-    team_pts_against_home=sum([p.away_pts for p in team_pts_against_home if p.away_pts is not None])
-    team_pts_against_away=sum([p.home_pts for p in team_pts_against_away if p.home_pts is not None])
+    team_pts_against_home=sum([p.away_pts if p.away_pts is not None else 0 for p in team_pts_against_home])
+    team_pts_against_away=sum([p.home_pts if p.home_pts is not None else 0 for p in team_pts_against_away])
     team_pts_against=team_pts_against_away+team_pts_against_home
 
     if team_pts_against >0 and team_pts_for >0:
