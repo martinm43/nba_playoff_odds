@@ -121,7 +121,7 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
     start_datetime = datetime(2018,10,1)
-    end_datetime = datetime(2018,11,1)
+    end_datetime = datetime.today()
     season_year = 2019
     #the following mode is a "standard test mode" - enter start of season and last known game
     #then predict remaining games.
