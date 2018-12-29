@@ -33,7 +33,7 @@ def day_dict_list(game_date):
         #This is required in order to deal with the 
         game_dict['datetime'] = epochtime(x_date)
 
-        game_dict['date'] = x_date.strftime('%a %b %d %Y') 
+        game_dict['date'] = x_date.strftime('%Y-%m-%d') 
         game_list.append(game_dict)
 
     return game_list
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     from nba_database.nba_data_models import BballrefScores
     x_date = datetime(2018,10,20,tzinfo=None)
     try:
-        x_date = datetime.strptime(sys.argv[1],"%b %d %Y")
+        x_date = datetime.strptime(sys.argv[1],"%Y-%m-%d")
     except ValueError:
         print("Date entered in incorrect format")
         x_date = datetime.today()
@@ -55,7 +55,7 @@ if __name__ == '__main__':
             away_pts=game['away_pts'],
             home_pts=game['home_pts'],
             date=game['date']). where(
-                game['datetime'] == BballrefScores.datetime,
+                game['date'] == BballrefScores.date,
                 BballrefScores.away_team_id == game['away_team_id'],
                 BballrefScores.home_team_id == game['home_team_id'],
                 BballrefScores.season_year == 2019).execute()
