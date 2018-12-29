@@ -51,7 +51,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
 
         # Get Team Ratings (and create Team object list)
         ratings_list=SRS(games_query(start_datetime,end_datetime)).tolist() #get ratings for that time.
-        pprint(ratings_list)
+        #pprint(ratings_list)
         teams_list=Team.select().order_by(Team.bball_ref)
         teams_list=[[x.bball_ref, x.team_name, x.abbreviation,\
                             x.division, x.conf_or_league] for x in teams_list]
@@ -127,7 +127,7 @@ if __name__=="__main__":
     #then predict remaining games.
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
     results_table = playoff_odds_print(results)
-    print(results)
+    #print(results)
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
     print(results_table)
     print("Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"+\
