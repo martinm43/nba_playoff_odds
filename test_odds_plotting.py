@@ -24,7 +24,9 @@ def running_mean(x, N):
 
 #Dates
 a = datetime(season_year-1,10,1)
-b = datetime(season_year-1,12,1)
+b = datetime(season_year-1,11,15)
+end = min(datetime(season_year,4,15),datetime.today())
+
 team_labels = [team_abbreviation(i) for i in range(1,30)]
 
 #Team ID
@@ -43,7 +45,7 @@ odds_list.append(x_odds)
 dates_list=[]
 dates_list.append(b)
 
-while b < datetime(season_year,4,15):
+while b < end:
     x_odds = playoff_odds_calc(a,b,season_year)
     x_odds = [x[0] for x in x_odds]
     odds_list.append(x_odds)
