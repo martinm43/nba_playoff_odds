@@ -54,8 +54,8 @@ while b < end:
     
 odds_array = np.asarray(odds_list)
 
-plt.figure(figsize=(6,6))
-plt.ylim(0,105) #so 100 shows up on the graph.
+plt.figure(figsize=(7,7))
+plt.ylim(-5,105) #so 100 shows up on the graph, and 0 (thanks V.)
 
 #Get team data
 for team_id_db in division_team_id_list:
