@@ -1,4 +1,4 @@
-from __future__ import division, print_function
+
 #Standard imports
 from datetime import datetime, timedelta
 from pprint import pprint
@@ -14,7 +14,7 @@ from analytics.pythag import pythagorean_wins, league_pythagorean_wins
 from wins_script import get_wins
 
 #Query Testing
-start_datetime = datetime(2018,10,01)
+start_datetime = datetime(2018,10,0o1)
 end_datetime = datetime.today()
 season_year = 2019
 games_list=games_query(start_datetime,end_datetime)
@@ -36,7 +36,7 @@ srs_list = SRS(games_list, max_MOV = max_MOV, home_team_adv = home_team_adv, win
 lpw_results.sort(key = lambda x:x[0])
 
 #results = zip(lpw_results,srs_list)
-results = zip(lpw_results,srs_list,wins_list)
+results = list(zip(lpw_results,srs_list,wins_list))
 results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2]] for x in results]
 
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3),\

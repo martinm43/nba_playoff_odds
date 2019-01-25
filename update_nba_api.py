@@ -15,7 +15,7 @@ def day_dict_list(game_date):
     s = ScoreboardV2(game_date = game_date)
 
     day_results=s.line_score.get_dict()
-    day_results_data=[dict(zip(day_results['headers'],x)) for x in day_results['data']]
+    day_results_data=[dict(list(zip(day_results['headers'],x))) for x in day_results['data']]
 
     game_list=[]
     for i in range(0,len(day_results_data),2):
