@@ -3,7 +3,7 @@
 #qpy:console
 
 #Choose working directory.
-from nba_data_models import BballrefScores as Game
+from .nba_data_models import BballrefScores as Game
 import time, datetime
 import numpy as np
 
@@ -25,7 +25,7 @@ def team_abbreviation(team_alphabetical_id):
     """
     Converts team numerical ids into team names.
     """
-    from nba_data_models import ProApiTeams
+    from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.abbreviation).\
       where(ProApiTeams.bball_ref == team_alphabetical_id)
     s_result = s_query[0]
@@ -36,7 +36,7 @@ def full_name_to_id(full_team_name):
     Converts 'normal team names', provides the rest of the data needed for processing 
     Team id
     """
-    from nba_data_models import ProApiTeams
+    from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
       where(ProApiTeams.full_team_name == full_team_name)
     s_result = s_query[0]
@@ -48,7 +48,7 @@ def abbrev_to_id(team_abbrev):
     Converts 'normal team names', provides the rest of the data needed for processing 
     Team id
     """
-    from nba_data_models import ProApiTeams
+    from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
       where(ProApiTeams.abbreviation == team_abbrev)
     s_result = s_query[0]
@@ -59,7 +59,7 @@ def id_to_name(team_id):
     Converts 'normal team names', provides the rest of the data needed for processing 
     Team id
     """
-    from nba_data_models import ProApiTeams
+    from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.team_name).\
       where(ProApiTeams.bball_ref == team_id)
     s_result = s_query[0]
