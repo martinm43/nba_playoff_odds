@@ -59,8 +59,8 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
             x.append(ratings_list[i])
             for j in range(1,5): #"all strings"
                 x[j] = x[j].encode('utf-8')
-                print(type(x[j]))
-        pprint(teams_list)
+                #print(type(x[j]))
+        #pprint(teams_list)
 
         #Converting strings to bytes TBD! 
 

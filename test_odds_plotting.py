@@ -9,11 +9,11 @@ from nba_database.queries import team_abbreviation
 from nba_database.nba_data_models import ProApiTeams
 
 #Defining Inputs
-season_year = raw_input("Enter year: ")
+season_year = eval(input("Enter year: "))
 season_year = int(season_year)
-division_name = raw_input("Enter division. Options are \n"+\
+division_name = eval(input("Enter division. Options are \n"+\
           "East: Atlantic, Central, Southeast \n"\
-          "West: Southwest, Pacific, Northwest \n")
+          "West: Southwest, Pacific, Northwest \n"))
 
 # Python Moving Average, taken by:
 # https://stackoverflow.com/questions/13728392/moving-average-or-running-mean
@@ -54,7 +54,7 @@ while b < end:
     
 odds_array = np.asarray(odds_list)
 
-plt.figure(figsize=(7,7))
+plt.figure(figsize=(12,12))
 plt.ylim(-5,105) #so 100 shows up on the graph, and 0 (thanks V.)
 
 #Get team data
@@ -72,5 +72,6 @@ plt.xlabel('Date')
 plt.ylabel('Team Playoff Odds')
 plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(season_year))
 plt.legend()
-plt.xticks(rotation=25)
+#plt.xticks(rotation=25)
 plt.show()
+plt.savefig('test.png')
