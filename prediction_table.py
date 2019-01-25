@@ -57,7 +57,15 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
                             x.division, x.conf_or_league] for x in teams_list]
         for i, x in enumerate(teams_list):
             x.append(ratings_list[i])
-        #pprint(teams_list)
+            for j in range(1,5): #"all strings"
+                x[j] = x[j].encode('utf-8')
+                print(type(x[j]))
+        pprint(teams_list)
+
+        #Converting strings to bytes TBD! 
+
+
+
         
         #Get future games (away_team, home_team, home_team_win_probability)
         future_games_list = future_games_query(predict_date, predict_season_year)
