@@ -1,6 +1,7 @@
 # coding: utf-8
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import numpy as np
 
 from prediction_table import playoff_odds_calc
@@ -54,7 +55,7 @@ while b < end:
     
 odds_array = np.asarray(odds_list)
 
-plt.figure(figsize=(12,12))
+plt.figure(figsize=(8,8))
 plt.ylim(-5,105) #so 100 shows up on the graph, and 0 (thanks V.)
 
 #Get team data
@@ -66,13 +67,14 @@ for team_id_db in division_team_id_list:
     average_team_data = running_mean(team_data,average_count)
     average_dates_list = dates_list[average_count-1:]
     #plt.plot(dates_list,team_data)
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=14))
     plt.plot(average_dates_list,average_team_data, label=team_abbreviation(team_id+1), alpha = 0.6)
 
 plt.xlabel('Date')
 plt.ylabel('Team Playoff Odds')
 plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(season_year))
 plt.legend()
-plt.xaxis.set_major_locator(days)
 plt.xticks(rotation=25)
 plt.show()
 plt.savefig('test.png')
