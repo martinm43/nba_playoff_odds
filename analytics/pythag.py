@@ -3,7 +3,7 @@
 #against a team in a given season. The default exponent is set to that 
 #used by Basketball Reference, which compares favourably to the range given in 
 #Basketball on Paper (Oliver)
-from __future__ import division #this is a major key. Forces floating point div.
+ #this is a major key. Forces floating point div.
 from pprint import pprint
 import time
 import sys

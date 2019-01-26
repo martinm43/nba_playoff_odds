@@ -6,7 +6,7 @@ and allow for integration with more 'modern' interfaces -think flask or Django
 """
 
 #Future import first
-from __future__ import print_function, division
+
 
 from nba_database.nba_data_models import ProApiTeams as Team
 from datetime import datetime
@@ -97,7 +97,7 @@ def playoff_odds_print(team_results):
     teams = Team.select().order_by(Team.bball_ref)
     
     teams_dict = [
-        dict(zip(['Team', 'Conference'], [i.team_name, i.conf_or_league])) for i in teams]
+        dict(list(zip(['Team', 'Conference'], [i.team_name, i.conf_or_league]))) for i in teams]
     
     for i, d in enumerate(teams_dict):
         d['Avg. Wins'] = round(team_results[i][1], 1)

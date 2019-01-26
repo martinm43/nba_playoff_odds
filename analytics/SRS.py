@@ -102,8 +102,8 @@ def SRS(
     teamStrength.tolist()
     if printing == 'on':
         for t in enumerate(teamStrength):
-            print('Team ' + str(t[0] + 1) +
-                  ' has a calculated Burke Score of ' + str(t[1]))
+            print(('Team ' + str(t[0] + 1) +
+                  ' has a calculated Burke Score of ' + str(t[1])))
     return teamStrength
 
 

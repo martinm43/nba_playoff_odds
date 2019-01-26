@@ -1,7 +1,7 @@
 """
 These scripts are functions commonly reused in other files.
 """
-from __future__ import division, print_function
+
 
 from datetime import datetime, timedelta
 import random
@@ -95,7 +95,7 @@ def id_to_mlbgames_name(team_id, verbose=False):
 
 def games_won_to_date(return_format="list"):
 
-    start_datetime = datetime(2018,03,15)
+    start_datetime = datetime(2018,0o3,15)
     end_datetime = datetime.today() - timedelta(days=1)
     games_query_result = games_query(start_datetime,end_datetime,return_format)
     return games_query_result
@@ -208,8 +208,8 @@ def future_games_dicts():
 
     # Get the list of games.
     query = Game.select().where(Game.scheduled_date >= datetime.now())
-    game_dict_list = [dict(zip(['id', 'scheduled_date', 'away_team', 'home_team'], [
-        i.id, i.scheduled_date, i.away_team, i.home_team])) for i in query]
+    game_dict_list = [dict(list(zip(['id', 'scheduled_date', 'away_team', 'home_team'], [
+        i.id, i.scheduled_date, i.away_team, i.home_team]))) for i in query]
 
     # Build a function of a function (I think decorators do this) - research
     # later.
