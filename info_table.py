@@ -11,7 +11,7 @@ from nba_database.nba_data_models import BballrefScores as Game
 from analytics.SRS import SRS
 from analytics.pythag import pythagorean_wins, league_pythagorean_wins
 #Wins script import
-from wins_script import get_wins
+from analytics.wins_script import get_wins
 
 #Query Testing
 start_datetime = datetime(2018,10,0o1)
