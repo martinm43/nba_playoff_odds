@@ -26,7 +26,7 @@ def running_mean(x, N):
 #Dates
 a = datetime(season_year-1,10,1)
 b = datetime(season_year-1,11,15)
-end = min(datetime(season_year,4,15),datetime.today())
+end = min(datetime(season_year,4,30),datetime.today())
 
 team_labels = [team_abbreviation(i) for i in range(1,30)]
 
