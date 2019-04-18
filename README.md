@@ -8,8 +8,11 @@ and the nba_data.sqlite database (not hosted here as it is a binary file/exceeds
 Main scripts:
 
 update_nba_api - use nba_api in order to access data from stats.nba.com for use
+
 plot_season_odds - plots odds of getting to the playoffs, rolling across the season
+
 prediction_table - produces basic table of instantaneous to that date playoff odds
+
 info_table - shows basic home, away, wins, losses, and adjusted SRS
 
 
