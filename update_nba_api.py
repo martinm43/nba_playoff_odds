@@ -1,5 +1,5 @@
 # coding: utf-8
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 from pprint import pprint
 
@@ -40,14 +40,20 @@ def day_dict_list(game_date):
 
 if __name__ == '__main__':
     import sys
+
     from nba_database.nba_data_models import BballrefScores
-    x_date = datetime(2018,10,20,tzinfo=None)
-    try:
-        x_date = datetime.strptime(sys.argv[1],"%Y-%m-%d")
-    except ValueError:
-        print("Date entered in incorrect format")
-        x_date = datetime.today()
-    results = day_dict_list(x_date)
+
+    start_date = datetime(2018,4,9,tzinfo=None)
+    end_date = datetime(2018,4,12,tzinfo=None)
+    x_date = start_date
+    results = []
+    
+    while x_date <= end_date:
+        print('Processing results for '+x_date.strftime('%Y-%m-%d'))
+        partial_results = day_dict_list(x_date)
+        for i in partial_results:
+            results.append(i)
+        x_date = x_date + timedelta(days=1)
 
     for game in results:
         pprint(game)
