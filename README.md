@@ -4,6 +4,7 @@
 A set of scripts to calculate ratings for teams, based on point differential and strength of schedule, and then use those ratings to determine playoff odds over a given season. 
 
 ![Playoff odds for Pacific Division, 2019](README_example.png) 
+
 *Sample odds graph*
 
 Main scripts are as follows:
@@ -30,7 +31,8 @@ peewee
 numpy, scipy, and cython (obtained from the Anaconda scientific distribution)  
 
 C++ requirements for compiling Monte Carlo cython extension:
-libarmadillo-dev, libsqlite3-dev
+libarmadillo-dev   
+libsqlite3-dev  
 
 ## To Do
 Add an example of the output table to README
