@@ -35,9 +35,9 @@ libarmadillo-dev
 libsqlite3-dev  
 
 ## To Do
-Add an example of the output table to README
-Improve markdown formatting of README (e.g., link to all mentioned libraries)
-Rearrange structure of library (move code one level down into "src"
-Write manual test descriptions
-Write all scripts in "function" form 
-Write automated tests/unit tests
+Add an example of the output table to README  
+Improve markdown formatting of README (e.g., link to all mentioned libraries)  
+Rearrange structure of library (move code one level down into "src"  
+Write manual test descriptions  
+Write all scripts in "function" form   
+Write automated tests/unit tests  
