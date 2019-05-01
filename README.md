@@ -1,3 +1,9 @@
+# NBA Playoff Odds
+
+A set of scripts to calculate ratings for teams, based on point differential
+and strength of schedule, and then use those ratings to determine playoff odds
+over a given season. 
+
 Project structure - folders:
 1. nba_database - access and process data, holds data model
 2. analytics - perform analyses (SRS calculations and determining wins)
