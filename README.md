@@ -30,7 +30,7 @@ the nba_py library (only for update_nba_api)
 peewee  
 numpy, scipy, and cython (obtained from the Anaconda scientific distribution)  
 
-C++ requirements for compiling Monte Carlo cython extension:
+C++ requirements for compiling Monte Carlo cython extension:  
 libarmadillo-dev   
 libsqlite3-dev  
 
