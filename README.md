@@ -24,10 +24,10 @@ Monte Carlo simulation extension written in C++ requires g++ compilation using t
 
 ## Requirements
 
-Python requirements: 
-the nba_py library (only for update_nba_api)
-peewee
-numpy, scipy, and cython (obtained from the Anaconda scientific distribution)
+Python requirements:  
+the nba_py library (only for update_nba_api) 
+peewee 
+numpy, scipy, and cython (obtained from the Anaconda scientific distribution) 
 
 C++ requirements for compiling Monte Carlo cython extension:
 libarmadillo-dev, libsqlite3-dev
