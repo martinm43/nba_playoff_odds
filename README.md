@@ -3,6 +3,48 @@
 ## Summary 
 A set of scripts to calculate ratings for teams, based on point differential and strength of schedule, and then use those ratings to determine playoff odds over a given season. 
 
+## Examples
+
+**info_table** - generates a snapshot of a season (pythagorean wins, Strength-of-Schedule adjusted net rating, away record, home record, and overall record)
+
+	Pythagorean Win Expectations, Est. SRS, and Records 
+	Based on Games Played Between: Oct 01 2018 and May 01 2019
+	======  ==============  ==========  =============  =============  ================
+	Team    Pythag. Wins    Est. SRS    Away Record    Home Record    Overall Record
+	======  ==============  ==========  =============  =============  ================
+	MIL     64              4.409       27-14          33-8           60-22
+	GSW     60              3.61        27-14          30-11          57-25
+	TOR     58              3.461       26-15          32-9           58-24
+	HOU     55              2.744       22-19          31-10          53-29
+	POR     53              2.674       21-20          32-9           53-29
+	DEN     53              2.536       20-21          34-7           54-28
+	UTA     56              2.498       21-20          29-12          50-32
+	OKC     51              1.904       22-19          27-14          49-33
+	PHI     49              1.55        20-21          31-10          51-31
+	BOS     54              1.486       21-20          28-13          49-33
+	LAC     44              1.413       22-19          26-15          48-34
+	IND     51              1.255       19-22          29-12          48-34
+	SAS     45              1.174       16-25          31-10          47-35
+	ORL     43              -0.085      17-24          25-16          42-40
+	SAC     38              -0.152      15-26          24-17          39-43
+	CHA     38              -0.307      14-27          25-16          39-43
+	DET     40              -0.31       15-26          26-15          41-41
+	BKN     41              -0.436      19-22          23-18          42-40
+	MIA     40              -0.541      20-21          19-22          39-43
+	LAL     37              -0.582      16-25          22-19          38-44
+	MIN     37              -0.726      11-30          25-16          36-46
+	MEM     33              -1.064      12-29          21-20          33-49
+	NOP     37              -1.202      14-27          19-22          33-49
+	DAL     37              -1.433      9-32           24-17          33-49
+	WAS     33              -2.012      10-31          22-19          32-50
+	ATL     24              -3.192      11-30          17-24          28-54
+	CHI     18              -3.992      13-28          9-32           22-60
+	PHX     17              -4.462      7-34           12-29          19-63
+	CLE     16              -5.046      6-35           13-28          19-63
+	NYK     16              -5.174      8-33           9-32           17-65
+	======  ==============  ==========  =============  =============  ================
+
+**prediction_table** - generates a table of playoff odds
 	
 	Playoff odds for the 2019 season as of Jan 01 2019
 	============  =============  ===========  ===========
@@ -40,22 +82,9 @@ A set of scripts to calculate ratings for teams, based on point differential and
 	W             Suns           18           0.0%
 	============  =============  ===========  ===========
 
-
-*Sample odds table*
-
-
-![Playoff odds for Pacific Division, 2019](README_example.png) 
-
-*Sample odds graph*
-
-
-Main scripts are as follows:
-
-**info_table** - generates a snapshot of a season (pythagorean wins, Strength-of-Schedule adjusted net rating, away record, home record, and overall record)
-
 **plot_season_odds** - creates a graph of playoff odds for teams in one division in one season
 
-**prediction_table** - generates a table of playoff odds
+![Playoff odds for Pacific Division, 2019](README_example.png) 
 
 **update_nba_api** - obtains data (for now, just end scores) from the undocumented stats.nba.com api.
 
