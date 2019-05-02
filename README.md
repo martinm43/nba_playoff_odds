@@ -111,3 +111,5 @@ Rearrange structure of library (move code one level down into "src"
 Write manual test descriptions  
 Write all scripts in "function" form   
 Write automated tests/unit tests  
+
+*A whole lot of else - this project is very much still in development!*
