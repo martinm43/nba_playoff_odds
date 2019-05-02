@@ -20,9 +20,9 @@ season_year = 2012
 games_list=games_query(start_datetime,end_datetime)
 
 #Custom SRS calculation options
-max_MOV = 10
-home_team_adv = 2.5
-win_floor = 5
+max_MOV = 100 # no real max MOV
+home_team_adv = 0
+win_floor = 0
 
 wins_dict_list = [get_wins(i,season_year,start_datetime,end_datetime) for i in range(1,31)]
 wins_list = [[x['away_record'],x['home_record'],x['record']] for x in wins_dict_list] 
