@@ -128,9 +128,9 @@ def playoff_odds_print(team_results):
 #Print your results:
 
 if __name__=="__main__":
-    start_datetime = datetime(2006,10,1)
-    end_datetime = datetime(2007,4,30)
-    season_year = 2007
+    start_datetime = datetime(2018,10,1)
+    end_datetime = datetime(2019,1,1)
+    season_year = 2019
     #the following mode is a "standard test mode" - enter start of season and last known game
     #then predict remaining games.
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
