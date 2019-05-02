@@ -55,7 +55,7 @@ while b < end:
     
 odds_array = np.asarray(odds_list)
 
-plt.figure(figsize=(8,8))
+plt.figure(figsize=(10,10))
 plt.ylim(-5,105) #so 100 shows up on the graph, and 0 (thanks V.)
 
 #Get team data
@@ -75,6 +75,6 @@ plt.xlabel('Date')
 plt.ylabel('Team Playoff Odds')
 plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(season_year))
 plt.legend()
-plt.xticks(rotation=25)
+plt.xticks(rotation=15)
 plt.savefig('test.png')
 plt.show()
