@@ -84,7 +84,7 @@ A set of scripts to calculate ratings for teams, based on point differential and
 
 **plot_season_odds** - creates a graph of playoff odds for teams in one division in one season
 
-![Playoff odds for Pacific Division, 2019](README_example.png) 
+![Playoff odds for Pacific Division, 2019](https://raw.githubusercontent.com/martinm43/nba_playoff_odds/master/src/README_example.png) 
 
 **update_nba_api** - obtains data (for now, just end scores) from the undocumented stats.nba.com api.
 
