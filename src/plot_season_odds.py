@@ -12,9 +12,9 @@ from nba_database.nba_data_models import ProApiTeams
 #Defining Inputs
 season_year = eval(input("Enter year: "))
 season_year = int(season_year)
-division_name = eval(input("Enter division. Options are \n"+\
+division_name = input("Enter division. Options are \n"+\
           "East: Atlantic, Central, Southeast \n"\
-          "West: Southwest, Pacific, Northwest \n"))
+          "West: Southwest, Pacific, Northwest \n")
 
 # Python Moving Average, taken by:
 # https://stackoverflow.com/questions/13728392/moving-average-or-running-mean
