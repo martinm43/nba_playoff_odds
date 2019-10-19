@@ -1,4 +1,5 @@
 # coding: utf-8
+import sys
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -11,10 +12,18 @@ from nba_database.nba_data_models import ProApiTeams
 
 #Defining Inputs
 season_year = input("Enter year: ")
-season_year = int(season_year)
+try:
+    season_year = int(season_year)
+except ValueError:
+    print("Value is not an integer. Exiting")
+    sys.exit(1)
+
 division_name = input("Enter division. Options are \n"+\
           "East: Atlantic, Central, Southeast \n"\
           "West: Southwest, Pacific, Northwest \n")
+if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific','Northwest']:
+    print("Invalid division name. Exiting")
+    sys.exit(1)
 
 # Python Moving Average, taken by:
 # https://stackoverflow.com/questions/13728392/moving-average-or-running-mean
