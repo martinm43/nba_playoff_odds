@@ -43,8 +43,8 @@ if __name__ == '__main__':
 
     from nba_database.nba_data_models import BballrefScores
 
-    start_date = datetime(2018,4,9,tzinfo=None)
-    end_date = datetime(2018,4,12,tzinfo=None)
+    start_date = datetime(2019,4,1,tzinfo=None)
+    end_date = datetime(2019,4,2,tzinfo=None)
     x_date = start_date
     results = []
     
