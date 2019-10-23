@@ -21,8 +21,13 @@ except ValueError:
 division_name = input("Enter division. Options are \n"+\
           "East: Atlantic, Central, Southeast \n"\
           "West: Southwest, Pacific, Northwest \n")
+
 if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific','Northwest']:
     print("Invalid division name. Exiting")
+    sys.exit(1)
+
+if season_year < 2000 or season_year > 2019:
+    print("Season year "+str(season_year)+" is outside of current program limits, exiting")
     sys.exit(1)
 
 # Python Moving Average, taken by:
