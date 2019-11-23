@@ -9,7 +9,7 @@ and allow for integration with more 'modern' interfaces -think flask or Django
 
 
 from nba_database.nba_data_models import ProApiTeams as Team
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pprint import pprint
 
@@ -129,6 +129,7 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
 
+    """
     start_datetime_str = input('Please enter the start date in %b %d %Y format, e.g. Oct 1 2010): ')
     end_datetime_str = input('Please enter the end date in %b %d %Y format, e.g. May 1 2011): ')
     season_year_str = input('Please enter the season year (e.g. 2011): ')
@@ -140,7 +141,10 @@ if __name__=="__main__":
     except ValueError:
         print('Error parsing entered values. Please review dates and season year entered.')
         sys.exit(1)
-
+    """
+    start_datetime = datetime(2019,10,22)
+    end_datetime = datetime.today()-timedelta(days=1)
+    season_year = 2020
 
 
     #the following mode is a "standard test mode" - enter start of season and last known game
