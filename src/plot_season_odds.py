@@ -26,7 +26,7 @@ if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific',
     print("Invalid division name. Exiting")
     sys.exit(1)
 
-if season_year < 2000 or season_year > 2019:
+if season_year < 2000 or season_year > 2020:
     print("Season year "+str(season_year)+" is outside of current program limits, exiting")
     sys.exit(1)
 elif season_year == 2012: #Lockout year fix.
