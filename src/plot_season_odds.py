@@ -36,7 +36,7 @@ else:
     a = datetime(season_year-1,10,1)
     b = datetime(season_year-1,11,15)
     
-end = min(datetime(season_year,4,30),datetime.today())
+end = min(datetime(season_year,4,30),datetime.today()-timedelta(days=1))
 
 
 # Python Moving Average, taken by:
