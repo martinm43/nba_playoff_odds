@@ -68,6 +68,8 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
 
         
         #Get future games (away_team, home_team, home_team_win_probability)
+        #print(predict_date)
+        #print(predict_season_year)
         future_games_list = future_games_query(predict_date, predict_season_year)
         for x in future_games_list:
             away_team_rating=teams_list[x[0]-1][5]
@@ -148,9 +150,9 @@ if __name__=="__main__":
 
 
     #the following mode is a "standard test mode" - enter start of season and last known game
-    print(start_datetime)
-    print(end_datetime)
-    print(season_year)
+    #print(start_datetime)
+    #print(end_datetime)
+    #print(season_year)
     #then predict remaining games.
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
     results_table = playoff_odds_print(results)
