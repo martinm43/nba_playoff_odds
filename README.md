@@ -1,5 +1,8 @@
 # NBA Playoff Odds
 
+
+
+
 ## Summary 
 A set of scripts to calculate ratings for teams, based on point differential and strength of schedule, and then use those ratings to determine playoff odds over a given season. 
 
