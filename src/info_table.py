@@ -15,9 +15,9 @@ from analytics.pythag import pythagorean_wins, league_pythagorean_wins
 from analytics.wins_script import get_wins
 
 #Query Testing
-start_datetime = datetime(2018,10,1)
+start_datetime = datetime(2019,10,1)
 end_datetime = datetime.today()-timedelta(days=1)
-season_year = 2019
+season_year = 2020
 #start_datetime_str = input('Please enter the start date in %b %d %Y format, e.g. Oct 1 2010): ')
 #end_datetime_str = input('Please enter the end date in %b %d %Y format, e.g. May 1 2011): ')
 #season_year_str = input('Please enter the season year (e.g. 2011): ')
@@ -58,7 +58,7 @@ results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2]] for x in results]
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3),\
                    x[3],x[4],x[5]) for x in results]
 
-results_tuples.sort(key = lambda x:-x[2])
+results_tuples.sort(key = lambda x: x[5])
 
 results_table = tabulate(
         results_tuples,
