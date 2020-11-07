@@ -52,6 +52,7 @@ lpw_results.sort(key = lambda x:x[0])
 
 #results = zip(lpw_results,srs_list)
 results = list(zip(lpw_results,srs_list,wins_list))
+
 results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2]] for x in results]
 
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3),\
