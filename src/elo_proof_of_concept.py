@@ -8,7 +8,7 @@ import numpy as np
 #defaults taken from https://fivethirtyeight.com/features/how-we-calculate-nba-elo-ratings/
 default_rating = 1500
 default_HFA = 100
-default_K = 150
+default_K = 80
 season_elo_ratings_list = default_rating*np.ones((30,1))
 
 def predicted_dos_formula(a,b,delta):
@@ -46,8 +46,14 @@ for g in analysis_list:
     
 
 print("Final set of Elo ratings after season "+str(season_year)+" presented below.")
+
+print_list=[]
+
 for i,r in enumerate(season_elo_ratings_list):
-    rtg = "%5.0f" % r[0]
-    print(team_abbreviation(i+1)+": "+rtg)
+    rtg = int(r[0])
+    team = team_abbreviation(i+1)
+    print_list.append([rtg,team])
     
+print_list = sorted(print_list,key=lambda x:-x[0])
+pprint(print_list)
     
