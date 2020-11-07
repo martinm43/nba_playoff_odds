@@ -15,9 +15,9 @@ from analytics.pythag import pythagorean_wins, league_pythagorean_wins
 from analytics.wins_script import get_wins
 
 #Query Testing
-start_datetime = datetime(2019,10,22)
+start_datetime = datetime(2018,10,1)
 end_datetime = datetime.today()-timedelta(days=1)
-season_year = 2020
+season_year = 2019
 #start_datetime_str = input('Please enter the start date in %b %d %Y format, e.g. Oct 1 2010): ')
 #end_datetime_str = input('Please enter the end date in %b %d %Y format, e.g. May 1 2011): ')
 #season_year_str = input('Please enter the season year (e.g. 2011): ')
