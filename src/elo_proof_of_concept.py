@@ -2,6 +2,7 @@
 from nba_database.queries import season_query, team_abbreviation
 from pprint import pprint
 from math import exp
+from random import randint
 import numpy as np
 
 default_rating = 0.2
@@ -26,12 +27,12 @@ def predicted_dos_formula(a,b):
     mean and stddev taken from results of points_analysis.py
 
     """
-    mean = 0.01572677511007384
-    stddev = 0.03808077103463739
+    mean = 0.015727
+    stddev = 0.038081
     DoS = -1 + 2/(1+exp((b-a-mean)/stddev))
     return DoS
 
-season_year = 2014
+season_year = randint(1999,2021)
 analysis_list = season_query(season_year)
 
 
