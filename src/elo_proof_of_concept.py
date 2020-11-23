@@ -4,9 +4,9 @@ from pprint import pprint
 from math import exp
 import numpy as np
 
-default_rating = 1500
+default_rating = 0.1
 default_HFA = 100
-default_K = 500
+default_K = .001
 season_elo_ratings_list = default_rating*np.ones((30,1))
 
 def predicted_dos_formula(a,b):
@@ -30,7 +30,7 @@ def predicted_dos_formula(a,b):
     DoS = -1 + 2/(1+exp((b-a-mean)/stddev))
     return DoS
 
-season_year = 2019
+season_year = 2007
 analysis_list = season_query(season_year)
 
 
@@ -54,7 +54,7 @@ print("Final set of Elo ratings after season "+str(season_year)+" presented belo
 print_list=[]
 
 for i,r in enumerate(season_elo_ratings_list):
-    rtg = int(r[0])
+    rtg = float(r[0]*10000)
     team = team_abbreviation(i+1)
     print_list.append([rtg,team])
     
