@@ -4,9 +4,10 @@ from pprint import pprint
 from math import exp
 import numpy as np
 
-default_rating = 0.1
+default_rating = 0.2
 default_HFA = 100
-default_K = .001
+default_K = .005
+scaling = 10000
 season_elo_ratings_list = default_rating*np.ones((30,1))
 
 def predicted_dos_formula(a,b):
@@ -30,12 +31,12 @@ def predicted_dos_formula(a,b):
     DoS = -1 + 2/(1+exp((b-a-mean)/stddev))
     return DoS
 
-season_year = 2007
+season_year = 2014
 analysis_list = season_query(season_year)
 
 
 for g in analysis_list:
-    print(g)
+
     #get previous elo ratings
     away_rating = season_elo_ratings_list[g[0]-1]
     home_rating = season_elo_ratings_list[g[2]-1]
@@ -54,10 +55,18 @@ print("Final set of Elo ratings after season "+str(season_year)+" presented belo
 print_list=[]
 
 for i,r in enumerate(season_elo_ratings_list):
-    rtg = float(r[0]*10000)
+    rtg = float(r[0]*scaling)
     team = team_abbreviation(i+1)
     print_list.append([rtg,team])
     
 print_list = sorted(print_list,key=lambda x:-x[0])
-pprint(print_list)
-    
+top_list = print_list[0:10]
+bottom_list = print_list[21:30]
+print("Top 10 teams in "+str(season_year)+":")
+for t in top_list:
+    rating = "%.1f" % t[0]
+    print(t[1]+": "+rating)
+print("Bottom 10 teams in "+str(season_year)+":")
+for t in bottom_list:
+    rating = "%.1f" % t[0]
+    print(t[1]+": "+rating)
