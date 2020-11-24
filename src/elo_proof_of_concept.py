@@ -28,14 +28,17 @@ def predicted_dos_formula(a,b):
     return DoS
 
 
-def season_elo_calc(_analysis_list):
+def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     
     default_rating = 0.01 #1 gives good results.
     rating_scaling = 10 #10 gives good spread
     default_K = default_rating/rating_scaling
 
-    season_elo_ratings_list = default_rating*np.ones((30,1))
-    
+    if new_season == True:
+        season_elo_ratings_list = default_rating*np.ones((30,1))
+    else:
+        season_elo_ratings_list = previous_ratings
+        
     for g in _analysis_list:
 
         #get previous elo ratings
@@ -83,10 +86,15 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 
 if __name__ == "__main__":
 
-    season_year = 2012 #randint(1999,2020)
-    analysis_list = season_query(season_year)
+    start_year = 1999
+    end_year = 2020
+    for season_year in range(start_year,end_year):
     
-    season_elo_ratings_list = season_elo_calc(analysis_list)
-    results_summary(season_elo_ratings_list)
-
-
+        if season_year == start_year:
+            analysis_list = season_query(season_year)
+            season_elo_ratings_list = season_elo_calc(analysis_list)
+            results_summary(season_elo_ratings_list)
+        else:
+            analysis_list = season_query(season_year)
+            season_elo_ratings_list = season_elo_calc(analysis_list,season_elo_ratings_list,new_season=False)
+            results_summary(season_elo_ratings_list)
