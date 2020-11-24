@@ -28,6 +28,7 @@ def predicted_dos_formula(a,b):
     DoS = -1 + 2/(1+exp((b-a-mean)/stddev))
     return DoS
 
+
 def season_elo_calc(_analysis_list):
     
     default_rating = 0.01 #1 gives good results.
