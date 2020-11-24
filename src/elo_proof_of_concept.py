@@ -78,11 +78,11 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
     print_list = sorted(print_list,key=lambda x:-x[0])
     top_list = print_list[0:10]
     bottom_list = print_list[21:30]
-    print("Top 10 teams in "+str(season_year)+":")
+    print("Top 10 teams for the season ending in "+str(season_year)+":")
     for t in top_list:
         rating = "%.1f" % t[0]
         print(t[1]+": "+rating)
-    print("Bottom 10 teams in "+str(season_year)+":")
+    print("Bottom 10 teams for the season ending in "+str(season_year)+":")
     for t in bottom_list:
         rating = "%.1f" % t[0]
         print(t[1]+": "+rating)
@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
     start_year = 1999
     end_year = 2021
-    reset_factor = .25 #1: every season is new. #0: every season is a continuation
+    reset_factor = 1 #1: every season is new. #0: every season is a continuation
     reset_value = 0.01 #identical to default value
     for season_year in range(start_year,end_year):
     
