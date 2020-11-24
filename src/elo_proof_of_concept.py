@@ -58,6 +58,14 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
 
     return season_elo_ratings_list
 
+def year_to_year_ratings(season_elo_ratings_list,reset_factor=0.25,reset_value=0.01):
+    previous_ratings = np.array(season_elo_ratings_list)
+    #print(previous_ratings)
+    new_ratings = previous_ratings*(1-reset_factor)+reset_factor*reset_value*np.ones((30,1))
+    new_ratings.tolist()
+    new_ratings = [r for r in new_ratings]
+    return new_ratings
+
 def results_summary(season_elo_ratings_list, scaling = 100000):
     
     print_list = []
@@ -87,7 +95,9 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 if __name__ == "__main__":
 
     start_year = 1999
-    end_year = 2020
+    end_year = 2021
+    reset_factor = .25 #1: every season is new. #0: every season is a continuation
+    reset_value = 0.01 #identical to default value
     for season_year in range(start_year,end_year):
     
         if season_year == start_year:
@@ -98,3 +108,5 @@ if __name__ == "__main__":
             analysis_list = season_query(season_year)
             season_elo_ratings_list = season_elo_calc(analysis_list,season_elo_ratings_list,new_season=False)
             results_summary(season_elo_ratings_list)
+        season_elo_ratings_list = year_to_year_ratings(season_elo_ratings_list,reset_factor=reset_factor,reset_value=reset_value)
+        
