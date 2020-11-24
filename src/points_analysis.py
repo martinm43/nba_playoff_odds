@@ -15,8 +15,8 @@ from nba_database.nba_data_models import BballrefScores
 
 # not ignoring warnings
 # warnings.filterwarnings("ignore")
-min_val = 2010
-max_val = 2015
+min_val = 2000
+max_val = 2020
 
 z = BballrefScores.select().where(BballrefScores.season_year >= min_val, BballrefScores.season_year < max_val)
 mov = [x.home_pts-x.away_pts for x in z]
@@ -40,7 +40,12 @@ parameters = dist.fit(df_fit)
 mean = parameters[0]
 stddev = parameters[1]
 
-#plot cdf
+mean_str = "%.5f" % mean
+stddev_str = "%.5f" % stddev
+
+print("logistic mean: "+mean_str)
+print("logistic stddev: "+stddev_str)
+
 cdf_x = np.linspace(-0.3,0.3,300)
 z_default = 2*stats.logistic.cdf(cdf_x,mean,stddev)-1
 plt.plot(cdf_x,z_default)
