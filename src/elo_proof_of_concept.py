@@ -5,7 +5,6 @@ from math import exp
 from random import randint
 import numpy as np
 
-scaling = 100000
 
 def predicted_dos_formula(a,b):
     """
@@ -56,31 +55,38 @@ def season_elo_calc(_analysis_list):
 
     return season_elo_ratings_list
 
-
-
-season_year = 2012 #randint(1999,2020)
-analysis_list = season_query(season_year)
-
-season_elo_ratings_list = season_elo_calc(analysis_list)
-
-print_list=[]
-
-for i,r in enumerate(season_elo_ratings_list):
-    rtg = float(r[0]*scaling)
-    team = team_abbreviation(i+1)
-    print_list.append([rtg,team])
+def results_summary(season_elo_ratings_list, scaling = 100000):
     
-print_list = sorted(print_list,key=lambda x:-x[0])
-top_list = print_list[0:10]
-bottom_list = print_list[21:30]
-print("Top 10 teams in "+str(season_year)+":")
-for t in top_list:
-    rating = "%.1f" % t[0]
-    print(t[1]+": "+rating)
-print("Bottom 10 teams in "+str(season_year)+":")
-for t in bottom_list:
-    rating = "%.1f" % t[0]
-    print(t[1]+": "+rating)
-spread = print_list[0][0]-print_list[29][0]
-spread_string = "%.1f" % spread
-print("Max spread is: "+spread_string)
+    print_list = []
+    
+    for i,r in enumerate(season_elo_ratings_list):
+        rtg = float(r[0]*scaling)
+        team = team_abbreviation(i+1)
+        print_list.append([rtg,team])
+    
+    print_list = sorted(print_list,key=lambda x:-x[0])
+    top_list = print_list[0:10]
+    bottom_list = print_list[21:30]
+    print("Top 10 teams in "+str(season_year)+":")
+    for t in top_list:
+        rating = "%.1f" % t[0]
+        print(t[1]+": "+rating)
+    print("Bottom 10 teams in "+str(season_year)+":")
+    for t in bottom_list:
+        rating = "%.1f" % t[0]
+        print(t[1]+": "+rating)
+    spread = print_list[0][0]-print_list[29][0]
+    spread_string = "%.1f" % spread
+    print("Max spread is: "+spread_string)
+    
+    return 
+
+if __name__ == "__main__":
+
+    season_year = 2012 #randint(1999,2020)
+    analysis_list = season_query(season_year)
+    
+    season_elo_ratings_list = season_elo_calc(analysis_list)
+    results_summary(season_elo_ratings_list)
+
+
