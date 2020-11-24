@@ -108,11 +108,21 @@ C++ requirements for compiling Monte Carlo cython extension:
 libarmadillo-dev   
 libsqlite3-dev  
 
-## To Do
-Improve markdown formatting of README (e.g., link to all mentioned libraries)  
-Rearrange structure of library (move code one level down into "src"  
-Write manual test descriptions  
-Write all scripts in "function" form   
-Write automated tests/unit tests  
+## To Do - 2020-21 Season
+I've decided to replace the Simple Rating System based projections for Elo based projections.
+As a result my main objectives for now are:
+* store the Elo rating for the team and the date in a database table
+* develop methods for updating the table, and for retrieving ratings
+* manually calculate what the elo odds mean for win percentage
+* manual fine-tuning of ratings
+
+The reason for this, roughly, is that updating elo ratings doesn't require calculating the
+matrix for an entire seaaon and relies only on the games that happened. 
+If, say, you might be concerned the new season might feature a ton of cancelled games...
+
+The legacy model will remain, but will probably be removed; an Elo rating based on, essentially, points allowed and points scored
+is about the same as a SRS rating.
+
 
 *A whole lot of else - this project is very much still in development!*
+
