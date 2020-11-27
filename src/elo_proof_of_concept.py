@@ -1,10 +1,11 @@
 
-from nba_database.queries import season_query, team_abbreviation
+from nba_database.queries import season_query, team_abbreviation, prettytime
 from pprint import pprint
 from math import exp
 from random import randint
 import numpy as np
 
+#default rating is 0.01, multiplied by 10^6 for readability.
 
 def predicted_dos_formula(a,b):
     """
@@ -30,6 +31,9 @@ def predicted_dos_formula(a,b):
 
 def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     
+
+    print(_analysis_list[0])
+    
     default_rating = 0.01 #1 gives good results.
     rating_scaling = 10 #10 gives good spread
     default_K = default_rating/rating_scaling
@@ -38,6 +42,18 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
         season_elo_ratings_list = default_rating*np.ones((30,1))
     else:
         season_elo_ratings_list = previous_ratings
+        
+    #create a list of ratings to return and store the first ratings set 
+    list_of_ratings = []
+    initial_date = _analysis_list[0][4] #first entry, first date
+    season_year = analysis_list[0][5]
+    for i,z in enumerate(season_elo_ratings_list):
+        rd = {} #ratings_dict
+        rd['team']=i+1
+        rd['rating']=z[0]*100000
+        rd['datetime']=initial_date
+        rd['season_year']=season_year
+        list_of_ratings.append(rd)
         
     for g in _analysis_list:
 
@@ -48,15 +64,18 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
         expected_dos = predicted_dos_formula(away_rating, home_rating)
         actual_dos = ((g[1]-g[3])/(g[1]+g[3]))
         dos_difference = actual_dos - expected_dos
-    
+        #adjust ratings
         change_factor = default_K*dos_difference
         season_elo_ratings_list[g[0]-1] = season_elo_ratings_list[g[0]-1]+change_factor
         season_elo_ratings_list[g[2]-1] = season_elo_ratings_list[g[2]-1]-change_factor
-        
+        #add the date and then add the new ratings to the list of ratings
+        cur_date = g[4]
+        list_of_ratings.append({'team':g[0],'rating':season_elo_ratings_list[g[0]-1][0],'datetime':cur_date,'season_year':season_year})
+        list_of_ratings.append({'team':g[2],'rating':season_elo_ratings_list[g[2]-1][0],'datetime':cur_date,'season_year':season_year})
 
     print("Final set of Elo ratings after season "+str(season_year)+" presented below.")
 
-    return season_elo_ratings_list
+    return season_elo_ratings_list,list_of_ratings
 
 def year_to_year_ratings(season_elo_ratings_list,reset_factor=0.25,reset_value=0.01):
     previous_ratings = np.array(season_elo_ratings_list)
@@ -95,18 +114,21 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 if __name__ == "__main__":
 
     start_year = 1999
-    end_year = 2021
-    reset_factor = 1 #1: every season is new. #0: every season is a continuation
+    end_year = 2020
+    
+    #master_results
+    
+    reset_factor = 0.25 #1: every season is new. #0: every season is a continuation
     reset_value = 0.01 #identical to default value
     for season_year in range(start_year,end_year):
     
         if season_year == start_year:
             analysis_list = season_query(season_year)
-            season_elo_ratings_list = season_elo_calc(analysis_list)
+            season_elo_ratings_list,ratings = season_elo_calc(analysis_list)
             results_summary(season_elo_ratings_list)
         else:
             analysis_list = season_query(season_year)
-            season_elo_ratings_list = season_elo_calc(analysis_list,season_elo_ratings_list,new_season=False)
+            season_elo_ratings_list,ratings = season_elo_calc(analysis_list,season_elo_ratings_list,new_season=False)
             results_summary(season_elo_ratings_list)
         season_elo_ratings_list = year_to_year_ratings(season_elo_ratings_list,reset_factor=reset_factor,reset_value=reset_value)
         

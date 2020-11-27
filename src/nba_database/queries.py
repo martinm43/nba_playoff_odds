@@ -17,6 +17,12 @@ def epochtime(datetime_obj):
   """
   return time.mktime(datetime_obj.timetuple())
 
+def prettytime(timestamp):
+  """
+  Convert time since epoch to date
+  """
+  return datetime.datetime.fromtimestamp(timestamp)
+
 #####################
 # String Conversion #
 #####################
@@ -85,7 +91,7 @@ def games_query(start_datetime,end_datetime):
                     for g in played_games]
     return played_games
 
-def season_query(season_year):
+def season_query(season_year,date_col=False):
     """
     Input: a season year
     Output: [away_team, away_pts, home_team, home_pts] list
@@ -94,8 +100,9 @@ def season_query(season_year):
     played_games = Game.select().where(Game.season_year == season_year,
                                        Game.away_pts > 0).order_by(Game.datetime)
 
-    played_games = [[g.away_team_id, g.away_pts, g.home_team_id, g.home_pts, season_year]
-                    for g in played_games]
+    played_games = [[g.away_team_id, g.away_pts, g.home_team_id, g.home_pts, g.datetime, season_year]
+                        for g in played_games]
+
     return played_games
 
 def games_won_query(played_games,return_format="list"):
