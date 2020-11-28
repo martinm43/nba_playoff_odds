@@ -1,5 +1,5 @@
 
-from nba_database.queries import season_query, team_abbreviation, prettytime
+from nba_database.queries import season_query, prettytime, team_abbreviation
 from pprint import pprint
 from math import exp
 from random import randint
@@ -31,8 +31,6 @@ def predicted_dos_formula(a,b):
 
 def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     
-
-    print(_analysis_list[0])
     
     default_rating = 0.01 #1 gives good results.
     rating_scaling = 10 #10 gives good spread
@@ -50,6 +48,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     for i,z in enumerate(season_elo_ratings_list):
         rd = {} #ratings_dict
         rd['team']=i+1
+        rd['team_abbreviation']=''
         rd['rating']=z[0]*100000
         rd['datetime']=initial_date
         rd['season_year']=season_year
@@ -70,8 +69,16 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
         season_elo_ratings_list[g[2]-1] = season_elo_ratings_list[g[2]-1]-change_factor
         #add the date and then add the new ratings to the list of ratings
         cur_date = g[4]
-        list_of_ratings.append({'team':g[0],'rating':season_elo_ratings_list[g[0]-1][0],'datetime':cur_date,'season_year':season_year})
-        list_of_ratings.append({'team':g[2],'rating':season_elo_ratings_list[g[2]-1][0],'datetime':cur_date,'season_year':season_year})
+        list_of_ratings.append({'team':g[0],\
+                                'rating':season_elo_ratings_list[g[0]-1][0],\
+                                    'datetime':cur_date,\
+                                        'season_year':season_year,
+                                        'team_abbreviation':''})
+        list_of_ratings.append({'team':g[2],\
+                                'rating':season_elo_ratings_list[g[2]-1][0],\
+                                    'datetime':cur_date,\
+                                        'season_year':season_year,\
+                                            'team_abbreviation':''})
 
     print("Final set of Elo ratings after season "+str(season_year)+" presented below.")
 
@@ -114,7 +121,7 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 if __name__ == "__main__":
 
     start_year = 1999
-    end_year = 2020
+    end_year = 2021
     
     #master_results
     
