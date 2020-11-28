@@ -34,7 +34,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     
     
     default_rating = 0.01 #1 gives good results.
-    rating_scaling = 10 #10 gives good spread
+    rating_scaling = 15 #10 gives good spread
     default_K = default_rating/rating_scaling
 
     if new_season == True:

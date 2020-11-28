@@ -11,9 +11,14 @@ import matplotlib.pyplot as plt
 from nba_database.queries import prettytime
 from nba_database.nba_data_models import NbaTeamEloData
 
-x = NbaTeamEloData.select().where(NbaTeamEloData.season_year == 2006,\
-                                      NbaTeamEloData.team_abbreviation == "MIN")
+season_year = 2007
+abbrev = "CLE"
+
+x = NbaTeamEloData.select().where(NbaTeamEloData.team_abbreviation == abbrev)
 ratings = [z.elo_rating for z in x]
 date = [prettytime(z.datetime) for z in x]
 plt.plot(date,ratings)
-plt.plot(date,ratings)
+plt.xlabel('Date')
+plt.ylabel('Elo Rating')
+plt.title('Historical Elo Rating of '+abbrev)
+ 
