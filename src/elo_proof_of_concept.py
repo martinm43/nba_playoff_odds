@@ -1,5 +1,6 @@
 
 from nba_database.queries import season_query, prettytime, team_abbreviation
+from nba_database.nba_data_models import database, NbaTeamEloData
 from pprint import pprint
 from math import exp
 from random import randint
@@ -47,9 +48,9 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     season_year = analysis_list[0][5]
     for i,z in enumerate(season_elo_ratings_list):
         rd = {} #ratings_dict
-        rd['team']=i+1
+        rd['team_id']=i+1
         rd['team_abbreviation']=''
-        rd['rating']=z[0]*100000
+        rd['elo_rating']=z[0]*100000
         rd['datetime']=initial_date
         rd['season_year']=season_year
         list_of_ratings.append(rd)
@@ -69,13 +70,13 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
         season_elo_ratings_list[g[2]-1] = season_elo_ratings_list[g[2]-1]-change_factor
         #add the date and then add the new ratings to the list of ratings
         cur_date = g[4]
-        list_of_ratings.append({'team':g[0],\
-                                'rating':season_elo_ratings_list[g[0]-1][0],\
+        list_of_ratings.append({'team_id':g[0],\
+                                'elo_rating':season_elo_ratings_list[g[0]-1][0]*100000,\
                                     'datetime':cur_date,\
                                         'season_year':season_year,
                                         'team_abbreviation':''})
-        list_of_ratings.append({'team':g[2],\
-                                'rating':season_elo_ratings_list[g[2]-1][0],\
+        list_of_ratings.append({'team_id':g[2],\
+                                'elo_rating':season_elo_ratings_list[g[2]-1][0]*100000,\
                                     'datetime':cur_date,\
                                         'season_year':season_year,\
                                             'team_abbreviation':''})
@@ -120,8 +121,8 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 
 if __name__ == "__main__":
 
-    start_year = 1999
-    end_year = 2021
+    start_year = 1997 #minimum year 1997 in data
+    end_year = 1999
     
     #master_results - capture all ratings over all seasons.
     master_results = []
@@ -140,3 +141,11 @@ if __name__ == "__main__":
             results_summary(season_elo_ratings_list)
         season_elo_ratings_list = year_to_year_ratings(season_elo_ratings_list,reset_factor=reset_factor,reset_value=reset_value)
         master_results.append(ratings)
+    
+    
+    with database.atomic():
+        
+        for dl in master_results:
+            NbaTeamEloData.insert_many(dl).execute()
+        
+        
