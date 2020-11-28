@@ -49,7 +49,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     for i,z in enumerate(season_elo_ratings_list):
         rd = {} #ratings_dict
         rd['team_id']=i+1
-        rd['team_abbreviation']=''
+        rd['team_abbreviation']=team_abbreviation(rd['team_id'])
         rd['elo_rating']=z[0]*100000
         rd['datetime']=initial_date
         rd['season_year']=season_year
@@ -74,12 +74,12 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
                                 'elo_rating':season_elo_ratings_list[g[0]-1][0]*100000,\
                                     'datetime':cur_date,\
                                         'season_year':season_year,
-                                        'team_abbreviation':''})
+                                        'team_abbreviation':team_abbreviation(g[0])})
         list_of_ratings.append({'team_id':g[2],\
                                 'elo_rating':season_elo_ratings_list[g[2]-1][0]*100000,\
                                     'datetime':cur_date,\
                                         'season_year':season_year,\
-                                            'team_abbreviation':''})
+                                            'team_abbreviation':team_abbreviation(g[2])})
 
     print("Final set of Elo ratings after season "+str(season_year)+" presented below.")
 
@@ -122,7 +122,7 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 if __name__ == "__main__":
 
     start_year = 1997 #minimum year 1997 in data
-    end_year = 1999
+    end_year = 2021
     
     #master_results - capture all ratings over all seasons.
     master_results = []
@@ -144,8 +144,7 @@ if __name__ == "__main__":
     
     
     with database.atomic():
-        
+        NbaTeamEloData.delete().execute() #clear previous table
         for dl in master_results:
             NbaTeamEloData.insert_many(dl).execute()
-        
-        
+    
