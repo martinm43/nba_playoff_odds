@@ -123,7 +123,8 @@ if __name__ == "__main__":
     start_year = 1999
     end_year = 2021
     
-    #master_results
+    #master_results - capture all ratings over all seasons.
+    master_results = []
     
     reset_factor = 0.25 #1: every season is new. #0: every season is a continuation
     reset_value = 0.01 #identical to default value
@@ -138,4 +139,4 @@ if __name__ == "__main__":
             season_elo_ratings_list,ratings = season_elo_calc(analysis_list,season_elo_ratings_list,new_season=False)
             results_summary(season_elo_ratings_list)
         season_elo_ratings_list = year_to_year_ratings(season_elo_ratings_list,reset_factor=reset_factor,reset_value=reset_value)
-        
+        master_results.append(ratings)
