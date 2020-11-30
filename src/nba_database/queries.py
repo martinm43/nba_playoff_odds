@@ -100,7 +100,7 @@ def games_query(start_datetime,end_datetime):
                     for g in played_games]
     return played_games
 
-def season_query(season_year,date_col=False):
+def season_query(season_year):
     """
     Input: a season year
     Output: [away_team, away_pts, home_team, home_pts] list

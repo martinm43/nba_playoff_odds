@@ -7,8 +7,8 @@ from datetime import datetime
 from nba_database.queries import epochtime, full_name_to_id
 from nba_database.nba_data_models import database, BballrefScores
 
-season_year = 1991
-df = pd.read_csv('season_data_91-92.csv')
+season_year = 1989
+df = pd.read_csv('season_data_89-90.csv')
 season_dicts = df.T.to_dict().values()
 
 print(len(season_dicts))
