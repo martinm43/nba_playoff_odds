@@ -61,12 +61,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_da
                 x[j] = x[j].encode('utf-8')
                 #print(type(x[j]))
         #pprint(teams_list)
-
-        #Converting strings to bytes TBD! 
-
-
-
-        
+ 
         #Get future games (away_team, home_team, home_team_win_probability)
         #print(predict_date)
         #print(predict_season_year)
@@ -99,7 +94,7 @@ def playoff_odds_print(team_results):
     teams = Team.select().order_by(Team.bball_ref)
     
     teams_dict = [
-        dict(list(zip(['Team', 'Conference'], [i.team_name, i.conf_or_league]))) for i in teams]
+        dict(list(zip(['Team', 'Conference'], [i.abbreviation, i.conf_or_league]))) for i in teams]
     
     for i, d in enumerate(teams_dict):
         d['Avg. Wins'] = round(team_results[i][1], 1)
@@ -131,34 +126,16 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
 
-    """
-    start_datetime_str = input('Please enter the start date in %b %d %Y format, e.g. Oct 1 2010): ')
-    end_datetime_str = input('Please enter the end date in %b %d %Y format, e.g. May 1 2011): ')
-    season_year_str = input('Please enter the season year (e.g. 2011): ')
+    start_datetime = datetime(1994,10,22) #start of season
+    end_datetime = datetime(1994,12,1) #a few weeks or months in
+    #in-season option: end_datetime = datetime.today()-timedelta(days=1)
+    season_year = 1995 #year in which season ends
 
-    try:
-        start_datetime = datetime.strptime(start_datetime_str,'%b %d %Y')
-        end_datetime = datetime.strptime(end_datetime_str,'%b %d %Y')
-        season_year = int(season_year_str)
-    except ValueError:
-        print('Error parsing entered values. Please review dates and season year entered.')
-        sys.exit(1)
-    """
-    start_datetime = datetime(2019,10,22)
-    end_datetime = datetime.today()-timedelta(days=1)
-    season_year = 2020
-
-
-    #the following mode is a "standard test mode" - enter start of season and last known game
-    #print(start_datetime)
-    #print(end_datetime)
-    #print(season_year)
-    #then predict remaining games.
     results = playoff_odds_calc(start_datetime, end_datetime, season_year)
     results_table = playoff_odds_print(results)
-    #print(results)
+
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
     print(results_table)
     print("Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"+\
           "and home court advantage for the first round. That logic has not yet been implemented in this progam")
-    
+
