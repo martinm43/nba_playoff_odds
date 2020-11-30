@@ -7,6 +7,7 @@ available history in the Elo database.
 import matplotlib.pyplot as plt
 import pandas as pd
 import sqlite3
+import time
 from random import randint
 from datetime import datetime, timedelta
 
@@ -36,3 +37,5 @@ for team_id in range(1,31):
     plt.legend()
     plt.title("Elo rating history of "+team_abbreviation(team_id))
     plt.show()
+    
+    time.sleep(3)
