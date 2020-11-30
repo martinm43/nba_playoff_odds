@@ -10,7 +10,7 @@ import sqlite3
 from random import randint
 from datetime import datetime, timedelta
 
-from nba_database.queries import team_abbreviation
+from nba_database.queries import team_abbreviation,epochtime
 
 team_id = randint(1,31)
 
@@ -21,6 +21,8 @@ query = "SELECT datetime,elo_rating FROM nba_team_elo_data where team_id = "+\
 df = pd.read_sql_query(query,conn)
 
 df['datetime'] = pd.to_datetime(df['datetime'],unit='s')
+
+
 
 #get the appropriate colours
 cursor = conn.cursor()

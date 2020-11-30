@@ -26,7 +26,7 @@ for d in season_dicts:
     d['home_team_id'] = full_name_to_id(d['Home/Neutral'])
     d['away_team_id'] = full_name_to_id(d['Visitor/Neutral'])
     d['date'] = d['Date']
-    d['season_year'] = season_year
+    d['season_year'] = season_year+1
     #d['start_time'] = d['Start (ET)'] -- newer seasons only
 
     #date conversion - newer seasons
