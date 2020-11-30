@@ -42,6 +42,15 @@ def full_name_to_id(full_team_name):
     Converts 'normal team names', provides the rest of the data needed for processing 
     Team id
     """
+    if full_team_name == "New Jersey Nets":
+        full_team_name = "Brooklyn Nets"
+    if full_team_name == "Seattle SuperSonics":
+        full_team_name = "Oklahoma City Thunder"
+    if full_team_name == "Washington Bullets":
+        full_team_name = "Washington Wizards"
+    if full_team_name == "Vancouver Grizzlies":
+        full_team_name = "Memphis Grizzlies"
+        
     from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
       where(ProApiTeams.full_team_name == full_team_name)

@@ -33,3 +33,4 @@ plt.plot(df['datetime'],df['elo_rating'].rolling(41).mean(),\
 plt.xticks(rotation=45)
 plt.legend()
 plt.title("Elo rating history of "+team_abbreviation(team_id)+", 1996-2020")
+plt.show()
