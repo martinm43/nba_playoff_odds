@@ -121,7 +121,7 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 
 if __name__ == "__main__":
 
-    start_year = 1992 #minimum year 1997 in data
+    start_year = 1990 
     end_year = 2021
     
     #master_results - capture all ratings over all seasons.
