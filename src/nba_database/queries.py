@@ -152,3 +152,14 @@ def future_games_query(season_datetime, season_year):
                                 Game.season_year==season_year)
     matches = [[x.away_team_id,x.home_team_id] for x in query]
     return matches
+
+#############################################
+# Getting ratings for a given team
+#############################################
+def team_elo_rating(team_id,epochtime):
+    from .nba_data_models import NbaTeamEloData
+    rtg_iterable = NbaTeamEloData.select().where(NbaTeamEloData.team_id == team_id,\
+                    NbaTeamEloData.datetime < epochtime).order_by(NbaTeamEloData.datetime.desc()).limit(1)
+    rtg = [x.elo_rating for x in rtg_iterable]
+    rtg = rtg[0]
+    return rtg

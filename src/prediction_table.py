@@ -13,7 +13,9 @@ from datetime import datetime, timedelta
 
 from pprint import pprint
 
-def playoff_odds_calc(start_datetime, end_datetime, season_year,input_predict_date=None,input_season_year=None,auto='ON'):
+def playoff_odds_calc(start_datetime, end_datetime, season_year,\
+                      input_predict_date=None,input_season_year=None,\
+                          auto='ON'):
         #Standard imports
         #from pprint import pprint
         #Third party imports
