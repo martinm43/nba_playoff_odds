@@ -109,6 +109,6 @@ plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(sea
           "\n (teams in division may not be accurate before 2004)")
 plt.legend()
 plt.xticks(rotation=15)
-plt.savefig(division_name+'_'+str(season_year)+'.png')
-
+#plt.savefig(division_name+'_'+str(season_year)+'.png')
+plt.savefig("README_example.png")
 plt.show()
