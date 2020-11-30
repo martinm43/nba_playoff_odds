@@ -9,20 +9,21 @@ and allow for integration with more 'modern' interfaces -think flask or Django
 
 
 from nba_database.nba_data_models import ProApiTeams as Team
+from nba_database.queries import elo_ratings_list,epochtime
 from datetime import datetime, timedelta
 
 from pprint import pprint
 
 def playoff_odds_calc(start_datetime, end_datetime, season_year,\
                       input_predict_date=None,input_season_year=None,\
-                          auto='ON'):
+                          auto='ON',ratings_mode="Elo"):
         #Standard imports
         #from pprint import pprint
         #Third party imports
         #Library imports
         from predict.cython_mcss.mcss_ext2 import simulations_result_vectorized
         from analytics.SRS import SRS
-        from analytics.morey import SRS_regress
+        from analytics.morey import SRS_regress, Elo_regress
 
         from nba_database.queries import games_query, games_won_query, future_games_query
         
@@ -50,35 +51,45 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
         if auto == 'OFF':
             gwl = np.zeros((30,30))
             games_won_list_cpp = gwl.tolist()
-
-        # Get Team Ratings (and create Team object list)
-        ratings_list=SRS(games_query(start_datetime,end_datetime)).tolist() #get ratings for that time.
-        #pprint(ratings_list)
+            
+        #Get team data.
         teams_list=Team.select().order_by(Team.bball_ref)
         teams_list=[[x.bball_ref, x.team_name, x.abbreviation,\
                             x.division, x.conf_or_league] for x in teams_list]
-        for i, x in enumerate(teams_list):
-            x.append(ratings_list[i])
-            for j in range(1,5): #"all strings"
-                x[j] = x[j].encode('utf-8')
-                #print(type(x[j]))
-        #pprint(teams_list)
- 
+
         #Get future games (away_team, home_team, home_team_win_probability)
-        #print(predict_date)
-        #print(predict_season_year)
         future_games_list = future_games_query(predict_date, predict_season_year)
-        for x in future_games_list:
-            away_team_rating=teams_list[x[0]-1][5]
-            home_team_rating=teams_list[x[1]-1][5]
-            SRS_diff=home_team_rating-away_team_rating
-            x.append(SRS_regress(SRS_diff))
-        #pprint(future_games_list)
+
+        if ratings_mode == "SRS":
+            # Get Team Ratings (and create Team object list)
+            ratings_list=SRS(games_query(start_datetime,end_datetime)).tolist() #get ratings for that time.
+            
+            for i, x in enumerate(teams_list):
+                x.append(ratings_list[i])
+                for j in range(1,5): #"all strings"
+                    x[j] = x[j].encode('utf-8')
+    
+     
+            for x in future_games_list:
+                away_team_rating=teams_list[x[0]-1][5]
+                home_team_rating=teams_list[x[1]-1][5]
+                SRS_diff=home_team_rating-away_team_rating
+                x.append(SRS_regress(SRS_diff))
+                
+        if ratings_mode == "Elo":
+            ratings_list = elo_ratings_list(epochtime(end_datetime))
+            for i, x in enumerate(teams_list):
+                x.append(ratings_list[i])
+                for j in range(1,5): #"all strings"
+                    x[j] = x[j].encode('utf-8')
+            
+            for x in future_games_list:
+                away_team_rating=teams_list[x[0]-1][5]
+                home_team_rating=teams_list[x[1]-1][5]
+                Elo_diff=home_team_rating-away_team_rating
+                x.append(Elo_regress(Elo_diff))
         
-        #CALL THE FUNCTION!
-        #pprint(games_won_list_cpp)
-        #pprint(future_games_list)
-        #pprint(teams_list)
+        #Call the C++ module
         team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
         #pprint(team_results)
         team_results = [[x[0]*100.0, x[1]] for x in team_results]
@@ -128,12 +139,13 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
 
-    start_datetime = datetime(1994,10,22) #start of season
-    end_datetime = datetime(1994,12,1) #a few weeks or months in
+    start_datetime = datetime(2019,10,22) #start of season
+    end_datetime = datetime(2019,12,1) #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
-    season_year = 1995 #year in which season ends
+    season_year = 2020 #year in which season ends
 
-    results = playoff_odds_calc(start_datetime, end_datetime, season_year)
+    results = playoff_odds_calc(start_datetime, end_datetime, season_year,\
+                                ratings_mode="Elo")
     results_table = playoff_odds_print(results)
 
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))

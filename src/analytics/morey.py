@@ -2,7 +2,7 @@
 
 
 def Elo_regress(dElo):
-  max_elo_diff = 450
+  max_elo_diff = 300
   f = max_elo_diff/1.45484
   h = -0.17609*f
   return 1/(1+10**((-1*(dElo+h)/f)))

@@ -163,3 +163,10 @@ def team_elo_rating(team_id,epochtime):
     rtg = [x.elo_rating for x in rtg_iterable]
     rtg = rtg[0]
     return rtg
+
+def elo_ratings_list(epochtime):
+    ratings_list =[]
+    for i in range(1,31):
+        ratings_list.append(team_elo_rating(i,epochtime))
+    return ratings_list
+        
