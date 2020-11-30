@@ -5,22 +5,27 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 
+import random
+
 from prediction_table import playoff_odds_calc
 from pprint import pprint
 from nba_database.queries import team_abbreviation
 from nba_database.nba_data_models import ProApiTeams
 
 #Defining Inputs
-season_year = input("Enter year: ")
-try:
-    season_year = int(season_year)
-except ValueError:
-    print("Value is not an integer. Exiting")
-    sys.exit(1)
+#season_year = input("Enter year: ")
+#try:
+#    season_year = int(season_year)
+#except ValueError:
+#    print("Value is not an integer. Exiting")
+#    sys.exit(1)
 
-division_name = input("Enter division. Options are \n"+\
-          "East: Atlantic, Central, Southeast \n"\
-          "West: Southwest, Pacific, Northwest \n")
+#division_name = input("Enter division. Options are \n"+\
+#          "East: Atlantic, Central, Southeast \n"\
+#          "West: Southwest, Pacific, Northwest \n")
+
+season_year = 1999
+division_name = random.choice(['Atlantic','Central','Southeast','Southwest','Pacific','Northwest'])
 
 if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific','Northwest']:
     print("Invalid division name. Exiting")
@@ -100,9 +105,10 @@ for team_id_db in division_team_id_list:
 
 plt.xlabel('Date')
 plt.ylabel('Team Playoff Odds')
-plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(season_year))
+plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(season_year)+\
+          "\n (teams in division may not be accurate before 2004)")
 plt.legend()
 plt.xticks(rotation=15)
 plt.savefig(division_name+'_'+str(season_year)+'.png')
-plt.text("Division members may not be accurate before 2004")
+
 plt.show()
