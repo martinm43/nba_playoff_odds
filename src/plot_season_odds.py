@@ -24,7 +24,7 @@ from nba_database.nba_data_models import ProApiTeams
 #          "East: Atlantic, Central, Southeast \n"\
 #          "West: Southwest, Pacific, Northwest \n")
 
-season_year = 1999
+season_year = 2012
 division_name = random.choice(['Atlantic','Central','Southeast','Southwest','Pacific','Northwest'])
 
 if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific','Northwest']:
