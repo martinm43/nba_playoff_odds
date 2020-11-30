@@ -26,17 +26,26 @@ if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific',
     print("Invalid division name. Exiting")
     sys.exit(1)
 
-if season_year < 2000 or season_year > 2020:
+if season_year < 1990 or season_year > 2020:
     print("Season year "+str(season_year)+" is outside of current program limits, exiting")
     sys.exit(1)
-elif season_year == 2012: #Lockout year fix.
+elif season_year == 2012: #2011-2012 lockout year fix.
     a = datetime(season_year-1,12,25)
     b = datetime(season_year,1,15)
+    end = min(datetime(season_year,5,30),datetime.today()-timedelta(days=1))
+elif season_year == 1999: #1998-1999 lockout year fix.
+    a = datetime(season_year,2,5)
+    b = datetime(season_year,2,26)
+    end = min(datetime(season_year,5,30),datetime.today()-timedelta(days=1))
+elif season_year == 2020: #SARS-CoV-2 fix.
+    a = datetime(season_year-1,12,25)
+    b = datetime(season_year,1,15)
+    end = min(datetime(season_year,8,15),datetime.today()-timedelta(days=1))
 else:
     a = datetime(season_year-1,10,1)
     b = datetime(season_year-1,11,15)
-    
-end = min(datetime(season_year,4,30),datetime.today()-timedelta(days=1))
+    end = min(datetime(season_year,4,30),datetime.today()-timedelta(days=1))
+
 
 
 # Python Moving Average, taken by:
@@ -95,4 +104,5 @@ plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(sea
 plt.legend()
 plt.xticks(rotation=15)
 plt.savefig(division_name+'_'+str(season_year)+'.png')
+plt.text("Division members may not be accurate before 2004")
 plt.show()
