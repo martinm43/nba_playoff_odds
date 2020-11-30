@@ -15,7 +15,7 @@ from nba_database.nba_data_models import BballrefScores
 
 # not ignoring warnings
 # warnings.filterwarnings("ignore")
-min_val = 1995
+min_val = 1990
 max_val = 2020
 
 z = BballrefScores.select().where(BballrefScores.season_year >= min_val, BballrefScores.season_year < max_val)

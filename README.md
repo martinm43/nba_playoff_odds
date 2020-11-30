@@ -4,10 +4,9 @@
 
 
 ## Summary 
-A set of scripts to calculate ratings for teams, based on point differential and strength of schedule, and then use those ratings to determine playoff odds over a given season. 
+A set of scripts to calculate ratings for teams, based on either point differential or modified Elo rating in addition to strength of schedule, and then use those ratings to determine playoff odds over a given season. 
 
-## Examples
-
+## Main Scripts
 **info_table** - generates a snapshot of a season (pythagorean wins, Strength-of-Schedule adjusted net rating, away record, home record, and overall record)
 
 	Pythagorean Win Expectations, Est. SRS, and Records 
@@ -102,27 +101,34 @@ Monte Carlo simulation extension written in C++ requires g++ compilation using t
 Python requirements:  
 the nba_py library (only for update_nba_api)  
 peewee (version 3.11+)
-numpy, scipy, and cython (obtained from the Anaconda scientific distribution)  
+numpy, scipy, and cython  
 
 C++ requirements for compiling Monte Carlo cython extension:  
 libarmadillo-dev   
 libsqlite3-dev  
 
-## To Do - 2020-21 Season
-I've decided to replace the Simple Rating System based projections for Elo based projections.
-As a result my main objectives for now are:
-* store the Elo rating for the team and the date in a database table
-* develop methods for updating the table, and for retrieving ratings
-* manually calculate what the elo odds mean for win percentage
-* manual fine-tuning of ratings
+## How It Works  - Elo Model
+I've decided to replace the [Simple Rating System ](https://www.sports-reference.com/blog/2015/03/srs-calculation-details/)  based projections with projections based on a calculated Elo rating. The following is a brief summary of how this model was created. [It is very similar to, and inspired by, the model used by Flat Track Stats for roller derby.](https://web.archive.org/web/20200930184302/https://flattrackstats.com/about/algorithm/detailed) 
 
-The reason for this, roughly, is that updating elo ratings doesn't require calculating the
-matrix for an entire seaaon and relies only on the games that happened. 
-If, say, you might be concerned the new season might feature a ton of cancelled games...
+In order to do so, I first obtained boxscore data from the past 30 seasons in order to calculate the "difference over sum" value distribution. 
 
-The legacy model will remain, but will probably be removed; an Elo rating based on, essentially, points allowed and points scored
-is about the same as a SRS rating.
+Difference over sum is defined as (home_pts-away_pts)/(home_pts+away_pts)
 
+This metric is based on points scored and points allowed and therefore rewards teams for offense and defense. Difference-over-sum has two main advantages over the Simple Rating System:
 
-*A whole lot of else - this project is very much still in development!*
+* does not require solving a system of equations, games can be taken as they happen
+* provides a more mathematically sound way of dealing with blowouts
+
+The first point is highly pertinent if, say, there might be ***some reason*** games get cancelled/not as many games as you need are available.
+
+Once a distribution was fit, the coefficients were used in a formula that predicts the difference-over-sum value. The difference between the predicted difference-over-sum value and actual difference-over-sum value is then multiplied by a factor in order to adjust the rating of each team.
+
+Manual calibration and testing were used to obtain appropriate initial ratings and K factor. Once the ratings were deemed to be stable and reflective of reality (both on a single-season and historical basis), a win expectancy model was created, [similar to the one here](http://www.eloratings.net/about) similar to the one here, using the known home team advantage in the NBA (60%) and an assumption on what the odds of the worst team beating the best team is/what that difference can be expected to be in Elo points (approximately 450 and 5%).
+
+The original SRS based model remains available for legacy reasons/comparison.
+
+##To Do
+* provide a more technical writeup for the Elo model (?)
+* general code cleanup
+
 
