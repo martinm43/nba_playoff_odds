@@ -3,8 +3,8 @@
 
 def Elo_regress(dElo):
   max_elo_diff = 400
-  f = max_elo_diff/1.45484
-  h = -0.17609*f
+  f = max_elo_diff/1.10266
+  h = 0.17609*f
   return 1/(1+10**((-1*(dElo+h)/f)))
 
 def SRS_regress(dSRS):
