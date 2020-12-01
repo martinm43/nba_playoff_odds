@@ -15,3 +15,6 @@
 #Cpython and C++ codes.
 *.o
 *.so
+
+*.csv
+*.png
