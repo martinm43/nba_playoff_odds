@@ -12,4 +12,4 @@ def SRS_regress(dSRS):
   return 1/(1+math.exp(-1*(0.15+dSRS*.095))) #.3
 
 if __name__=='__main__':
-  print((Elo_regress(0)))
+  print((Elo_regress(-1)))

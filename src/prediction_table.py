@@ -139,7 +139,7 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
 
-    season_year = 2020 #year in which season ends
+    season_year = 1993 #year in which season ends
     start_datetime = datetime(season_year-1,10,22) #start of season
     end_datetime = datetime(season_year-1,12,1) #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
