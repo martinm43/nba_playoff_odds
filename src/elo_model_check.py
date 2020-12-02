@@ -2,6 +2,7 @@
 
 import numpy as np
 
+from random import randint
 from nba_database.queries import season_query, team_elo_rating
 from analytics.morey import Elo_regress
 
