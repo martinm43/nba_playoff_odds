@@ -7,7 +7,8 @@ from datetime import datetime
 from nba_database.queries import epochtime, full_name_to_id
 from nba_database.nba_data_models import database, BballrefScores
 
-df = pd.read_csv('SR_bubble_results.csv')
+season_year = 1989
+df = pd.read_csv('season_data_89-90.csv')
 season_dicts = df.T.to_dict().values()
 
 print(len(season_dicts))
@@ -25,12 +26,15 @@ for d in season_dicts:
     d['home_team_id'] = full_name_to_id(d['Home/Neutral'])
     d['away_team_id'] = full_name_to_id(d['Visitor/Neutral'])
     d['date'] = d['Date']
-    d['season_year'] = 2020
-    d['start_time'] = d['Start (ET)']
+    d['season_year'] = season_year+1
+    #d['start_time'] = d['Start (ET)'] -- newer seasons only
 
-    #date conversion
-    datestr = d['Date'] + ' ' + d['Start (ET)']+ 'm'
-    datefmt = '%a %b %d %Y %H:%M%p'
+    #date conversion - newer seasons
+    #datestr = d['Date'] + ' ' + d['Start (ET)']+ 'm'
+    #datefmt = '%a %b %d %Y %H:%M%p'
+    #date conversion - older seasons
+    datestr = d['Date']
+    datefmt = '%a %b %d %Y'
     date_datetime = datetime.strptime(datestr,datefmt)
     d['datetime'] = epochtime(date_datetime)
 
@@ -45,10 +49,11 @@ for d in season_dicts:
     d.pop('Notes',None)
     d.pop('Start (ET)',None)
     d.pop('Date',None)
+    d.pop('Unnamed: 5',None)
     d.pop('Unnamed: 6',None)
     d.pop('Unnamed: 7',None)
 
-    d['id'] = 20200000 + id
+    d['id'] = season_year*10000 + id
     id+=1
 
 season_dicts = list(season_dicts)

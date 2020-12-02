@@ -5,38 +5,52 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 
+import random
+
 from prediction_table import playoff_odds_calc
 from pprint import pprint
 from nba_database.queries import team_abbreviation
 from nba_database.nba_data_models import ProApiTeams
 
 #Defining Inputs
-season_year = input("Enter year: ")
-try:
-    season_year = int(season_year)
-except ValueError:
-    print("Value is not an integer. Exiting")
-    sys.exit(1)
+#season_year = input("Enter year: ")
+#try:
+#    season_year = int(season_year)
+#except ValueError:
+#    print("Value is not an integer. Exiting")
+#    sys.exit(1)
 
-division_name = input("Enter division. Options are \n"+\
-          "East: Atlantic, Central, Southeast \n"\
-          "West: Southwest, Pacific, Northwest \n")
+#division_name = input("Enter division. Options are \n"+\
+#          "East: Atlantic, Central, Southeast \n"\
+#          "West: Southwest, Pacific, Northwest \n")
+
+season_year = random.randint(1990,2021)
+division_name = random.choice(['Atlantic','Central','Southeast','Southwest','Pacific','Northwest'])
 
 if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific','Northwest']:
     print("Invalid division name. Exiting")
     sys.exit(1)
 
-if season_year < 2000 or season_year > 2020:
+if season_year < 1990 or season_year > 2020:
     print("Season year "+str(season_year)+" is outside of current program limits, exiting")
     sys.exit(1)
-elif season_year == 2012: #Lockout year fix.
+elif season_year == 2012: #2011-2012 lockout year fix.
     a = datetime(season_year-1,12,25)
     b = datetime(season_year,1,15)
+    end = min(datetime(season_year,5,30),datetime.today()-timedelta(days=1))
+elif season_year == 1999: #1998-1999 lockout year fix.
+    a = datetime(season_year,2,5)
+    b = datetime(season_year,2,26)
+    end = min(datetime(season_year,5,30),datetime.today()-timedelta(days=1))
+elif season_year == 2020: #SARS-CoV-2 fix.
+    a = datetime(season_year-1,12,25)
+    b = datetime(season_year,1,15)
+    end = min(datetime(season_year,8,15),datetime.today()-timedelta(days=1))
 else:
     a = datetime(season_year-1,10,1)
     b = datetime(season_year-1,11,15)
-    
-end = min(datetime(season_year,4,30),datetime.today()-timedelta(days=1))
+    end = min(datetime(season_year,4,30),datetime.today()-timedelta(days=1))
+
 
 
 # Python Moving Average, taken by:
@@ -91,7 +105,8 @@ for team_id_db in division_team_id_list:
 
 plt.xlabel('Date')
 plt.ylabel('Team Playoff Odds')
-plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(season_year))
+plt.title(division_name+' Division Playoff Odds '+str(season_year-1)+'-'+str(season_year)+\
+          "\n (teams in division may not be accurate before 2004)")
 plt.legend()
 plt.xticks(rotation=15)
 plt.savefig(division_name+'_'+str(season_year)+'.png')

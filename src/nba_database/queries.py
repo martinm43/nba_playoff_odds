@@ -17,6 +17,12 @@ def epochtime(datetime_obj):
   """
   return time.mktime(datetime_obj.timetuple())
 
+def prettytime(timestamp):
+  """
+  Convert time since epoch to date
+  """
+  return datetime.datetime.fromtimestamp(timestamp)
+
 #####################
 # String Conversion #
 #####################
@@ -36,6 +42,15 @@ def full_name_to_id(full_team_name):
     Converts 'normal team names', provides the rest of the data needed for processing 
     Team id
     """
+    if full_team_name == "New Jersey Nets":
+        full_team_name = "Brooklyn Nets"
+    if full_team_name == "Seattle SuperSonics":
+        full_team_name = "Oklahoma City Thunder"
+    if full_team_name == "Washington Bullets":
+        full_team_name = "Washington Wizards"
+    if full_team_name == "Vancouver Grizzlies":
+        full_team_name = "Memphis Grizzlies"
+        
     from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
       where(ProApiTeams.full_team_name == full_team_name)
@@ -94,8 +109,9 @@ def season_query(season_year):
     played_games = Game.select().where(Game.season_year == season_year,
                                        Game.away_pts > 0).order_by(Game.datetime)
 
-    played_games = [[g.away_team_id, g.away_pts, g.home_team_id, g.home_pts, season_year]
-                    for g in played_games]
+    played_games = [[g.away_team_id, g.away_pts, g.home_team_id, g.home_pts, g.datetime, season_year]
+                        for g in played_games]
+
     return played_games
 
 def games_won_query(played_games,return_format="list"):
@@ -136,3 +152,21 @@ def future_games_query(season_datetime, season_year):
                                 Game.season_year==season_year)
     matches = [[x.away_team_id,x.home_team_id] for x in query]
     return matches
+
+#############################################
+# Getting ratings for a given team
+#############################################
+def team_elo_rating(team_id,epochtime):
+    from .nba_data_models import NbaTeamEloData
+    rtg_iterable = NbaTeamEloData.select().where(NbaTeamEloData.team_id == team_id,\
+                    NbaTeamEloData.datetime < epochtime).order_by(NbaTeamEloData.datetime.desc()).limit(1)
+    rtg = [x.elo_rating for x in rtg_iterable]
+    rtg = rtg[0]
+    return rtg
+
+def elo_ratings_list(epochtime):
+    ratings_list =[]
+    for i in range(1,31):
+        ratings_list.append(team_elo_rating(i,epochtime))
+    return ratings_list
+        

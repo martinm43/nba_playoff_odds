@@ -4,10 +4,9 @@
 
 
 ## Summary 
-A set of scripts to calculate ratings for teams, based on point differential and strength of schedule, and then use those ratings to determine playoff odds over a given season. 
+A set of scripts to calculate ratings for teams, based on either point differential or modified Elo rating in addition to strength of schedule, and then use those ratings to determine playoff odds over a given season. 
 
-## Examples
-
+## Main Scripts
 **info_table** - generates a snapshot of a season (pythagorean wins, Strength-of-Schedule adjusted net rating, away record, home record, and overall record)
 
 	Pythagorean Win Expectations, Est. SRS, and Records 
@@ -47,43 +46,44 @@ A set of scripts to calculate ratings for teams, based on point differential and
 	NYK     16              -5.174      8-33           9-32           17-65
 	======  ==============  ==========  =============  =============  ================
 
-**prediction_table** - generates a table of playoff odds
+**prediction_table** - generates a table of playoff odds (now Elo based, see below)
 	
-	Playoff odds for the 2019 season as of Jan 01 2019
-	============  =============  ===========  ===========
-	Conference    Team           Avg. Wins    Playoff %
-	============  =============  ===========  ===========
-	E             Bucks          63.9         100.0%
-	E             Raptors        58.9         100.0%
-	E             Pacers         56.4         100.0%
-	E             Celtics        54           100.0%
-	E             76ers          47.7         100.0%
-	E             Hornets        42           98.4%
-	E             Heat           39.3         95.6%
-	E             Nets           34.5         48.1%
-	E             Pistons        34.1         46.7%
-	E             Magic          31.1         10.1%
-	E             Wizards        27.4         1.1%
-	E             Bulls          19.6         0.0%
-	E             Hawks          19.4         0.0%
-	E             Knicks         18.4         0.0%
-	E             Cavaliers      15.9         0.0%
-	W             Nuggets        57.3         100.0%
-	W             Thunder        54.1         99.7%
-	W             Warriors       53.9         99.8%
-	W             Jazz           48.4         84.4%
-	W             Clippers       47.7         79.5%
-	W             Lakers         47.7         83.8%
-	W             Rockets        47.3         78.4%
-	W             Trail Blazers  46.5         71.1%
-	W             Spurs          45.9         61.3%
-	W             Kings          41.3         11.6%
-	W             Pelicans       41.2         13.4%
-	W             Grizzlies      41           11.1%
-	W             Mavericks      39           3.7%
-	W             Timberwolves   38.1         2.2%
-	W             Suns           18           0.0%
-	============  =============  ===========  ===========
+	Playoff odds for the 2020 season as of Dec 01 2019
+	============  ===========  ===========  ===========
+	Conference    Team         Avg. Wins    Playoff %
+	============  ===========  ===========  ===========
+	E             MIL          54.8         100.0%
+	E             TOR          52.6         100.0%
+	E             IND          49.2         100.0%
+	E             BOS          43.9         100.0%
+	E             PHI          42.6         99.9%
+	E             MIA          40.1         99.8%
+	E             ORL          34.2         89.1%
+	E             BKN/NJN      31.4         67.5%
+	E             WAS          28           29.9%
+	E             DET          26.3         13.7%
+	E             CHA          20.9         0.1%
+	E             CHI          17.6         0.0%
+	E             CLE          17.5         0.0%
+	E             ATL          16.5         0.0%
+	E             NYK          15.5         0.0%
+	W             HOU          53.1         100.0%
+	W             LAC          50.8         100.0%
+	W             DEN          50.4         100.0%
+	W             UTA          48           100.0%
+	W             LAL          43           99.1%
+	W             DAL          42.3         98.1%
+	W             OKC/SEA      42.2         98.4%
+	W             SAS          37.2         79.0%
+	W             MIN          30.9         7.0%
+	W             POR          30.6         7.6%
+	W             MEM/VAN      30           5.5%
+	W             GSW          29.9         2.7%
+	W             NOP/NOH/CHA  27.8         1.5%
+	W             PHX          26.5         1.0%
+	W             SAC          25           0.1%
+	============  ===========  ===========  ===========
+
 
 **plot_season_odds** - creates a graph of playoff odds for teams in one division in one season
 
@@ -102,27 +102,36 @@ Monte Carlo simulation extension written in C++ requires g++ compilation using t
 Python requirements:  
 the nba_py library (only for update_nba_api)  
 peewee (version 3.11+)
-numpy, scipy, and cython (obtained from the Anaconda scientific distribution)  
+numpy, scipy, and cython  
 
 C++ requirements for compiling Monte Carlo cython extension:  
 libarmadillo-dev   
 libsqlite3-dev  
 
-## To Do - 2020-21 Season
-I've decided to replace the Simple Rating System based projections for Elo based projections.
-As a result my main objectives for now are:
-* store the Elo rating for the team and the date in a database table
-* develop methods for updating the table, and for retrieving ratings
-* manually calculate what the elo odds mean for win percentage
-* manual fine-tuning of ratings
+## How It Works  - Elo Model
+I've decided to replace the [Simple Rating System ](https://www.sports-reference.com/blog/2015/03/srs-calculation-details/)  based projections with projections based on a calculated Elo rating. The following is a brief summary of how this model was created. [It is very similar to, and inspired by, the model used by Flat Track Stats for roller derby.](https://web.archive.org/web/20200930184302/https://flattrackstats.com/about/algorithm/detailed) 
 
-The reason for this, roughly, is that updating elo ratings doesn't require calculating the
-matrix for an entire seaaon and relies only on the games that happened. 
-If, say, you might be concerned the new season might feature a ton of cancelled games...
+In order to do so, I first obtained boxscore data from the past 30 seasons in order to calculate the "difference over sum" value distribution. 
 
-The legacy model will remain, but will probably be removed; an Elo rating based on, essentially, points allowed and points scored
-is about the same as a SRS rating.
+Difference over sum is defined as (home_pts-away_pts)/(home_pts+away_pts)
 
+This metric is based on points scored and points allowed and therefore rewards teams for offense and defense. Difference-over-sum has two main advantages over the Simple Rating System:
 
-*A whole lot of else - this project is very much still in development!*
+* does not require solving a system of equations, games can be taken as they happen
+* provides a more mathematically sound way of dealing with blowouts
+
+The first point is highly pertinent if, say, there might be ***some reason*** games get cancelled/not as many games as you need are available.
+
+Once a distribution was fit, the coefficients were used in a formula that predicts the difference-over-sum value. The difference between the predicted difference-over-sum value and actual difference-over-sum value is then multiplied by a factor in order to adjust the rating of each team.
+
+Manual calibration and testing were used to obtain appropriate initial ratings and K factor. Once the ratings were deemed to be stable and reflective of reality (both on a single-season and historical basis), a win expectancy model was created, [similar to the one here](http://www.eloratings.net/about) similar to the one here, using the known home team advantage in the NBA (60%) and an assumption on what the odds of the worst team beating the best team is/what that difference can be expected to be in Elo points (approximately 450 and 5%).
+
+The original SRS based model remains available for legacy reasons/comparison.
+
+##To Do
+* update info_table to use Elo in addition to SRS
+* general update of 
+* provide a more technical writeup for the Elo model (?)
+* general code cleanup
+
 
