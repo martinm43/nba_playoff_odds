@@ -6,7 +6,8 @@ from random import randint
 from nba_database.queries import season_query, team_elo_rating
 from analytics.morey import Elo_regress
 
-for year in range(1990,2021):
+for year in range(1991,2021):
+
     season_query(year)
     games = season_query(year)
     success_rate = []
