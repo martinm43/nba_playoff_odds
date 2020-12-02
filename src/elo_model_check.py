@@ -5,7 +5,7 @@ import numpy as np
 from nba_database.queries import season_query, team_elo_rating
 from analytics.morey import Elo_regress
 
-year = 1999
+year = randint(1990,2021)
 season_query(year)
 games = season_query(year)
 success_rate = []
@@ -21,4 +21,8 @@ for z in games:
         
         
 sr_array = np.asarray(success_rate)
-success_rate = np.sum(sr_array)/sr_array.size
+success_rate = np.sum(sr_array)/sr_array.size*100
+
+success_rate_string = "%.1f" % success_rate
+
+print("Accuracy in year "+str(year)+": "+success_rate_string+"%")
