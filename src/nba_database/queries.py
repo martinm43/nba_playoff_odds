@@ -55,12 +55,8 @@ def full_name_to_id(full_team_name):
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
       where(ProApiTeams.full_team_name == full_team_name)
 
-    if len(s_query) != 0:
-        s_result = s_query[0]
-        return s_result.bball_ref
-    else:
-        return -1
-
+    s_result = s_query[0]
+    return s_result.bball_ref
 
 def abbrev_to_id(team_abbrev):
     """

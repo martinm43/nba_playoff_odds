@@ -58,7 +58,9 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
                             x.division, x.conf_or_league] for x in teams_list]
 
         #Get future games (away_team, home_team, home_team_win_probability)
+	
         future_games_list = future_games_query(predict_date, predict_season_year)
+        print(future_games_list)
 
         if ratings_mode == "SRS":
             # Get Team Ratings (and create Team object list)
@@ -141,7 +143,7 @@ if __name__=="__main__":
 
     season_year = 2021 #year in which season ends
     start_datetime = datetime(season_year-1,10,22) #start of season
-    end_datetime = datetime(season_year,5,1) #a few weeks or months in
+    end_datetime = datetime(season_year-1,11,1) #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
 
 
