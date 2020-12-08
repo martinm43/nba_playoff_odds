@@ -28,6 +28,7 @@ for d in season_dicts:
     d.pop("Away Team", None)
     
     datestr = d['Date']
+    d['date'] = d['Date']
     datefmt = '%d/%m/%Y %H:%M'
     date_datetime = datetime.strptime(datestr,datefmt)
     d['datetime'] = epochtime(date_datetime)
@@ -35,14 +36,10 @@ for d in season_dicts:
     d.pop("Round Number",None)
     d.pop("Location",None)
     d.pop("Result",None)
+    d.pop("Date",None)
     
     d['id'] = season_year*10000 + entry_id
     entry_id+=1
     
-with database.atomic() as txn:
-     size = (SQLITE_MAX_VARIABLE_NUMBER // len(season_dicts[0])) - 1 
-     # remove one to avoid issue if peewee adds some variable
-     for i in range(0, len(season_dicts), size):
-        BballrefScores.insert_many(season_dicts[i:i+size]).on_conflict_replace().execute()
-  
 
+BballrefScores.insert_many(season_dicts).on_conflict_replace().execute()
