@@ -156,4 +156,6 @@ if __name__=="__main__":
     print("Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"+\
           "and home court advantage for the first round. That logic has not yet been implemented in this progam")
 
-    print("The 2020 play-in tournament has also not yet been implemented.")
+    print("For 2020 please note that:\n"+ 
+          "* Play-in tournament has also not yet been implemented.\n"+
+          "* League is releasing schedule in two halves; first half has 37 games")
