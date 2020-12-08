@@ -1,5 +1,8 @@
-# For parsing .csv files obtained from the Sports-Reference website.
-# All data belongs to Sports Reference LLC themselves.
+"""
+ For parsing .csv files obtained from the Sports-Reference website.
+ All data belongs to Sports Reference LLC themselves, an excellent site you 
+ should consider supporting if you like this stuff.
+"""
 from pprint import pprint
 import pandas as pd
 from datetime import datetime

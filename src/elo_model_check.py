@@ -1,5 +1,8 @@
 # coding: utf-8
-
+"""
+Script for determining on a yes-no basis whether the predicted elo_odds are accurate 
+(i.e for how many times the home team has a winning percentage over 50% does the home team actually win)
+"""
 import numpy as np
 
 from random import randint

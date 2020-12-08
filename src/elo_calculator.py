@@ -1,4 +1,7 @@
-
+"""
+Script that calculates Elo for the entire available NBA history
+and stores the result in a SQLite database.
+"""
 from nba_database.queries import season_query, prettytime, team_abbreviation
 from nba_database.nba_data_models import database, NbaTeamEloData
 from pprint import pprint

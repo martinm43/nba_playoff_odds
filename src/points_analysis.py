@@ -4,6 +4,9 @@
 Created on Fri Nov 13 22:03:48 2020
 
 @author: martin
+
+Script for calculating what the "difference over sum" distribution looks like
+for the NBA, for later use in mathematical modelling.
 """
 import pandas as pd
 import numpy as np
