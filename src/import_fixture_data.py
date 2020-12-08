@@ -23,15 +23,19 @@ entry_id=1
 for d in season_dicts:
     d['home_team'] = d['Home Team']
     d.pop("Home Team", None)
+    d['home_team_id'] = full_name_to_id(d['home_team'])
     
     d['away_team'] = d['Away Team']
     d.pop("Away Team", None)
+    d['away_team_id'] = full_name_to_id(d['away_team'])
     
     datestr = d['Date']
     d['date'] = d['Date']
     datefmt = '%d/%m/%Y %H:%M'
     date_datetime = datetime.strptime(datestr,datefmt)
     d['datetime'] = epochtime(date_datetime)
+    
+    d['season_year'] = season_year
     
     d.pop("Round Number",None)
     d.pop("Location",None)
