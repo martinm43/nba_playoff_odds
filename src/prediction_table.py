@@ -60,7 +60,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
         #Get future games (away_team, home_team, home_team_win_probability)
 	
         future_games_list = future_games_query(predict_date, predict_season_year)
-        print(future_games_list)
+        
 
         if ratings_mode == "SRS":
             # Get Team Ratings (and create Team object list)
