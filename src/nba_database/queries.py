@@ -54,8 +54,12 @@ def full_name_to_id(full_team_name):
     from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
       where(ProApiTeams.full_team_name == full_team_name)
-    s_result = s_query[0]
-    return s_result.bball_ref
+
+    if len(s_query) != 0:
+        s_result = s_query[0]
+        return s_result.bball_ref
+    else:
+        return -1
 
 
 def abbrev_to_id(team_abbrev):
