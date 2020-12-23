@@ -125,7 +125,7 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 if __name__ == "__main__":
 
     start_year = 1990 
-    end_year = 2021
+    end_year = 2022
     
     #master_results - capture all ratings over all seasons.
     master_results = []
