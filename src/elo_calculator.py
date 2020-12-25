@@ -34,7 +34,31 @@ def predicted_dos_formula(a,b):
 
 
 def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
-    
+    """
+    Based on a series of games provided in 
+    [away id, away pts, home id, home pts]
+    format, previous ratings (if applicable), 
+    and if a previous iteration is being used
+    return both the final ratings and a continuous set of ratings
+    for the entire season.
+
+    Parameters
+    ----------
+    _analysis_list : TYPE
+        DESCRIPTION.
+    previous_ratings : TYPE, optional
+        DESCRIPTION. The default is None.
+    new_season : TYPE, optional
+        DESCRIPTION. The default is True.
+
+    Returns
+    -------
+    season_elo_ratings_list : TYPE
+        DESCRIPTION.
+    list_of_ratings : TYPE
+        DESCRIPTION.
+
+    """
     
     default_rating = 0.01 #1 gives good results.
     rating_scaling = 15 #10 gives good spread
@@ -89,6 +113,28 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     return season_elo_ratings_list,list_of_ratings
 
 def year_to_year_ratings(season_elo_ratings_list,reset_factor=0.25,reset_value=0.01):
+    """
+    Take a set of ratings from the previous year,
+    and based on a reset factor and a value to be 
+    reset to, adjust them for use in a new year.
+    
+    Note that rating is unscaled here.
+    
+    Parameters
+    ----------
+    season_elo_ratings_list : TYPE
+        DESCRIPTION.
+    reset_factor : TYPE, optional
+        DESCRIPTION. The default is 0.25.
+    reset_value : TYPE, optional
+        DESCRIPTION. The default is 0.01.
+
+    Returns
+    -------
+    new_ratings : TYPE
+        DESCRIPTION.
+
+    """
     previous_ratings = np.array(season_elo_ratings_list)
     #print(previous_ratings)
     new_ratings = previous_ratings*(1-reset_factor)+reset_factor*reset_value*np.ones((30,1))
@@ -97,7 +143,22 @@ def year_to_year_ratings(season_elo_ratings_list,reset_factor=0.25,reset_value=0
     return new_ratings
 
 def results_summary(season_elo_ratings_list, scaling = 100000):
-    
+    """
+    Based on a set of ratings (in team, rating, year format)
+    print out the best and worst teams for that season.
+
+    Parameters
+    ----------
+    season_elo_ratings_list : TYPE
+        DESCRIPTION.
+    scaling : TYPE, optional
+        DESCRIPTION. The default is 100000.
+
+    Returns
+    -------
+    None.
+
+    """
     print_list = []
     
     for i,r in enumerate(season_elo_ratings_list):
