@@ -59,12 +59,12 @@ elo_list = elo_ratings_list(epochtime(end_datetime))
 
 lpw_results.sort(key = lambda x:x[0])
 
-results = list(zip(lpw_results,srs_list,wins_list))
+results = list(zip(lpw_results,srs_list,wins_list,elo_list))
 
-results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2]] for x in results]
+results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2],x[3]] for x in results]
 
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3),\
-                   x[3],x[4],x[5]) for x in results]
+                   x[6],x[3],x[4],x[5]) for x in results]
 
 results_tuples.sort(key = lambda x: -x[1])
 
@@ -74,13 +74,14 @@ results_table = tabulate(
             'Team',
             'Pythag. Wins',
             'Est. SRS',
+            'Elo Rating',
             'Away Record',
             'Home Record',
             'Overall Record'],
         tablefmt='rst',
         numalign='left')
 
-print("Pythagorean Win Expectations, Est. SRS, and Records \n"+\
+print("Pythagorean Win Expectations, Est. SRS, Elo, and Records \n"+\
         "Based on Games Played Between: "+start_datetime.strftime('%b %d %Y')+\
         " and "+end_datetime.strftime('%b %d %Y'))
 print(results_table)
