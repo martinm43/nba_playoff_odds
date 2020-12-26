@@ -1,19 +1,20 @@
 """
 Short sample script that plots the moving elo for a given team over their 
 available history in the Elo database.
--- Martin
+
+Inputs: None
+    
+Outputs: Bitmap images of the Elo rating history of all 30 teams
+
 """
 
 import matplotlib.pyplot as plt
 import pandas as pd
 import sqlite3
 import time
-from random import randint
-from datetime import datetime, timedelta
 
-from nba_database.queries import team_abbreviation,epochtime
+from nba_database.queries import team_abbreviation
 
-team_id = randint(1,31)
 for team_id in range(1,31):
     conn = sqlite3.connect('nba_data.sqlite')
     query = "SELECT datetime,elo_rating FROM nba_team_elo_data where team_id = "+\
