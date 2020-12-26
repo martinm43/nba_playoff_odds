@@ -1,23 +1,23 @@
 """
-A script that produces a table of information given a 
+
+A script that produces a table of information. Inputs below.
 -- start date
 -- end date
 -- season year (denoted by end)
 
 Script Under Development.
+
 """
 #Standard imports
-import sys
 from datetime import datetime, timedelta
-from pprint import pprint
 #Third Party Imports
 from tabulate import tabulate
 #Query imports
-from nba_database.queries import games_query, team_abbreviation, games_won_query, epochtime
+from nba_database.queries import games_query, team_abbreviation, epochtime, elo_ratings_list
 from nba_database.nba_data_models import BballrefScores as Game
 #Analytics imports
 from analytics.SRS import SRS
-from analytics.pythag import pythagorean_wins, league_pythagorean_wins
+from analytics.pythag import league_pythagorean_wins
 #Wins script import
 from analytics.wins_script import get_wins
 
@@ -55,9 +55,10 @@ lpw_results = league_pythagorean_wins(Game,mincalcdatetime=epochtime(start_datet
 
 srs_list = SRS(games_list, max_MOV = max_MOV, home_team_adv = home_team_adv, win_floor = win_floor)
 
+elo_list = elo_ratings_list(epochtime(end_datetime))
+
 lpw_results.sort(key = lambda x:x[0])
 
-#results = zip(lpw_results,srs_list)
 results = list(zip(lpw_results,srs_list,wins_list))
 
 results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2]] for x in results]
@@ -65,7 +66,7 @@ results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2]] for x in results]
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3),\
                    x[3],x[4],x[5]) for x in results]
 
-results_tuples.sort(key = lambda x: x[5])
+results_tuples.sort(key = lambda x: -x[1])
 
 results_table = tabulate(
         results_tuples,

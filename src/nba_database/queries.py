@@ -157,6 +157,19 @@ def future_games_query(season_datetime, season_year):
 # Getting ratings for a given team
 #############################################
 def team_elo_rating(team_id,epochtime):
+    """
+    Get the most recent Elo rating for a team given a date and the team_id
+
+    Parameters
+    ----------
+    team_id : integer team ID 1-30
+    epochtime : Unix time in seconds since epoch
+
+    Returns
+    -------
+    rtg : most recent Elo rating
+
+    """
     from .nba_data_models import NbaTeamEloData
     rtg_iterable = NbaTeamEloData.select().where(NbaTeamEloData.team_id == team_id,\
                     NbaTeamEloData.datetime < epochtime).order_by(NbaTeamEloData.datetime.desc()).limit(1)
@@ -165,6 +178,18 @@ def team_elo_rating(team_id,epochtime):
     return rtg
 
 def elo_ratings_list(epochtime):
+    """
+    
+
+    Parameters
+    ----------
+    epochtime : Unix time in seconds since epoch
+
+    Returns
+    -------
+    ratings_list : list of most recent team ratings to date
+
+    """
     ratings_list =[]
     for i in range(1,31):
         ratings_list.append(team_elo_rating(i,epochtime))
