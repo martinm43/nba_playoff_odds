@@ -22,15 +22,15 @@ season_year = 2020
 #end_datetime_str = input('Please enter the end date in %b %d %Y format, e.g. May 1 2011): ')
 #season_year_str = input('Please enter the season year (e.g. 2011): ')
 
-"""
-try:
-    start_datetime = datetime.strptime(start_datetime_str,'%b %d %Y')
-    end_datetime = datetime.strptime(end_datetime_str,'%b %d %Y')
-    season_year = int(season_year_str)
-except ValueError:
-    print('Error parsing entered values. Please review dates and season year entered.')
-    sys.exit(1)
-"""
+
+#try:
+#    start_datetime = datetime.strptime(start_datetime_str,'%b %d %Y')
+#    end_datetime = datetime.strptime(end_datetime_str,'%b %d %Y')
+#    season_year = int(season_year_str)
+#except ValueError:
+#    print('Error parsing entered values. Please review dates and season year entered.')
+#    sys.exit(1)
+
 
 games_list=games_query(start_datetime,end_datetime)
 
