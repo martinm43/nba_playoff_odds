@@ -2,7 +2,7 @@
 """
 Brief script for processing the raw lists of schedules
 provided by fixturedownload.com. If you use that site please
-donate to them: they make parsing data easy?
+donate to them: they make parsing data easy!
 """
 from pprint import pprint
 import pandas as pd

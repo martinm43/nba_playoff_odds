@@ -1,4 +1,11 @@
+"""
+A script that produces a table of information given a 
+-- start date
+-- end date
+-- season year (denoted by end)
 
+Script Under Development.
+"""
 #Standard imports
 import sys
 from datetime import datetime, timedelta
