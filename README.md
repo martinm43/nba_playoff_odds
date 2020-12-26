@@ -89,7 +89,6 @@ A set of scripts to calculate ratings for teams, based on either point different
 
 ![Playoff odds for Pacific Division, 2019](https://raw.githubusercontent.com/martinm43/nba_playoff_odds/master/src/README_example.png) 
 
-**update_nba_api** - obtains data (for now, just end scores) from the undocumented stats.nba.com api.
 
 ## Installation
 
@@ -99,8 +98,7 @@ Monte Carlo simulation extension written in C++ requires g++ compilation using t
 
 ## Requirements
 
-Python requirements:  
-the nba_py library (only for update_nba_api)  
+Python requirements:    
 peewee (version 3.11+)
 numpy, scipy, and cython  
 
@@ -113,7 +111,9 @@ I've decided to replace the [Simple Rating System ](https://www.sports-reference
 
 In order to do so, I first obtained boxscore data from the past 30 seasons in order to calculate the "difference over sum" value distribution. 
 
-Difference over sum is defined as (home_pts-away_pts)/(home_pts+away_pts)
+Difference over sum is defined as
+
+\frac{home_pts-away_pts}{home_pts+away_pts}
 
 This metric is based on points scored and points allowed and therefore rewards teams for offense and defense. Difference-over-sum has two main advantages over the Simple Rating System:
 
@@ -130,7 +130,6 @@ The original SRS based model remains available for legacy reasons/comparison.
 
 ##To Do
 * update info_table to use Elo in addition to SRS
-* general update of 
 * provide a more technical writeup for the Elo model (?)
 * general code cleanup
 
