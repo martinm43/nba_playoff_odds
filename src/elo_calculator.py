@@ -1,6 +1,6 @@
 """
 Script that calculates Elo for the entire available NBA history,
-ERASES THE PREVIOUS RESULTS, and stores the result in a SQLite database.
+ERASES THE PREVIOUS RESULTS, and stores the result the main SQLite database.
 
 Inputs: 
     None explicit (parameters calculated from other scripts)
@@ -37,8 +37,8 @@ def predicted_dos_formula(a,b):
     mean and stddev taken from results of points_analysis.py
 
     """
-    mean = 0.015727
-    stddev = 0.038081
+    mean = 0.01638
+    stddev = 0.03784
     DoS = -1 + 2/(1+exp((b-a-mean)/stddev))
     return DoS
 
