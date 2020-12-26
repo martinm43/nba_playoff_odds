@@ -1,9 +1,19 @@
 """
-Script that calculates Elo for the entire available NBA history
-and stores the result in a SQLite database.
+Script that calculates Elo for the entire available NBA history,
+ERASES THE PREVIOUS RESULTS, and stores the result in a SQLite database.
+
+Inputs: 
+    None explicit (parameters calculated from other scripts)
+    
+Outputs:
+    None
+    Prints summary of best and worst teams in each season
+    Writes the results to database
+
+
 """
 from nba_database.queries import season_query, prettytime, team_abbreviation
-from nba_database.nba_data_models import database, NbaTeamEloData
+from nba_database.nba_data_models import database, BballrefScores, NbaTeamEloData
 from pprint import pprint
 from math import exp
 from random import randint
@@ -185,8 +195,12 @@ def results_summary(season_elo_ratings_list, scaling = 100000):
 
 if __name__ == "__main__":
 
-    start_year = 1990 
-    end_year = 2022
+     
+    
+    x = BballrefScores.select().order_by(BballrefScores.season_year.asc()).get()
+    start_year = x.season_year
+    x = BballrefScores.select().order_by(BballrefScores.season_year.desc()).get()
+    end_year = x.season_year+1
     
     #master_results - capture all ratings over all seasons.
     master_results = []
