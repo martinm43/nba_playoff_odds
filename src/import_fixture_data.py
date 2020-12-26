@@ -1,10 +1,21 @@
 # coding: utf-8
+
 """
+
 Brief script for processing the raw lists of schedules
 provided by fixturedownload.com. If you use that site please
 donate to them: they make parsing data easy!
+
+Inputs: A schedule file.
+Headers are as follows:
+Round Number,Date,Location,Home Team,Away Team,Result
+-- Note that the website uses "LA Clippers" not "Los Angeles Clippers"
+
+Outputs:
+    None, writes to the database as blank "games to be played"
+
 """
-from pprint import pprint
+
 import pandas as pd
 from datetime import datetime
 

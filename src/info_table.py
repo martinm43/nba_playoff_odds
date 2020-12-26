@@ -5,11 +5,11 @@ A script that produces a table of information. Inputs below.
 -- end date
 -- season year (denoted by end)
 
-Script Under Development.
+Output: table (string)
 
 """
 #Standard imports
-from datetime import datetime, timedelta
+from datetime import datetime
 #Third Party Imports
 from tabulate import tabulate
 #Query imports
@@ -22,22 +22,9 @@ from analytics.pythag import league_pythagorean_wins
 from analytics.wins_script import get_wins
 
 #Query Testing
-start_datetime = datetime(2019,10,1)
-end_datetime = datetime.today()-timedelta(days=1)
-season_year = 2020
-#start_datetime_str = input('Please enter the start date in %b %d %Y format, e.g. Oct 1 2010): ')
-#end_datetime_str = input('Please enter the end date in %b %d %Y format, e.g. May 1 2011): ')
-#season_year_str = input('Please enter the season year (e.g. 2011): ')
-
-
-#try:
-#    start_datetime = datetime.strptime(start_datetime_str,'%b %d %Y')
-#    end_datetime = datetime.strptime(end_datetime_str,'%b %d %Y')
-#    season_year = int(season_year_str)
-#except ValueError:
-#    print('Error parsing entered values. Please review dates and season year entered.')
-#    sys.exit(1)
-
+start_datetime = datetime(1992,10,1)
+end_datetime = datetime(1993,5,1)
+season_year = 1993
 
 games_list=games_query(start_datetime,end_datetime)
 
