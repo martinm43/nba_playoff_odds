@@ -16,7 +16,7 @@ from pprint import pprint
 
 def playoff_odds_calc(start_datetime, end_datetime, season_year,\
                       input_predict_date=None,input_season_year=None,\
-                          auto='ON',ratings_mode="Elo"):
+                          auto=False,ratings_mode="Elo"):
         #Standard imports
         #from pprint import pprint
         #Third party imports
@@ -34,10 +34,10 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
             print("Start date is after end date, please check inputs")
             return 1
         
-        if auto == 'OFF':
+        if auto == True:
             predict_date = input_predict_date
             predict_season_year = input_season_year
-        elif auto == 'ON':
+        elif auto == False:
             predict_date = end_datetime
             predict_season_year = season_year
         else:
@@ -48,7 +48,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
         games_list = games_query(start_datetime,end_datetime)
         games_won_list_cpp = games_won_query(games_list,return_format="matrix").tolist()
 
-        if auto == 'OFF':
+        if auto == True:
             gwl = np.zeros((30,30))
             games_won_list_cpp = gwl.tolist()
             
