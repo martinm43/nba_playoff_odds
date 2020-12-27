@@ -14,12 +14,17 @@ import numpy as np
 def epochtime(datetime_obj):
   """
   Convert time in MON DAY YEAR format to a UNIX timestamp
+  
+  Input: datetime object (datetime.datetime)
+  Output: Unix timestamp 
   """
   return time.mktime(datetime_obj.timetuple())
 
 def prettytime(timestamp):
   """
   Convert time since epoch to date
+  Input: Unix timestamps
+  Output: a datetime object (datetime.datetime)
   """
   return datetime.datetime.fromtimestamp(timestamp)
 
@@ -41,7 +46,12 @@ def full_name_to_id(full_team_name):
     """
     Converts 'normal team names', provides the rest of the data needed for processing 
     Team id
+    
+    Input: a string representing the team's name
+    Output: a team id - 1=ATL, 30=WAS
+    
     """
+    #Adjusting for previous team names/previous team locations.
     if full_team_name == "New Jersey Nets":
         full_team_name = "Brooklyn Nets"
     if full_team_name == "Seattle SuperSonics":
@@ -62,6 +72,8 @@ def abbrev_to_id(team_abbrev):
     """
     Converts 'normal team names', provides the rest of the data needed for processing 
     Team id
+    Input: team abbreviation e.g. "WAS"
+    Output: numerical id e.g. "30"
     """
     from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
@@ -71,8 +83,9 @@ def abbrev_to_id(team_abbrev):
 
 def id_to_name(team_id):
     """
-    Converts 'normal team names', provides the rest of the data needed for processing 
-    Team id
+    Converts a team id to a full team name.
+    Input: team id e.g. "30"
+    Output: team name e.g. "Washington Wizards"
     """
     from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.team_name).\
@@ -103,7 +116,7 @@ def games_query(start_datetime,end_datetime):
 def season_query(season_year):
     """
     Input: a season year
-    Output: [away_team, away_pts, home_team, home_pts] list
+    Output: [away_team, away_pts, home_team, home_pts, epochtime, season_year] list
     """
 
     played_games = Game.select().where(Game.season_year == season_year,
@@ -147,6 +160,14 @@ def games_won_query(played_games,return_format="list"):
     return return_value
 
 def future_games_query(season_datetime, season_year):
+    """
+    Returns all games past a given datetime for a given season
+    including games on that date.
+    Inputs: season_datetime, a datetime object
+        season_year, the year the season ends in
+    Outputs: pending games past that date as a list of away team, 
+    home team pairs
+    """
     season_epochtime = epochtime(season_datetime)
     query = Game.select().where(Game.datetime>=season_epochtime,\
                                 Game.season_year==season_year)
