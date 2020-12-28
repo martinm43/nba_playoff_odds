@@ -1,9 +1,10 @@
 # coding: utf-8
-#This file attempts to calculate "Pythagorean wins" using pts scored for and
-#against a team in a given season. The default exponent is set to that 
-#used by Basketball Reference, which compares favourably to the range given in 
-#Basketball on Paper (Oliver)
- #this is a major key. Forces floating point div.
+"""
+This file attempts to calculate "Pythagorean wins" using pts scored for and
+against a team in a given season. The default exponent is set to that 
+used by Basketball Reference, which compares favourably to the range given in 
+Basketball on Paper (Oliver)
+"""
 from pprint import pprint
 import time
 import sys
@@ -53,14 +54,3 @@ def league_pythagorean_wins(GAME_ORM,mincalcdatetime,maxcalcdatetime,win_exp=16.
     results_list.append([i,pythagorean_wins(GAME_ORM,i,win_exp=win_exp,\
     mincalcdatetime=mincalcdatetime,maxcalcdatetime=maxcalcdatetime)])
   return sorted(results_list, key=lambda x: x[1])
-"""
-if __name__=='__main__':
-  results_list=[]
-  for i in range(1,31):
-    results_list.append([team_abbreviation(i),pythagorean_wins(i,2018,win_exp=16.5,source_option="bballref_scores"\
-    ,mincalcdate=epochtime(sys.argv[1]),maxcalcdate=epochtime(sys.argv[2]))])
-  
-  results_list=[[i[0],'{:.0f}'.format(i[1])] for i in results_list]
-  table=tabulate(sorted(results_list, key=lambda x: x[1]),headers=["Team (abbrev.)","Number of Wins by Pythagorean Win Expectation"]) 
-  print table
-"""
