@@ -1,6 +1,6 @@
 def SRS(
         game,
-        printing='off',
+        printing=False,
         max_MOV=100.0,
         home_team_adv=0.0,
         win_floor=0.0):
@@ -98,7 +98,7 @@ def SRS(
     # such that the average is 0.0
     teamStrength -= teamStrength.mean()
     teamStrength.tolist()
-    if printing == 'on':
+    if printing == True:
         for t in enumerate(teamStrength):
             print(('Team ' + str(t[0] + 1) +
                   ' has a calculated Burke Score of ' + str(t[1])))
