@@ -1,6 +1,5 @@
 def SRS(
         game,
-        impmode='bballref',
         printing='off',
         max_MOV=100.0,
         home_team_adv=0.0,
@@ -31,8 +30,7 @@ def SRS(
     import numpy
     import scipy.optimize
 
-    if impmode == 'bballref':
-        game = [[g[2], g[0], g[3], g[1]] for g in game]
+    game = [[g[2], g[0], g[3], g[1]] for g in game]
     # list of game,home,away,homescore,awayscore
     numGames = len(game)
     numTeams = 30
@@ -90,8 +88,8 @@ def SRS(
         return w.dot(m) - s
 
     W = scipy.optimize.leastsq(errorfn, init_W, args=(M, S))
-    homeAdvantage = W[0][0]  # 2.2460937500005356
-    # numpy.array([-151.31111318, -136.36319652, ... ])
+    homeAdvantage = W[0][0]
+
     teamStrength = W[0][1:]
     # Team strengths have meaning only by linear comparison;
     # we can add or subtract any constant to all of them without
