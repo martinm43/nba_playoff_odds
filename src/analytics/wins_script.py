@@ -1,5 +1,21 @@
 # coding: utf-8
 def get_wins(team_id,season_year,start_datetime,end_datetime):
+    """
+    
+    Return wins from a given season for a given team.
+
+    Parameters
+    ----------
+    team_id : team id (1=ATL,30=WAS)
+    season_year : season ending in year X
+    start_datetime : UNIX timestamp of start of query
+    end_datetime : UNIX timestamp of end of query
+
+    Returns
+    -------
+    dict: away_wins of team, home_wins of team, and overall record.
+
+    """
     from nba_database.nba_data_models import BballrefScores as BS
     from nba_database.queries import team_abbreviation, epochtime
     away_query = BS.select().where(BS.season_year == season_year,\
