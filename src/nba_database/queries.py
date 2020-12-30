@@ -77,7 +77,7 @@ def abbrev_to_id(team_abbrev):
     """
     from .nba_data_models import ProApiTeams
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).\
-      where(ProApiTeams.abbreviation == team_abbrev)
+      where(ProApiTeams.current_abbreviation == team_abbrev)
     s_result = s_query[0]
     return s_result.bball_ref
 

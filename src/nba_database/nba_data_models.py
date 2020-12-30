@@ -36,6 +36,7 @@ class ProApiTeams(BaseModel):
     team_name = TextField(null=True)
     division = TextField(null=True)
     full_team_name = TextField(null=True)
+    current_abbreviation = TextField(null=True)
 
     class Meta:
         db_table = 'pro_api_teams'

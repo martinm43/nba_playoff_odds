@@ -17,6 +17,8 @@ def day_dict_list(game_date):
     day_results=s.line_score.get_dict()
     day_results_data=[dict(list(zip(day_results['headers'],x))) for x in day_results['data']]
 
+    #pprint(day_results_data)
+
     game_list=[]
     for i in range(0,len(day_results_data),2):
         away_team_data = day_results_data[i]
@@ -27,6 +29,7 @@ def day_dict_list(game_date):
         game_dict['away_team_id'] = abbrev_to_id(away_team_data['TEAM_ABBREVIATION'])
         game_dict['away_team'] = id_to_name(game_dict['away_team_id'])
         game_dict['home_pts'] = home_team_data['PTS']
+        print(home_team_data['TEAM_ABBREVIATION'])
         game_dict['home_team_id'] = abbrev_to_id(home_team_data['TEAM_ABBREVIATION'])
         game_dict['home_team'] = id_to_name(game_dict['home_team_id'])
 
@@ -43,7 +46,7 @@ if __name__ == '__main__':
 
     from nba_database.nba_data_models import BballrefScores
 
-    start_date = datetime.today()-timedelta(days=3)
+    start_date = datetime.today()-timedelta(days=4)
     end_date = datetime.today()-timedelta(days=1)
     x_date = start_date
     results = []
@@ -61,7 +64,7 @@ if __name__ == '__main__':
             away_pts=game['away_pts'],
             home_pts=game['home_pts'],
             date=game['date']). where(
-                game['date'] == BballrefScores.date,
+                BballrefScores.date == game['date'],
                 BballrefScores.away_team_id == game['away_team_id'],
                 BballrefScores.home_team_id == game['home_team_id'],
                 BballrefScores.season_year == 2021).execute()
