@@ -17,7 +17,26 @@ def pythagorean_wins(Game,\
 			mincalcdatetime=0.0,\
 			maxcalcdatetime=999999999999.9):
     """
-    Game: a peewee ORM object passed from a main file.
+    
+
+    Parameters
+    ----------
+    Game : ORM object from the 
+            nba_playoff_odds.nba_database.nba_data_models file
+    team_id_num : team id (1=ATL,30=WAS)
+    win_exp : Exponent used in pythagorean_wins calculation. The default is 14.
+    numgames : number of games to apply the pythagorean win percentage to
+                The default is 82.
+    mincalcdatetime : minimum Unix timestamp for querying Game object
+                        i.e. the first game 
+    maxcalcdatetime : maximum Unix timestamp for querying Game object
+                        i.e. the last game
+
+    Returns
+    -------
+    # of games the team should have won over the given time period
+    given the number of games.
+
     """
     team_id=str(team_id_num)
     pts=Game.select(Game.away_pts).where(\
@@ -48,9 +67,26 @@ def pythagorean_wins(Game,\
     else:
       return 0
 
-def league_pythagorean_wins(GAME_ORM,mincalcdatetime,maxcalcdatetime,win_exp=16.5):
-  results_list=[]
-  for i in range(1,31):
-    results_list.append([i,pythagorean_wins(GAME_ORM,i,win_exp=win_exp,\
-    mincalcdatetime=mincalcdatetime,maxcalcdatetime=maxcalcdatetime)])
-  return sorted(results_list, key=lambda x: x[1])
+def league_pythagorean_wins(GAME_ORM,mincalcdatetime,maxcalcdatetime,\
+                            win_exp=14,numgames=82):
+    """
+    
+
+    Parameters
+    ----------
+    GAME_ORM : The Game ORM object
+    mincalcdatetime : Minimum Unix timestamp for league pythagorean calculation
+    maxcalcdatetime : Maximum Unix timestamp for league pythagorean calculation
+    win_exp : Pythagorean win coefficient (default is 14)
+    numgames : number of games to apply the pythagorean win expectation to (82)
+
+    Returns
+    -------
+    List of the pythagorean win expectations 
+
+    """
+    results_list=[]
+    for i in range(1,31):
+        results_list.append([i,pythagorean_wins(GAME_ORM,i,win_exp=win_exp,\
+        numgames=numgames,mincalcdatetime=mincalcdatetime,maxcalcdatetime=maxcalcdatetime)])
+    return sorted(results_list, key=lambda x: x[1])
