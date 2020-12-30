@@ -191,9 +191,10 @@ def team_elo_rating(team_id,epochtime):
     rtg : most recent Elo rating
 
     """
+
     from .nba_data_models import NbaTeamEloData
     rtg_iterable = NbaTeamEloData.select().where(NbaTeamEloData.team_id == team_id,\
-                    NbaTeamEloData.datetime < epochtime).order_by(NbaTeamEloData.datetime.desc()).limit(1)
+                    NbaTeamEloData.datetime <= epochtime).order_by(NbaTeamEloData.datetime.desc()).limit(1)
     rtg = [x.elo_rating for x in rtg_iterable]
     rtg = rtg[0]
     return rtg

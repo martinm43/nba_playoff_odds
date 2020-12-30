@@ -7,9 +7,15 @@ import numpy as np
 
 from random import randint
 from nba_database.queries import season_query, team_elo_rating
+from nba_database.nba_data_models import BballrefScores
 from analytics.morey import Elo_regress
 
-for year in range(1991,2021):
+x = BballrefScores.select().order_by(BballrefScores.season_year.asc()).get()
+start_year = x.season_year
+x = BballrefScores.select().order_by(BballrefScores.season_year.desc()).get()
+end_year = x.season_year
+
+for year in range(1990,1993): #1991, 2021
 
     season_query(year)
     games = season_query(year)
