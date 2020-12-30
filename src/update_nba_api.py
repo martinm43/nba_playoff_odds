@@ -64,4 +64,4 @@ if __name__ == '__main__':
                 game['date'] == BballrefScores.date,
                 BballrefScores.away_team_id == game['away_team_id'],
                 BballrefScores.home_team_id == game['home_team_id'],
-                BballrefScores.season_year == 2020).execute()
+                BballrefScores.season_year == 2021).execute()
