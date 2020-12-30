@@ -1,4 +1,10 @@
-from peewee import *
+"""
+ORM class objects for the tables within the nba_data.sqlite database.
+
+"""
+#from peewee import *
+from peewee import TextField, FloatField, IntegerField, \
+    SqliteDatabase, Model
 
 database = SqliteDatabase('nba_data.sqlite', **{})
 
@@ -10,6 +16,8 @@ class BaseModel(Model):
         database = database
 
 class BballrefScores(BaseModel):
+    """ORM object for the BballrefScores table"""
+    
     notes = TextField(db_column='Notes', null=True)
     ot = TextField(db_column='OT', null=True)
     away_pts = IntegerField(null=True)
@@ -28,6 +36,8 @@ class BballrefScores(BaseModel):
         db_table = 'bballref_scores'
 
 class ProApiTeams(BaseModel):
+    """ORM object for the ProApiTeams table"""
+    
     abbreviation = TextField(null=True)
     bball_ref = IntegerField(db_column='bball_ref_id', null=True)  # 
     city = TextField(null=True)
@@ -42,6 +52,8 @@ class ProApiTeams(BaseModel):
         db_table = 'pro_api_teams'
 
 class ProlineData(BaseModel):
+    """ORM object for the historic ProLine Data table"""
+    
     away_1st = IntegerField(null=True)
     away_2nd = IntegerField(null=True)
     away_3rd = IntegerField(null=True)
@@ -76,6 +88,7 @@ class ProlineData(BaseModel):
         db_table = 'proline_data'
 
 class NbaTeamEloData(BaseModel):
+    """ORM object for the 'NBATeamEloData' Table"""
     season_year = IntegerField(null=True)  # 
     team_abbreviation = TextField(null=True)
     datetime = FloatField(null=True)

@@ -2,6 +2,14 @@
 """
 Script for determining on a yes-no basis whether the predicted elo_odds are accurate 
 (i.e for how many times the home team has a winning percentage over 50% does the home team actually win)
+
+Inputs: None
+        start_year and end_year can be manually adjusted.
+        Data is sourced from database.
+        
+Outputs: None
+        Prints overall "success rate" to terminal.
+
 """
 import numpy as np
 
@@ -15,7 +23,7 @@ start_year = x.season_year
 x = BballrefScores.select().order_by(BballrefScores.season_year.desc()).get()
 end_year = x.season_year
 
-for year in range(1990,1993): #1991, 2021
+for year in range(start_year,end_year): 
 
     season_query(year)
     games = season_query(year)

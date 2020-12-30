@@ -1,4 +1,19 @@
 # coding: utf-8
+"""
+update_nba_api
+
+Script for using the nba_api to obtain scores for nba games played over
+a given period.
+
+Inputs:
+        start_date (set as 4 days before the current day)
+        end_date (set as the day before the current day)
+    
+Outputs: None
+        Updates games within the bballref_scores database with the 
+        scores of games that have happened.
+
+"""
 from datetime import datetime, timedelta
 import pytz
 from pprint import pprint
