@@ -2,7 +2,8 @@
 # distutils: sources = mcss.cpp
 
 """
-Cython interface file for wrapping the object
+Cython interface file for wrapping the objects in the pxd file
+
 """
 
 cimport mcss_ext

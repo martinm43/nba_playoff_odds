@@ -2,8 +2,12 @@
 # distutils: sources = mcss.cpp
 
 """
-Cython interface file for wrapping the object
+Cython interface file for declaring the necessary objects required out
+of the mcss.hpp header file (the Team object, and the linking function to 
+the monte carlo code contained within mcss.cpp).
 
+Definitions here match those in mcss.hpp as outlined in 
+https://cython.readthedocs.io/en/latest/src/userguide/wrapping_CPlusPlus.html
 
 """
 from libcpp.vector cimport vector
