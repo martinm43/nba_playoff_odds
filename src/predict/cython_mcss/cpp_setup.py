@@ -1,4 +1,9 @@
 # Cython compile instructions
+"""
+Cython compilation instruction script for building the extension
+mcss_ext2 containing the function simulation_results_vectorized
+as described in the mcss_ext2.pyx file.
+"""
 try:
     from setuptools import setup
     from setuptools import Extension
