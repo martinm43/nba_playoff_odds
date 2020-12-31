@@ -5,7 +5,6 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
-#include "sqlite3.h"
 #include <string>
 #include <math.h>
 #include <armadillo>
@@ -72,20 +71,9 @@ double uniformRandom() {
   return ( (double)(rand()) + 1. )/( (double)(RAND_MAX));
 }
 
-/*
-double SRS_regress(double rating_away, double rating_home)
-{
-    float m=0.15;
-    float b=-0.15;
-    return (double) 1.0/(1.0 + exp(-1*(m*(rating_home-rating_away)+b)));
-}
-*/
 //The Monte Carlo "muscle." All SQL based functions are abstracted outside this loop
 //so other more "user friendly" languages can transmit information to this loop.
 mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_teams){
-
-    sqlite3 *db;
-    int rc;
 
     //Random info
     srand(time(NULL));
@@ -101,28 +89,12 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
     mat error_matrix = ones<mat>(1,1);
 
     mat Head_To_Head = mat_head_to_head;
-    //cout << Head_To_Head << endl;
-
-    //Name of the database
-    string DatabaseName("mlb_data.sqlite");
-
-
-    /* S1 - GETTING LIST OF KNOWN WINS*/
-
-    rc = sqlite3_open(DatabaseName.c_str(), &db);
-    if( rc ){
-     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-     sqlite3_close(db);
-     return error_matrix;
-    }
+    //Debug Print - cout << Head_To_Head << endl;
 
     teams = list_of_teams;
     size_t const half_size=teams.size()/2;
 
-    
-
-
-    //cout << future_games << endl;
+    //Debug Print - cout << future_games << endl;
     int num_future_games = future_games.n_rows;
     for(int x_iter=0;x_iter<MAX_ITER;x_iter++){
     /* S5 - Monte Carlo Simulation */
