@@ -17,6 +17,29 @@ from pprint import pprint
 def playoff_odds_calc(start_datetime, end_datetime, season_year,\
                       input_predict_date=None,input_season_year=None,\
                           zero_out_wins=False,ratings_mode="Elo"):
+        """
+    
+        Given a start, end, season_year, and a ratings calculation method 
+        with some other factors, determine the odds of every team of making
+        the playoffs at any given time.
+
+        Parameters
+        ----------
+        start_datetime : start of period to be used for analysis (Unix timestamp)
+        end_datetime : end of period to be used for analysis (Unix timestamp)
+        season_year : year that season nominally ends in
+                    (e.g. if season ends in 2021, use 2021)
+        input_predict_date : to be deprecated
+        input_season_year : to be deprecated
+        zero_out_wins : to be deprecated
+        ratings_mode : Elo or SRS. Default mode is Elo.
+    
+        Returns
+        -------
+        a list of 2-item lists for each team (first item ATL, last item WAS)
+        each list consists of [playoff odds,average wins]
+
+        """
         #Standard imports
         #from pprint import pprint
         #Third party imports
@@ -92,6 +115,9 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
                 x.append(Elo_regress(Elo_diff))
         
         #Call the C++ module
+        #What is passed to the C++ function?
+        #A matrix of team wins against every other team - games_won_list_cpp
+        #
         team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
         #pprint(team_results)
         team_results = [[x[0]*100.0, x[1]] for x in team_results]
@@ -141,14 +167,14 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
 
-    season_year = 2019 #year in which season ends
-    start_datetime = datetime(season_year-1,10,22) #start of season
+    season_year = 1991 #year in which season ends
+    start_datetime = datetime(season_year-1,10,15) #start of season
     end_datetime = datetime(season_year-1,11,1) #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
 
 
     results = playoff_odds_calc(start_datetime, end_datetime, season_year,\
-                                ratings_mode="SRS")
+                                ratings_mode="Elo")
     results_table = playoff_odds_print(results)
 
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))

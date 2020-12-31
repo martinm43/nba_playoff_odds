@@ -1,4 +1,18 @@
 # coding: utf-8
+"""
+A script that plots the playoff odds for a given division and given "season_year".
+
+Inputs:
+    season_year - can be randomized (random.randint) or user-selected
+    division_name - can be randomized (random.choice) or user-selected
+    
+    Constants: max_year and min_year
+    
+Output:
+    A bitmap image plot of the playoff odds 
+    for a given division and given "season_year"
+
+"""
 import sys
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
@@ -8,21 +22,9 @@ import numpy as np
 import random
 
 from prediction_table import playoff_odds_calc
-from pprint import pprint
+
 from nba_database.queries import team_abbreviation
 from nba_database.nba_data_models import ProApiTeams
-
-#Defining Inputs
-#season_year = input("Enter year: ")
-#try:
-#    season_year = int(season_year)
-#except ValueError:
-#    print("Value is not an integer. Exiting")
-#    sys.exit(1)
-
-#division_name = input("Enter division. Options are \n"+\
-#          "East: Atlantic, Central, Southeast \n"\
-#          "West: Southwest, Pacific, Northwest \n")
 
 season_year = random.randint(1990,2021)
 division_name = random.choice(['Atlantic','Central','Southeast','Southwest','Pacific','Northwest'])
@@ -31,21 +33,24 @@ if division_name not in ['Atlantic','Central','Southeast','Southwest','Pacific',
     print("Invalid division name. Exiting")
     sys.exit(1)
 
-if season_year < 1990 or season_year > 2020:
+min_year = 1990
+max_year = 2020
+
+if season_year < min_year or season_year > max_year:
     print("Season year "+str(season_year)+" is outside of current program limits, exiting")
     sys.exit(1)
 elif season_year == 2012: #2011-2012 lockout year fix.
     a = datetime(season_year-1,12,25)
     b = datetime(season_year,1,15)
-    end = min(datetime(season_year,5,30),datetime.today()-timedelta(days=1))
+    end = datetime(season_year,5,30)
 elif season_year == 1999: #1998-1999 lockout year fix.
     a = datetime(season_year,2,5)
     b = datetime(season_year,2,26)
-    end = min(datetime(season_year,5,30),datetime.today()-timedelta(days=1))
+    end = datetime(season_year,5,30)
 elif season_year == 2020: #SARS-CoV-2 fix.
     a = datetime(season_year-1,12,25)
     b = datetime(season_year,1,15)
-    end = min(datetime(season_year,8,15),datetime.today()-timedelta(days=1))
+    end = datetime(season_year,8,15)
 else:
     a = datetime(season_year-1,10,1)
     b = datetime(season_year-1,11,15)

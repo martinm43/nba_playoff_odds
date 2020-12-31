@@ -7,7 +7,7 @@ analytics/pythag.py,TRUE
 update_nba_api.py,TRUE
 prediction_table.py,
 info_table.py,TRUE
-plot_season_odds.py,
+plot_season_odds.py,TRUE
 elo_model_check.py,TRUE
 team_elo_history_plots.py,TRUE
 nba_database/queries.py,TRUE
