@@ -1,11 +1,11 @@
 # distutils: language = c++
 # distutils: sources = mcss.cpp
 
-# Cython interface file for wrapping the object
-#
-#
+"""
+Cython interface file for wrapping the object
 
 
+"""
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 

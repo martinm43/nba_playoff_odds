@@ -15,5 +15,5 @@ ext = Extension("mcss_ext2",
 
 setup(
   name = "cython_mcss",
-  ext_modules = cythonize(ext)
+  ext_modules = cythonize(ext,language_level = "3")
 )

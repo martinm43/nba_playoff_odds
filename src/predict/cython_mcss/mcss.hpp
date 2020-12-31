@@ -12,8 +12,8 @@ private:
     std::string _abbreviation;
     std::string _division;
     std::string _league;
-    float _rating; //these all make sense to have defaults
-    int _total_wins; //default total wins at 0
+    float _rating; 
+    int _total_wins; 
     float _wild_card_odds;
     float _division_odds;
     float _playoff_odds;

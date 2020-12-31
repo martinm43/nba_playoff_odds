@@ -1,8 +1,9 @@
 # distutils: language = c++
 # distutils: sources = mcss.cpp
 
-# Cython interface file for wrapping the object
-#
+"""
+Cython interface file for wrapping the object
+"""
 
 cimport mcss_ext
 from libcpp.string cimport string
@@ -85,6 +86,29 @@ cdef class PyTeam:
         return self.thisptr.get_playoff_odds()
 
 def simulations_result_vectorized(head_to_head, future_games, list_of_teams):
+    """
+    
+    Wrapper to the C++ main function simulations_result_vectorized
+    which leads to the Monte Carlo simulation muscle, the C++ function
+    mcss_function.
+
+    Parameters
+    ----------
+    head_to_head : matrix of each team's record against each other team
+    future_games : list of pending games in format 
+                    [away_team,home_team,home_team win probability]
+    list_of_teams : A list of list in the format:
+        [team_id,team short name,team abbreviation,
+         team division,team conference,team_rating]
+        [1, b'Hawks', b'ATL', b'Southeast', b'E', 998.7491657887414]
+
+    Returns
+    -------
+    A list of lists in the format:
+        [team_odds_of_making_playoffs,team_average_wins]
+
+    """
+    #Convert Python list of teams to a list of C++ team objects
     
     cpdef vector[Team] cpp_list_of_teams
 
