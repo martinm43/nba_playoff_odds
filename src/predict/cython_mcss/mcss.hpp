@@ -1,3 +1,8 @@
+/*
+Header file containing Team custom item, structures for sorting,
+function definitions, and type definitions.
+*/
+
 #ifndef MCSS_H
 #define MCSS_H
 
@@ -47,6 +52,7 @@ public:
     float get_playoff_odds() const {return _playoff_odds;}
 };
 
+//the following are structures passed to std::sort for sorting custom items.
 struct teams_sort
 {
     inline bool operator()(const Team& Team1, const Team& Team2)

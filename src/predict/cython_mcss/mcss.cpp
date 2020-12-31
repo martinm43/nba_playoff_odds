@@ -138,7 +138,7 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
 
         sort(sim_teams.begin(),sim_teams.end(),teams_sort());
 
-        //Create american league and national league vectors.
+        //Create conference based vectors. 
         vector<Team>::const_iterator first = sim_teams.begin();
         vector<Team>::const_iterator mid = sim_teams.begin() + half_size;
         vector<Team>::const_iterator last = sim_teams.end();
