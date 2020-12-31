@@ -1,9 +1,7 @@
 cython_extension_file,has_docstring
 cpp_setup.py,
-mcss_ext2.cpp,
 mcss_ext.pxd,
 mcss_ext2.pyx,
 mcss.hpp,
 ext_build.sh,
 mcss.cpp,
-cython_docstrings.txt,
