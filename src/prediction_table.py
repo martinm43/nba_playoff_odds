@@ -14,9 +14,7 @@ from datetime import datetime, timedelta
 
 from pprint import pprint
 
-def playoff_odds_calc(start_datetime, end_datetime, season_year,\
-                      input_predict_date=None,input_season_year=None,\
-                          zero_out_wins=False,ratings_mode="Elo"):
+def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="Elo"):
         """
     
         Given a start, end, season_year, and a ratings calculation method 
@@ -29,9 +27,6 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
         end_datetime : end of period to be used for analysis (Unix timestamp)
         season_year : year that season nominally ends in
                     (e.g. if season ends in 2021, use 2021)
-        input_predict_date : to be deprecated
-        input_season_year : to be deprecated
-        zero_out_wins : to be deprecated
         ratings_mode : Elo or SRS. Default mode is Elo.
     
         Returns
@@ -40,40 +35,29 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
         each list consists of [playoff odds,average wins]
 
         """
-        #Standard imports
-        #from pprint import pprint
-        #Third party imports
-        #Library imports
+
         from predict.cython_mcss.mcss_ext2 import simulations_result_vectorized
         from analytics.SRS import SRS
         from analytics.morey import SRS_regress, Elo_regress
 
         from nba_database.queries import games_query, games_won_query, future_games_query
         
-        import numpy as np
+        
 
         #Test results/inputs
         if end_datetime < start_datetime:
             print("Start date is after end date, please check inputs")
             return 1
         
-        if zero_out_wins == True:
-            predict_date = input_predict_date
-            predict_season_year = input_season_year
-        elif zero_out_wins == False:
-            predict_date = end_datetime
-            predict_season_year = season_year
-        else:
-            print('Input for auto mode not valid')
-            return 1
+
+        predict_date = end_datetime
+        predict_season_year = season_year
+
 
         # Get List Of Known Wins
         games_list = games_query(start_datetime,end_datetime)
         games_won_list_cpp = games_won_query(games_list,return_format="matrix").tolist()
 
-        if zero_out_wins == True:
-            gwl = np.zeros((30,30))
-            games_won_list_cpp = gwl.tolist()
             
         #Get team data.
         teams_list=Team.select().order_by(Team.bball_ref)
@@ -125,7 +109,8 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year,\
     
 def playoff_odds_print(team_results):
     """
-    Prints table based on alphabetically ordered team results matrix
+    Prints table based on alphabetically ordered team results matrix.
+    Team results are the output of playoff_odds_calc.
     """
     #Custom local function for formatting
     from tabulate import tabulate
@@ -167,7 +152,7 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
 
-    season_year = 1991 #year in which season ends
+    season_year = 1990 #year in which season ends
     start_datetime = datetime(season_year-1,10,15) #start of season
     end_datetime = datetime(season_year-1,11,1) #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)

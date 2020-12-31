@@ -5,7 +5,7 @@ analytics/SRS.py,TRUE
 analytics/wins_script.py,TRUE
 analytics/pythag.py,TRUE
 update_nba_api.py,TRUE
-prediction_table.py,
+prediction_table.py,TRUE
 info_table.py,TRUE
 plot_season_odds.py,TRUE
 elo_model_check.py,TRUE
