@@ -71,7 +71,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     """
     
     default_rating = 0.01 #1 gives good results.
-    rating_scaling = 15 #10 gives good spread
+    rating_scaling = 10 #10 gives good spread
     default_K = default_rating/rating_scaling
 
     if new_season == True:
@@ -205,7 +205,7 @@ if __name__ == "__main__":
     #master_results - capture all ratings over all seasons.
     master_results = []
     
-    reset_factor = 0.25 #1: every season is new. #0: every season is a continuation
+    reset_factor = 0.5 #1: every season is new. #0: every season is a continuation
     reset_value = 0.01 #identical to default value
     for season_year in range(start_year,end_year):
     
