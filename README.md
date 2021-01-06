@@ -104,9 +104,15 @@ the nba_py library (only for update_nba_api)
 peewee (version 3.11+)
 numpy, scipy, and cython  
 
-C++ requirements for compiling Monte Carlo cython extension:  
+C++ requirements for compiling Monte Carlo cython extension (on Linux):  
 libarmadillo-dev   
 libsqlite3-dev  
+
+On Windows in order to build the Monte Carlo simulation extension, you will require:
+Microsoft Visual C++ as described in the .vsconfig file (tested with VC.141.x86.64)
+Armadillo libraries have been included for this purpose (see below Attribution)
+Notably slower than Windows; as per the recommendations of the Armadillo library developers, 
+the library runs faster under UNIX/Linux/MacOS.
 
 ## How It Works  - Elo Model
 I've decided to replace the [Simple Rating System ](https://www.sports-reference.com/blog/2015/03/srs-calculation-details/)  based projections with projections based on a calculated Elo rating. The following is a brief summary of how this model was created. [It is very similar to, and inspired by, the model used by Flat Track Stats for roller derby.](https://web.archive.org/web/20200930184302/https://flattrackstats.com/about/algorithm/detailed) 
