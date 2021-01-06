@@ -111,9 +111,7 @@ libsqlite3-dev
 On Windows in order to build the Monte Carlo simulation extension, you will require:
 
 Microsoft Visual C++ as described in the .vsconfig file (tested with VC.141.x86.64)
-
 Armadillo libraries have been included for this purpose (see below Attribution)
-
 Notably slower than Windows; as per the recommendations of the Armadillo library developers, 
 the library runs faster under UNIX/Linux/MacOS.
 
