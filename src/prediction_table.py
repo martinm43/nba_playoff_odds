@@ -154,7 +154,7 @@ if __name__=="__main__":
 
     season_year = 1990 #year in which season ends
     start_datetime = datetime(season_year-1,10,15) #start of season
-    end_datetime = datetime(season_year-1,12,5) #a few weeks or months in
+    end_datetime = datetime(season_year-1,12,31) #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
 
 
