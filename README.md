@@ -111,14 +111,14 @@ libsqlite3-dev
 On Windows in order to build the Monte Carlo simulation extension, you will require:
 
 Microsoft Visual C++ as described in the .vsconfig file (tested with VC.141.x86.64)
-Armadillo libraries have been included for this purpose (see below Attribution)
+Armadillo libraries have been included for this purpose (see below Attribution)  
 Note that the program runs much slower under Windows:
 
-info_table: about 3 seconds on Linux, about 9 seconds on Windows
-prediction_table: about 0.7 seconds on Linux, about 2.1 seconds on Windows
-plot_season_odds: about 1.2 on Linux, about 4.2 seconds on Windows
+info_table: about 3 seconds on Linux, about 9 seconds on Windows  
+prediction_table: about 0.7 seconds on Linux, about 2.1 seconds on Windows  
+plot_season_odds: about 1.2 on Linux, about 4.2 seconds on Windows  
 
-The program is much better run under Windows. 
+Windows users with access to WSL or WSL2 should consider running the program under those virtualization options as it will most likely run much faster.  
 
 
 ## How It Works  - Elo Model
@@ -141,7 +141,7 @@ Manual calibration and testing were used to obtain appropriate initial ratings a
 
 The original SRS based model remains available for legacy reasons/comparison.
 
-##To Do
+## To Do
 * update info_table to use Elo in addition to SRS
 * general update of 
 * provide a more technical writeup for the Elo model (?)
