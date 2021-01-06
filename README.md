@@ -112,8 +112,14 @@ On Windows in order to build the Monte Carlo simulation extension, you will requ
 
 Microsoft Visual C++ as described in the .vsconfig file (tested with VC.141.x86.64)
 Armadillo libraries have been included for this purpose (see below Attribution)
-Notably slower than Windows; as per the recommendations of the Armadillo library developers, 
-the library runs faster under UNIX/Linux/MacOS.
+Note that the program runs much slower under Windows:
+
+info_table: about 3 seconds on Linux, about 9 seconds on Windows
+prediction_table: about 0.7 seconds on Linux, about 2.1 seconds on Windows
+plot_season_odds: about 1.2 on Linux, about 4.2 seconds on Windows
+
+The program is much better run under Windows. 
+
 
 ## How It Works  - Elo Model
 I've decided to replace the [Simple Rating System ](https://www.sports-reference.com/blog/2015/03/srs-calculation-details/)  based projections with projections based on a calculated Elo rating. The following is a brief summary of how this model was created. [It is very similar to, and inspired by, the model used by Flat Track Stats for roller derby.](https://web.archive.org/web/20200930184302/https://flattrackstats.com/about/algorithm/detailed) 
