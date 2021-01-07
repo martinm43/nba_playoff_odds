@@ -26,13 +26,11 @@ def day_dict_list(game_date):
 
     from nba_database.queries import epochtime, abbrev_to_id, id_to_name
 
-    #s = ScoreboardV2(game_date = x_date)
     s = ScoreboardV2(game_date = game_date)
 
     day_results=s.line_score.get_dict()
     day_results_data=[dict(list(zip(day_results['headers'],x))) for x in day_results['data']]
 
-    #pprint(day_results_data)
 
     game_list=[]
     for i in range(0,len(day_results_data),2):
@@ -44,7 +42,6 @@ def day_dict_list(game_date):
         game_dict['away_team_id'] = abbrev_to_id(away_team_data['TEAM_ABBREVIATION'])
         game_dict['away_team'] = id_to_name(game_dict['away_team_id'])
         game_dict['home_pts'] = home_team_data['PTS']
-        print(home_team_data['TEAM_ABBREVIATION'])
         game_dict['home_team_id'] = abbrev_to_id(home_team_data['TEAM_ABBREVIATION'])
         game_dict['home_team'] = id_to_name(game_dict['home_team_id'])
 
@@ -73,6 +70,7 @@ if __name__ == '__main__':
             results.append(i)
         x_date = x_date + timedelta(days=1)
 
+    print("Updating database with games obtained.")
     for game in results:
         pprint(game)
         BballrefScores.update(
