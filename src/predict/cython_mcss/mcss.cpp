@@ -85,7 +85,7 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
     mat MCSS_Head_To_Head = zeros<mat>(30,30);
     mat Sim_Total = zeros<mat>(30,30);
     mat debug_total = zeros<mat>(30,30);
-    mat sim_playoff_total = zeros<mat>(30,2); // [Wins, Playoff Odds], other columns can be added later.
+    mat sim_playoff_total = zeros<mat>(30,2); // [Playoff Odds, Wins]  For the 2021 season, a third column of "Play in odds" will be added.
     mat error_matrix = ones<mat>(1,1);
 
     mat Head_To_Head = mat_head_to_head;
@@ -154,8 +154,6 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             if( ((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))){
                 sim_playoff_total.row(team_id-1)[0]++;
             }
-            /* need to sort the teams that aren't leaders in each league
-                so 1-4,6-9,11-14 */
 
         }
     }
