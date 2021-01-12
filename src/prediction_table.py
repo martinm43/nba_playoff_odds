@@ -104,7 +104,8 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="E
         #
         team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
         #pprint(team_results)
-        team_results = [[x[0]*100.0, x[1]] for x in team_results]
+        team_results = [[x[0]*100.0, x[1],x[2]*100.0] for x in team_results]
+        pprint(team_results)
         return team_results
     
 def playoff_odds_print(team_results):
@@ -123,10 +124,12 @@ def playoff_odds_print(team_results):
         dict(list(zip(['Team', 'Conference'], [i.abbreviation, i.conf_or_league]))) for i in teams]
     
     for i, d in enumerate(teams_dict):
+        d['PIT %'] = round(team_results[i][2], 1)
         d['Avg. Wins'] = round(team_results[i][1], 1)
         d['Playoff %'] = round(team_results[i][0], 1)
         # Convert into percentages for printing
         d['Playoff %'] = format_percent(d['Playoff %'])
+        d['PIT %'] = format_percent(d['PIT %'])
     
     teams_dict.sort(key=lambda x: (x['Conference'], -x['Avg. Wins']))
     
@@ -134,6 +137,7 @@ def playoff_odds_print(team_results):
         (d['Conference'],
          d['Team'],
          d['Avg. Wins'],
+         d['PIT %'],
          d['Playoff %']) for d in teams_dict]
     
     results_table = tabulate(
@@ -142,6 +146,7 @@ def playoff_odds_print(team_results):
             'Conference',
             'Team',
             'Avg. Wins',
+            'PIT %',
             'Playoff %'],
         tablefmt='rst',
         numalign='left')
@@ -152,14 +157,14 @@ def playoff_odds_print(team_results):
 
 if __name__=="__main__":
 
-    season_year = 1990 #year in which season ends
-    start_datetime = datetime(season_year-1,10,15) #start of season
-    end_datetime = datetime(season_year-1,12,31) #a few weeks or months in
+    season_year = 2021 #year in which season ends
+    start_datetime = datetime(season_year-1,12,22) #start of season
+    end_datetime = datetime.today() #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
 
 
     results = playoff_odds_calc(start_datetime, end_datetime, season_year,\
-                                ratings_mode="Elo")
+                                ratings_mode="SRS")
     results_table = playoff_odds_print(results)
 
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
@@ -168,5 +173,4 @@ if __name__=="__main__":
           "and home court advantage for the first round. That logic has not yet been implemented in this progam")
 
     print("For 2020 please note that:\n"+ 
-          "* Play-in tournament has also not yet been implemented.\n"+
           "* League is releasing schedule in two halves; first half has 37 games")

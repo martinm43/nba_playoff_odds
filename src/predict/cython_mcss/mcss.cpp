@@ -85,7 +85,7 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
     mat MCSS_Head_To_Head = zeros<mat>(30,30);
     mat Sim_Total = zeros<mat>(30,30);
     mat debug_total = zeros<mat>(30,30);
-    mat sim_playoff_total = zeros<mat>(30,2); // [Playoff Odds, Wins]  For the 2021 season, a third column of "Play in odds" will be added.
+    mat sim_playoff_total = zeros<mat>(30,3); // [Playoff Odds, Wins, Play-In Odds]  For the 2021 season, a third column of "Play in odds" will be added.
     mat error_matrix = ones<mat>(1,1);
 
     mat Head_To_Head = mat_head_to_head;
@@ -151,16 +151,20 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             string team_division = sim_teams[i].get_division();
             int team_id = sim_teams[i].get_team_id();
             //cout << team_name << ":" << team_division << ":" << total_wins << endl;
-            if( ((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))){
+	    //Play-in is now a new designation, for the teams finishing 7-10 in each conf.
+            if( ((i >= 0) && (i <= 5)) || ((i >= 15) && (i <= 20))){
                 sim_playoff_total.row(team_id-1)[0]++;
             }
-
+            if( ((i >= 6) && (i <= 9)) || ((i >= 21) && (i <= 24))){
+		sim_playoff_total.row(team_id-1)[2]++;
+	    }
         }
     }
 
     for(int i=0;i<30;i++){
         sim_playoff_total.row(i)[0] = sim_playoff_total.row(i)[0]/MAX_ITER;
         sim_playoff_total.row(i)[1] = sim_playoff_total.row(i)[1]/MAX_ITER;
+        sim_playoff_total.row(i)[2] = sim_playoff_total.row(i)[2]/MAX_ITER;
     }
 
     cout << MAX_ITER << " simulations complete." << endl; //--not necessary.
