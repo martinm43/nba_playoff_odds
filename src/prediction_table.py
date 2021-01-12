@@ -98,14 +98,8 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="E
                 Elo_diff=home_team_rating-away_team_rating
                 x.append(Elo_regress(Elo_diff))
         
-        #Call the C++ module
-        #What is passed to the C++ function?
-        #A matrix of team wins against every other team - games_won_list_cpp
-        #
         team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
-        #pprint(team_results)
         team_results = [[x[0]*100.0, x[1],x[2]*100.0] for x in team_results]
-        pprint(team_results)
         return team_results
     
 def playoff_odds_print(team_results):
@@ -162,12 +156,13 @@ if __name__=="__main__":
     end_datetime = datetime.today() #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
 
-
+    ratings_mode = "SRS"
     results = playoff_odds_calc(start_datetime, end_datetime, season_year,\
-                                ratings_mode="SRS")
+                                ratings_mode=ratings_mode)
     results_table = playoff_odds_print(results)
 
     print("Playoff odds for the "+str(season_year)+" season as of "+end_datetime.strftime("%b %d %Y"))
+    print("Method used: "+ratings_mode)
     print(results_table)
     print("Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"+\
           "and home court advantage for the first round. That logic has not yet been implemented in this progam")
