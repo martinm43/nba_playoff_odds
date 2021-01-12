@@ -99,7 +99,8 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="E
                 x.append(Elo_regress(Elo_diff))
         
         team_results = simulations_result_vectorized(games_won_list_cpp, future_games_list, teams_list)
-        team_results = [[x[0]*100.0, x[1],x[2]*100.0] for x in team_results]
+        # Return (top 8 odds, average wins, play in tournament odds, and top 6 odds).
+        team_results = [[x[0]*100.0, x[1],x[2]*100.0,x[3]*100.0] for x in team_results]
         return team_results
     
 def playoff_odds_print(team_results):
@@ -118,10 +119,13 @@ def playoff_odds_print(team_results):
         dict(list(zip(['Team', 'Conference'], [i.abbreviation, i.conf_or_league]))) for i in teams]
     
     for i, d in enumerate(teams_dict):
-        d['PIT %'] = round(team_results[i][2], 1)
+        d['Hist. Playoff %'] = round(team_results[i][0], 1)
         d['Avg. Wins'] = round(team_results[i][1], 1)
-        d['Playoff %'] = round(team_results[i][0], 1)
+        d['Playoff %'] = round(team_results[i][2], 1)
+        d['PIT %'] = round(team_results[i][3], 1)
+        
         # Convert into percentages for printing
+        d['Hist. Playoff %'] = format_percent(d['Hist. Playoff %'])
         d['Playoff %'] = format_percent(d['Playoff %'])
         d['PIT %'] = format_percent(d['PIT %'])
     
@@ -131,6 +135,7 @@ def playoff_odds_print(team_results):
         (d['Conference'],
          d['Team'],
          d['Avg. Wins'],
+         d['Hist. Playoff %'],
          d['PIT %'],
          d['Playoff %']) for d in teams_dict]
     
@@ -140,8 +145,9 @@ def playoff_odds_print(team_results):
             'Conference',
             'Team',
             'Avg. Wins',
-            'PIT %',
-            'Playoff %'],
+            'Legacy Playoff Odds',
+            'PIT Odds',
+            'Post-2020 Playoff Odds'],
         tablefmt='rst',
         numalign='left')
     return results_table
@@ -156,7 +162,7 @@ if __name__=="__main__":
     end_datetime = datetime.today() #a few weeks or months in
     #in-season option: end_datetime = datetime.today()-timedelta(days=1)
 
-    ratings_mode = "SRS"
+    ratings_mode = "Elo"
     results = playoff_odds_calc(start_datetime, end_datetime, season_year,\
                                 ratings_mode=ratings_mode)
     results_table = playoff_odds_print(results)
