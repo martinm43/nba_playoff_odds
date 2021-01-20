@@ -67,12 +67,15 @@ if __name__ == '__main__':
         print('Processing results for '+x_date.strftime('%Y-%m-%d'))
         partial_results = day_dict_list(x_date)
         for i in partial_results:
+            if(i['home_pts']==None or i['away_pts']==None):
+                print(i['home_team']+' vs. '+i['away_team']+' postponed')
+            else:
+                print(i['home_team']+' '+str(i['home_pts'])+','+i['away_team']+' '+str(i['away_pts']))
             results.append(i)
         x_date = x_date + timedelta(days=1)
 
     print("Updating database with games obtained.")
     for game in results:
-        pprint(game)
         BballrefScores.update(
             away_pts=game['away_pts'],
             home_pts=game['home_pts'],
