@@ -188,21 +188,28 @@ def form_query(team_id):
     A string representing the current form of the team
 
     """
-    from termcolor import colored
+    import os
+    os.system("") #required to trigger colouring of text
+    COLOR = {
+            "HEADER": "\033[95m",
+            "GREEN": "\033[92m",
+            "RED": "\033[91m",
+            "ENDC": "\033[0m",
+            }
     q = Game.select().where(((Game.away_team_id == team_id) | (Game.home_team_id == team_id)) & Game.away_pts > 0)
     x = [[z.away_team_id,z.away_pts,z.home_team_id,z.home_pts] for z in q[-5:]]
     winstring=""
     for g in x:
         if g[1] > g[3]:
             if g[0] == team_id:
-                winstring += "W"
+                winstring += COLOR["GREEN"]+"W"+COLOR["ENDC"]
             else:
-                winstring += "L"
+                winstring += COLOR["RED"]+"L"+COLOR["ENDC"]
         if g[3] > g[1]:
             if g[0] == team_id:
-                winstring += "L"
+                winstring += COLOR["RED"]+"L"+COLOR["ENDC"]
             else:
-                winstring += "W"
+                winstring += COLOR["GREEN"]+"W"+COLOR["ENDC"]
     return winstring
 
 
