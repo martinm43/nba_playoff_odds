@@ -13,7 +13,8 @@ from datetime import datetime
 #Third Party Imports
 from tabulate import tabulate
 #Query imports
-from nba_database.queries import games_query, team_abbreviation, epochtime, elo_ratings_list
+from nba_database.queries import games_query, team_abbreviation, epochtime, \
+    elo_ratings_list,form_query
 from nba_database.nba_data_models import BballrefScores as Game
 #Analytics imports
 from analytics.SRS import SRS
@@ -44,14 +45,16 @@ srs_list = SRS(games_list, max_MOV = max_MOV, home_team_adv = home_team_adv, win
 
 elo_list = elo_ratings_list(epochtime(end_datetime))
 
+form_list = [form_query(i) for i in range(1,31)]
+
 lpw_results.sort(key = lambda x:x[0])
 
-results = list(zip(lpw_results,srs_list,wins_list,elo_list))
+results = list(zip(lpw_results,srs_list,wins_list,elo_list,form_list))
 
-results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2],x[3]] for x in results]
+results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2],x[3],x[4]] for x in results]
 
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3),\
-                   x[6],x[3],x[4],x[5]) for x in results]
+                   x[6],x[3],x[4],x[5],x[7]) for x in results]
 
 results_tuples.sort(key = lambda x: -x[1])
 
@@ -64,7 +67,8 @@ results_table = tabulate(
             'Elo Rating',
             'Away Record',
             'Home Record',
-            'Overall Record'],
+            'Overall Record',
+            'Form'],
         tablefmt='rst',
         numalign='left')
 

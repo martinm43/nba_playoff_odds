@@ -174,6 +174,38 @@ def future_games_query(season_datetime, season_year):
     matches = [[x.away_team_id,x.home_team_id] for x in query]
     return matches
 
+def form_query(team_id):
+    """
+    Return the form in the last five games for the given team
+    
+
+    Parameters
+    ----------
+    team_id : standard integer id
+
+    Returns
+    -------
+    A string representing the current form of the team
+
+    """
+    from termcolor import colored
+    q = Game.select().where(((Game.away_team_id == team_id) | (Game.home_team_id == team_id)) & Game.away_pts > 0)
+    x = [[z.away_team_id,z.away_pts,z.home_team_id,z.home_pts] for z in q[-5:]]
+    winstring=""
+    for g in x:
+        if g[1] > g[3]:
+            if g[0] == team_id:
+                winstring += "W"
+            else:
+                winstring += "L"
+        if g[3] > g[1]:
+            if g[0] == team_id:
+                winstring += "L"
+            else:
+                winstring += "W"
+    return winstring
+
+
 #############################################
 # Getting ratings for a given team
 #############################################
