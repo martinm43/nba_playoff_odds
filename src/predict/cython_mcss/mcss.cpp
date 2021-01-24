@@ -136,7 +136,8 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             sim_teams[i].set_total_wins(round(total_wins[i]));
         }
 
-        sort(sim_teams.begin(),sim_teams.end(),teams_sort());
+        random_shuffle(sim_teams.begin(),sim_teams.end());
+	sort(sim_teams.begin(),sim_teams.end(),teams_sort());
 
         //Create conference based vectors. 
         vector<Team>::const_iterator first = sim_teams.begin();
@@ -150,7 +151,7 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             string team_name = sim_teams[i].get_mlbgames_name();
             string team_division = sim_teams[i].get_division();
             int team_id = sim_teams[i].get_team_id();
-            //cout << team_name << ":" << team_division << ":" << total_wins << endl;
+            //cout << team_name << ":" << team_division << ":" << total_wins << "\n" << endl;
 	    //Play-in is now a new designation, for the teams finishing 7-10 in each conf.
             if( ((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))){
                 sim_playoff_total.row(team_id-1)[0]++; //top 8 (legacy format)
