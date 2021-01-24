@@ -21,7 +21,7 @@ cdef extern from "mcss.hpp":
         Team(int,string,string,string,string,float) except +
 
         int get_team_id()
-        string get_mlbgames_name()
+        string get_full_team_name()
         string get_abbreviation()
         string get_division()
         string get_league()

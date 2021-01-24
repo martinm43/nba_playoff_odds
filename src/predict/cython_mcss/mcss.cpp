@@ -148,7 +148,7 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
 
        //iterate through list of teams to determine division winners.
         for(int i=0;i<30;i++){
-            string team_name = sim_teams[i].get_mlbgames_name();
+            string team_name = sim_teams[i].get_full_team_name();
             string team_division = sim_teams[i].get_division();
             int team_id = sim_teams[i].get_team_id();
             //cout << team_name << ":" << team_division << ":" << total_wins << "\n" << endl;

@@ -13,7 +13,7 @@ class Team{
 private:
 
     int _team_id;
-    std::string _mlbgames_name;
+    std::string _full_team_name;
     std::string _abbreviation;
     std::string _division;
     std::string _league;
@@ -25,17 +25,18 @@ private:
 
 public:
 
-    Team(int team_id, std::string mlbgames_name, 
+    Team(int team_id, std::string full_team_name, 
             std::string abbreviation, std::string division, std::string league, 
             float rating):
-        _team_id(team_id), _mlbgames_name(mlbgames_name), 
+        _team_id(team_id), _full_team_name(full_team_name), 
             _abbreviation(abbreviation), _division(division), 
             _league(league), _rating(rating) {}
 
-    Team(){_team_id=0, _mlbgames_name="Carp", _abbreviation="HC", _division="Central", _league="NPL", _rating=9001.0;}
+    //Sample team definition, blank definition.
+    Team(){_team_id=0, _full_team_name="Carp", _abbreviation="HC", _division="Central", _league="NPL", _rating=9001.0;}
 
     int get_team_id() const {return _team_id;}
-    std::string get_mlbgames_name() const {return _mlbgames_name;}
+    std::string get_full_team_name() const {return _full_team_name;}
     std::string get_abbreviation() const {return _abbreviation;}
     std::string get_division() const {return _division;}
     std::string get_league() const {return _league;}

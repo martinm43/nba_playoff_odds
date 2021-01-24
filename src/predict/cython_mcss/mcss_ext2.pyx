@@ -19,7 +19,7 @@ cdef extern from "mcss.hpp":
         Team() except +
 
         int get_team_id()
-        string get_mlbgames_name()
+        string get_full_team_name()
         string get_abbreviation()
         string get_division()
         string get_league()
@@ -38,8 +38,8 @@ cdef extern from "mcss.hpp":
 cdef class PyTeam:
     cdef Team *thisptr # hold a C++ instance of a team object
 
-    def __cinit__(self,int id, string mlbgames_name, string abbreviation, string division, string league, float rating):
-        self.thisptr = new Team(id,mlbgames_name,abbreviation,division,league,rating)
+    def __cinit__(self,int id, string full_team_name, string abbreviation, string division, string league, float rating):
+        self.thisptr = new Team(id,full_team_name,abbreviation,division,league,rating)
 
     def __dealloc__(self):
         del self.thisptr
@@ -47,8 +47,8 @@ cdef class PyTeam:
     def get_team_id(self):
         return self.thisptr.get_team_id()
 
-    def get_mlbgames_name(self):
-        return self.thisptr.get_mlbgames_name()
+    def get_full_team_name(self):
+        return self.thisptr.get_full_team_name()
 
     def get_abbreviation(self):
         return self.thisptr.get_abbreviation()
@@ -115,12 +115,12 @@ def simulations_result_vectorized(head_to_head, future_games, list_of_teams):
 
     for t in list_of_teams:
         team_id = int(t[0])
-        mlbgames_name = t[1]
+        full_team_name = t[1]
         abbreviation = t[2]
         division = t[3]
         league = t[4]
         rating = t[5]
-        st = PyTeam(team_id,mlbgames_name,abbreviation,division,league,rating)
+        st = PyTeam(team_id,full_team_name,abbreviation,division,league,rating)
         st_cpp =dereference(st.thisptr)
         cpp_list_of_teams.push_back(st_cpp)
 
