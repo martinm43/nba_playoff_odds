@@ -23,9 +23,9 @@ from analytics.pythag import league_pythagorean_wins
 from analytics.wins_script import get_wins
 
 #Query Testing
-start_datetime = datetime(2020,12,22)
-end_datetime = datetime.today()
 season_year = 2021
+start_datetime = datetime(season_year-1,10,22)
+end_datetime = datetime(season_year,2,3)
 
 games_list=games_query(start_datetime,end_datetime)
 
@@ -56,7 +56,7 @@ results = [[x[0][0],x[0][1],x[1],x[2][0],x[2][1],x[2][2],x[3],x[4]] for x in res
 results_tuples = [(team_abbreviation(x[0]),round(x[1],0),round(x[2]*100.0/100.0,3),\
                    x[6],x[3],x[4],x[5],x[7]) for x in results]
 
-results_tuples.sort(key = lambda x: -x[1])
+results_tuples.sort(key = lambda x: -x[3])
 
 results_table = tabulate(
         results_tuples,
