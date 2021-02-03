@@ -20,6 +20,7 @@ from random import randint
 import numpy as np
 
 #default rating is 0.01, multiplied by 10^6 for readability.
+DEFAULT_RATING = 0.01
 
 def predicted_dos_formula(a,b):
     """
@@ -70,7 +71,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
 
     """
     
-    default_rating = 0.01 #1 gives good results.
+    default_rating = DEFAULT_RATING #1 gives good results.
     rating_scaling = 10 #10 gives good spread
     default_K = default_rating/rating_scaling
 
@@ -122,7 +123,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
 
     return season_elo_ratings_list,list_of_ratings
 
-def year_to_year_ratings(season_elo_ratings_list,reset_factor=0.25,reset_value=0.01):
+def year_to_year_ratings(season_elo_ratings_list,reset_factor=0.25,reset_value=DEFAULT_RATING):
     """
     Take a set of ratings from the previous year,
     and based on a reset factor and a value to be 
