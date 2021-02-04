@@ -66,3 +66,4 @@ print(title)
 plt.title(title)
 
 plt.show()
+plt.savefig("fit_figure.png")
