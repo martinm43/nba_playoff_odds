@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
-from sklearn.preprocessing import StandardScaler
+#from sklearn.preprocessing import StandardScaler
 
 from nba_database.nba_data_models import BballrefScores
 
@@ -30,8 +30,9 @@ mov = [x.home_pts-x.away_pts for x in z]
 dos = [(x.home_pts-x.away_pts)/(x.home_pts+x.away_pts) for \
                  x in z if x.home_pts+x.away_pts > 0]
 
-monitored_variable = pd.DataFrame(dos)
 
+#monitored_variable = pd.DataFrame(dos)
+monitored_variable = dos
 #description = monitored_variable.describe()
 #print(description)
 
@@ -50,7 +51,18 @@ stddev = parameters[1]
 mean_str = "%.5f" % mean
 stddev_str = "%.5f" % stddev
 
-print("Result of logistic curve fitting for data from "+str(min_val)+\
-      " to "+str(max_val))
-print("logistic mean: "+mean_str)
-print("logistic stddev: "+stddev_str)
+
+
+
+plt.hist(monitored_variable, bins=20, density=True, color='g')
+ 
+# Get plot limits.
+xmin, xmax = plt.xlim()
+x = np.linspace(xmin, xmax, 100)
+p = dist.pdf(x, mean, stddev)
+plt.plot(x, p, 'k', linewidth=2)
+title = dist.name+" fit results: mu = %.5f,  std = %.5f" % (mean, stddev)
+print(title)
+plt.title(title)
+
+plt.show()
