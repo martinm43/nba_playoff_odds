@@ -32,7 +32,7 @@ dos = [(x.home_pts-x.away_pts)/(x.home_pts+x.away_pts) for \
 
 
 #monitored_variable = pd.DataFrame(dos)
-monitored_variable = dos
+monitored_variable = mov
 #description = monitored_variable.describe()
 #print(description)
 

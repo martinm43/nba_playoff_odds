@@ -43,7 +43,6 @@ def predicted_dos_formula(a,b):
     DoS = -1 + 2/(1+exp((b-a-mean)/stddev))
     return DoS
 
-
 def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     """
     Based on a series of games provided in 
