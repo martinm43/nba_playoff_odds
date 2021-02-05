@@ -22,7 +22,7 @@ import numpy as np
 #default rating is 0.01, multiplied by 10^6 for readability.
 DEFAULT_RATING = 0.01
 
-def predicted_dos_formula(a,b):
+def predicted_mov_formula(a,b):
     """
     Parameters
     ----------
@@ -38,10 +38,11 @@ def predicted_dos_formula(a,b):
     mean and stddev taken from results of points_analysis.py
 
     """
-    mean = 0.01638
-    stddev = 0.03784
-    DoS = -1 + 2/(1+exp((b-a-mean)/stddev))
-    return DoS
+    mean = 3.27326
+    stddev = 7.50688
+    bound = 20
+    mov = -1*bound/2 + bound/(1+exp((b-a-mean)/stddev))
+    return mov
 
 def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     """
@@ -71,7 +72,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     """
     
     default_rating = DEFAULT_RATING #1 gives good results.
-    rating_scaling = 10 #10 gives good spread
+    rating_scaling = 2000 #10 gives good spread
     default_K = default_rating/rating_scaling
 
     if new_season == True:
@@ -98,11 +99,11 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
         away_rating = season_elo_ratings_list[g[0]-1]
         home_rating = season_elo_ratings_list[g[2]-1]
         #get expected DoS value, compare it to the real one
-        expected_dos = predicted_dos_formula(away_rating, home_rating)
-        actual_dos = ((g[1]-g[3])/(g[1]+g[3]))
-        dos_difference = actual_dos - expected_dos
+        expected_mov = predicted_mov_formula(away_rating, home_rating)
+        actual_mov = g[1]-g[3]
+        mov_difference = actual_mov - expected_mov
         #adjust ratings
-        change_factor = default_K*dos_difference
+        change_factor = default_K*mov_difference
         season_elo_ratings_list[g[0]-1] = season_elo_ratings_list[g[0]-1]+change_factor
         season_elo_ratings_list[g[2]-1] = season_elo_ratings_list[g[2]-1]-change_factor
         #add the date and then add the new ratings to the list of ratings
@@ -205,7 +206,7 @@ if __name__ == "__main__":
     #master_results - capture all ratings over all seasons.
     master_results = []
     
-    reset_factor = 0.25 #1: every season is new. #0: every season is a continuation
+    reset_factor = .75 #1: every season is new. #0: every season is a continuation
     reset_value = DEFAULT_RATING #identical to default value
     for season_year in range(start_year,end_year):
     
