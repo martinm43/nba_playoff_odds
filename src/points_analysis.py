@@ -26,15 +26,16 @@ x = BballrefScores.select().order_by(BballrefScores.season_year.desc()).get()
 max_val = x.season_year
 
 z = BballrefScores.select().where(BballrefScores.season_year >= min_val, BballrefScores.season_year < max_val)
-mov = [x.home_pts-x.away_pts for x in z]
+expnt = 0.90
+mov = [np.real((x.home_pts-x.away_pts)**expnt) for x in z]
 dos = [(x.home_pts-x.away_pts)/(x.home_pts+x.away_pts) for \
                  x in z if x.home_pts+x.away_pts > 0]
 
 
-#monitored_variable = pd.DataFrame(dos)
-monitored_variable = mov
-#description = monitored_variable.describe()
-#print(description)
+monitored_variable = pd.DataFrame(mov)
+#monitored_variable = mov
+description = monitored_variable.describe()
+print(description)
 
 size = len(monitored_variable)
 
@@ -45,6 +46,7 @@ dist_name = 'logistic'
 #Fitting distribution
 dist = getattr(stats,dist_name)
 parameters = dist.fit(df_fit)
+print(parameters)
 mean = parameters[0]
 stddev = parameters[1]
 
