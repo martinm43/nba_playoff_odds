@@ -26,13 +26,15 @@ x = BballrefScores.select().order_by(BballrefScores.season_year.desc()).get()
 max_val = x.season_year
 
 z = BballrefScores.select().where(BballrefScores.season_year >= min_val, BballrefScores.season_year < max_val)
+mov = [x.home_pts-x.away_pts for x in z]
 expnt = 0.90
-mov = [np.real((x.home_pts-x.away_pts)**expnt) for x in z]
+exp_mov = [np.real((x.home_pts-x.away_pts)**expnt) for x in z]
 dos = [(x.home_pts-x.away_pts)/(x.home_pts+x.away_pts) for \
                  x in z if x.home_pts+x.away_pts > 0]
+adv_mov = [x.home_pts-x.away_pts+5 if x.home_pts-x.away_pts > 0 else \
+            x.home_pts-x.away_pts-5 for x in z]
 
-
-monitored_variable = pd.DataFrame(mov)
+monitored_variable = pd.DataFrame(adv_mov)
 #monitored_variable = mov
 description = monitored_variable.describe()
 print(description)

@@ -40,7 +40,8 @@ def predicted_mov_formula(a,b):
     """
     mean = 3.27326
     stddev = 7.50688
-    bound = 20
+    limit = 20
+    bound = limit*2
     mov = -1*bound/2 + bound/(1+exp((b-a-mean)/stddev))
     return mov
 
@@ -72,7 +73,7 @@ def season_elo_calc(_analysis_list,previous_ratings=None,new_season=True):
     """
     
     default_rating = DEFAULT_RATING #1 gives good results.
-    rating_scaling = 2000 #10 gives good spread
+    rating_scaling = 2500 #10 gives good spread
     default_K = default_rating/rating_scaling
 
     if new_season == True:
@@ -206,7 +207,7 @@ if __name__ == "__main__":
     #master_results - capture all ratings over all seasons.
     master_results = []
     
-    reset_factor = .75 #1: every season is new. #0: every season is a continuation
+    reset_factor = .25 #1: every season is new. #0: every season is a continuation
     reset_value = DEFAULT_RATING #identical to default value
     for season_year in range(start_year,end_year):
     
