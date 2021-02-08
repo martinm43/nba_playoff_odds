@@ -1,9 +1,4 @@
-def SRS(
-        game,
-        printing=False,
-        max_MOV=100.0,
-        home_team_adv=0.0,
-        win_floor=0.0):
+def SRS(game, printing=False, max_MOV=100.0, home_team_adv=0.0, win_floor=0.0):
     """
 
     Inputs:
@@ -12,7 +7,7 @@ def SRS(
     impmode = file importation mode
     printing = debug printing optional
     max_MOV = maximum margin of victory
-    home_team_adv = presumed home team advantage  
+    home_team_adv = presumed home team advantage
 
 
 
@@ -100,8 +95,12 @@ def SRS(
     teamStrength.tolist()
     if printing == True:
         for t in enumerate(teamStrength):
-            print(('Team ' + str(t[0] + 1) +
-                  ' has a calculated Burke Score of ' + str(t[1])))
+            print(
+                (
+                    "Team "
+                    + str(t[0] + 1)
+                    + " has a calculated Burke Score of "
+                    + str(t[1])
+                )
+            )
     return teamStrength
-
-
