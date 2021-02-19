@@ -48,6 +48,7 @@ for d in season_dicts:
     datefmt = "%a %b %d %Y"
     date_datetime = datetime.strptime(datestr, datefmt)
     d["datetime"] = epochtime(date_datetime)
+    d["date"] = date_datetime.strftime("%Y-%m-%d")
 
     # remove unused keys
     d.pop("Visitor/Neutral", None)
