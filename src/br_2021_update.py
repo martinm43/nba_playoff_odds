@@ -13,7 +13,8 @@
      which must be modified from the following default header
      
      Date,Start (ET),Visitor/Neutral,PTS,Home/Neutral,PTS,,,Attend.,Notes
-     
+
+SPECIAL EDITION FOR 2021 DATA UPDATES
 """
 from pprint import pprint
 import pandas as pd
@@ -26,7 +27,11 @@ season_year_start = 2020
 df = pd.read_csv("2021_data.csv")
 season_dicts = df.T.to_dict().values()
 
-print(len(season_dicts))
+print("Number of entries: "+str(len(season_dicts)))
+print("Preparing to delete entries.")
+q = BballrefScores.delete().where(BballrefScores.id > 20210000)
+q.execute()
+print("Entries cleared, restoring entries.")
 
 SQLITE_MAX_VARIABLE_NUMBER = 100
 

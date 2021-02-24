@@ -26,7 +26,7 @@ from prediction_table import playoff_odds_calc
 from nba_database.queries import team_abbreviation
 from nba_database.nba_data_models import ProApiTeams
 
-season_year = random.randint(1990, 2021)
+season_year = 2021
 division_name = random.choice(
     ["Atlantic", "Central", "Southeast", "Southwest", "Pacific", "Northwest"]
 )
@@ -43,7 +43,7 @@ if division_name not in [
     sys.exit(1)
 
 min_year = 1990
-max_year = 2020
+max_year = 2021
 
 if season_year < min_year or season_year > max_year:
     print(
