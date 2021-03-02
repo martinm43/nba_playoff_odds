@@ -33,7 +33,7 @@ from analytics.wins_script import get_wins
 
 # Query Testing
 season_year = 2021
-start_datetime = datetime(2021, 1, 22)
+start_datetime = datetime(2020, 12, 22)
 end_datetime = datetime.today()
 
 games_list = games_query(start_datetime, end_datetime)
