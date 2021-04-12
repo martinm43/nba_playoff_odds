@@ -67,65 +67,65 @@ def running_mean(x, N):
 
 team_labels = [team_abbreviation(i) for i in range(1, 30)]
 
-for division_name in division_name_list:
-    # Team ID
-    # Possible divisions are Southeast, Atlantic, Central
-    # Pacific, Southwest, Northwest
-    query = ProApiTeams.select().where(ProApiTeams.division == division_name)
-    division_team_id_list = [i.bball_ref for i in query]
+# Team ID
+# Possible divisions are Southeast, Atlantic, Central
+# Pacific, Southwest, Northwest
+division_name = random.choice(division_name_list)
+query = ProApiTeams.select().where(ProApiTeams.division == division_name)
+division_team_id_list = [i.bball_ref for i in query]
 
 
-    # Odds calculations
-    odds_list = []
+# Odds calculations
+odds_list = []
+x_odds = playoff_odds_calc(a, b, season_year)
+x_odds = [x[0] for x in x_odds]
+odds_list.append(x_odds)
+
+dates_list = []
+dates_list.append(b)
+
+while b < end:
     x_odds = playoff_odds_calc(a, b, season_year)
     x_odds = [x[0] for x in x_odds]
     odds_list.append(x_odds)
-
-    dates_list = []
     dates_list.append(b)
+    b = b + timedelta(days=1)
 
-    while b < end:
-        x_odds = playoff_odds_calc(a, b, season_year)
-        x_odds = [x[0] for x in x_odds]
-        odds_list.append(x_odds)
-        dates_list.append(b)
-        b = b + timedelta(days=1)
+odds_array = np.asarray(odds_list)
 
-    odds_array = np.asarray(odds_list)
+plt.figure()
+plt.figure(figsize=(10, 10))
+plt.ylim(-5, 105)  # so 100 shows up on the graph, and 0 (thanks V.)
 
-    plt.figure()
-    plt.figure(figsize=(10, 10))
-    plt.ylim(-5, 105)  # so 100 shows up on the graph, and 0 (thanks V.)
-
-    # Get team data
-    for team_id_db in division_team_id_list:
-        team_id = team_id_db - 1
-        team_data = odds_array[:, team_id]
-        N = len(team_data)
-        average_count = 5
-        average_team_data = running_mean(team_data, average_count)
-        average_dates_list = dates_list[average_count - 1 :]
-        # plt.plot(dates_list,team_data)
-        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-        plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=14))
-        plt.plot(
-            average_dates_list,
-            average_team_data,
-            label=team_abbreviation(team_id + 1),
-            alpha=0.6,
-        )
-
-    plt.xlabel("Date")
-    plt.ylabel("Team Playoff Odds")
-    plt.title(
-        division_name
-        + " Division Playoff Odds "
-    + str(season_year - 1)
-    + "-"
-    + str(season_year)
-    + "\n (teams in division may not be accurate before 2004)"
+# Get team data
+for team_id_db in division_team_id_list:
+    team_id = team_id_db - 1
+    team_data = odds_array[:, team_id]
+    N = len(team_data)
+    average_count = 5
+    average_team_data = running_mean(team_data, average_count)
+    average_dates_list = dates_list[average_count - 1 :]
+    # plt.plot(dates_list,team_data)
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+    plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=14))
+    plt.plot(
+        average_dates_list,
+        average_team_data,
+        label=team_abbreviation(team_id + 1),
+        alpha=0.6,
     )
-    plt.legend()
-    plt.xticks(rotation=15)
-    plt.savefig(division_name + "_" + str(season_year) + ".png")
-    plt.show()
+
+plt.xlabel("Date")
+plt.ylabel("Team Playoff Odds")
+plt.title(
+    division_name
+    + " Division Playoff Odds "
++ str(season_year - 1)
++ "-"
++ str(season_year)
++ "\n (teams in division may not be accurate before 2004)"
+)
+plt.legend()
+plt.xticks(rotation=15)
+plt.savefig(division_name + "_" + str(season_year) + ".png")
+plt.show()
