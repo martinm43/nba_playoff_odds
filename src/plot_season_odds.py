@@ -18,6 +18,7 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
+from pprint import pprint 
 
 import random
 
@@ -116,8 +117,15 @@ odds_list.append(x_odds)
 dates_list = []
 dates_list.append(b)
 
+ratings_mode = "SRS"
+
+
 while b < end:
-    x_odds = playoff_odds_calc(a, b, season_year)
+    
+    x_odds = playoff_odds_calc(a, b, season_year, ratings_mode=ratings_mode)
+
+    #print(b)
+    #pprint(x_odds)
 
     if mode == 1:
         x_odds = [x[0] for x in x_odds]
@@ -128,7 +136,9 @@ while b < end:
 
     odds_list.append(x_odds)
     dates_list.append(b)
-    b = b + timedelta(days=1)
+    b = b + timedelta(days=1) #1
+
+
 
 odds_array = np.asarray(odds_list)
 
