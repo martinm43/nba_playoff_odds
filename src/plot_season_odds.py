@@ -70,7 +70,8 @@ team_labels = [team_abbreviation(i) for i in range(1, 30)]
 # Team ID
 # Possible divisions are Southeast, Atlantic, Central
 # Pacific, Southwest, Northwest
-division_name = random.choice(division_name_list)
+division_number = 3
+division_name = division_name_list[division_number]
 query = ProApiTeams.select().where(ProApiTeams.division == division_name)
 division_team_id_list = [i.bball_ref for i in query]
 
@@ -93,7 +94,6 @@ while b < end:
 
 odds_array = np.asarray(odds_list)
 
-plt.figure()
 plt.figure(figsize=(10, 10))
 plt.ylim(-5, 105)  # so 100 shows up on the graph, and 0 (thanks V.)
 
