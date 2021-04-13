@@ -99,7 +99,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="E
     team_results = simulations_result_vectorized(
         games_won_list_cpp, future_games_list, teams_list
     )
-    # Return (top 8 odds, average wins, play in tournament odds, and top 6 odds).
+    # Return (top 8 odds, average wins, top 6 odds, and play in tournament odds).
     team_results = [
         [x[0] * 100.0, x[1], x[2] * 100.0, x[3] * 100.0] for x in team_results
     ]
