@@ -95,6 +95,7 @@ odds_list = []
 x_odds = playoff_odds_calc(a, b, season_year)
 print("Calculation modes are as follows: ")
 print("1: Classic mode (top 8 finish)\n2: Top 6 mode\n3: Top 10 mode")
+mode_dict={1:"Top 8",2:"Top 6",3:"Top 10"}
 mode = input("Please select a calculation mode: ")
 try:
     mode = int(mode)
@@ -171,7 +172,7 @@ plt.title(
 + str(season_year - 1)
 + "-"
 + str(season_year)
-+ "\n (teams in division may not be accurate before 2004)"
++ "\n (teams in division may not be accurate before 2004, "+mode_dict[mode]+")"
 )
 plt.legend()
 plt.xticks(rotation=15)
