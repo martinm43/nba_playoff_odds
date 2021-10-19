@@ -142,10 +142,7 @@ Manual calibration and testing were used to obtain appropriate initial ratings a
 The original SRS based model remains available for legacy reasons/comparison.
 
 ## To Do
-* update info_table to use Elo in addition to SRS
-* general update of 
-* provide a more technical writeup for the Elo model (?)
-* general code cleanup
+* Playoff tiebreakers.
 
 ## Attributions
 This project incorporates source from the Armadillo C++ Linear Algebra Library.
