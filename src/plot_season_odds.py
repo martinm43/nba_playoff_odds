@@ -27,19 +27,26 @@ from prediction_table import playoff_odds_calc
 from nba_database.queries import team_abbreviation
 from nba_database.nba_data_models import ProApiTeams
 
-season_year = 2021
 division_name_list = ["Atlantic", "Central", "Southeast", "Southwest", "Pacific", "Northwest"]
+
+
+try:
+    season_year = int(input("Please select a year between 1977 and 2021, or enter 0 for random year: "))
+except ValueError:
+    print("Invalid value entered, quitting!!")
+    sys.exit(1)
+    0
 
 min_year = 1990
 max_year = 2021
 
+if season_year == 0:
+    season_year = random.randint(min_year,max_year)
 if season_year < min_year or season_year > max_year:
-    print(
-        "Season year "
-        + str(season_year)
-        + " is outside of current program limits, exiting"
-    )
+    print("Year outside range, exiting!")
     sys.exit(1)
+
+
 elif season_year == 2012:  # 2011-2012 lockout year fix.
     a = datetime(season_year - 1, 12, 25)
     b = datetime(season_year, 1, 15)
@@ -48,7 +55,11 @@ elif season_year == 1999:  # 1998-1999 lockout year fix.
     a = datetime(season_year, 2, 5)
     b = datetime(season_year, 2, 26)
     end = datetime(season_year, 5, 30)
-elif season_year == 2021:  # SARS-CoV-2 fix.
+elif season_year == 2020:  # Ft. The Day The World Stopped, 11 Mar 2020
+    a = datetime(season_year-1, 10, 1)
+    b = datetime(season_year-1, 11, 15)
+    end = datetime(season_year, 8, 14)
+elif season_year == 2021:  # SARS-CoV-2 fix (Second Season)
     a = datetime(season_year - 1, 12, 25)
     b = datetime(season_year, 1, 15)
     end = min(datetime(season_year, 5, 30),datetime.today() - timedelta(days=1))
@@ -135,6 +146,9 @@ while b < end:
     elif mode == 3:
         x_odds = [x[2]+x[3] for x in x_odds]
 
+
+    print("Finished processing "+b.strftime("%m %d %Y"))
+
     odds_list.append(x_odds)
     dates_list.append(b)
     b = b + timedelta(days=1) #1
@@ -151,7 +165,7 @@ for team_id_db in division_team_id_list:
     team_id = team_id_db - 1
     team_data = odds_array[:, team_id]
     N = len(team_data)
-    average_count = 5
+    average_count = 1 #so playoff odds converge to 1.
     average_team_data = running_mean(team_data, average_count)
     average_dates_list = dates_list[average_count - 1 :]
     # plt.plot(dates_list,team_data)
