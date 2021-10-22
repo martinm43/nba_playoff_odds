@@ -31,7 +31,7 @@ division_name_list = ["Atlantic", "Central", "Southeast", "Southwest", "Pacific"
 
 
 try:
-    season_year = int(input("Please select a year between 1977 and 2021, or enter 0 for random year: "))
+    season_year = int(input("Please select a year between 1990 and 2021, or enter 0 for random year: "))
 except ValueError:
     print("Invalid value entered, quitting!!")
     sys.exit(1)
@@ -42,6 +42,7 @@ max_year = 2021
 
 if season_year == 0:
     season_year = random.randint(min_year,max_year)
+    print("Random year selected is "+str(season_year))
 if season_year < min_year or season_year > max_year:
     print("Year outside range, exiting!")
     sys.exit(1)
