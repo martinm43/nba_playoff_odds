@@ -62,6 +62,19 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="E
         for x in teams_list
     ]
 
+
+    #pprint(teams_list)
+    # Division changes go here
+    for z in teams_list:
+        if season_year <= 2003 and z[0] == 19: #Charlotte Hornets to NOH change
+            z[4]="E"
+            z[3]="Central"
+
+    #pprint("Fixed")
+    #pprint(teams_list)
+
+
+
     # Get future games (away_team, home_team, home_team_win_probability)
 
     future_games_list = future_games_query(predict_date, predict_season_year)
@@ -97,7 +110,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="E
             x.append(Elo_regress(Elo_diff))
 
     team_results = simulations_result_vectorized(
-        games_won_list_cpp, future_games_list, teams_list
+        games_won_list_cpp, future_games_list, teams_list, season_year
     )
     # Return (top 8 odds, average wins, top 6 odds, and play in tournament odds).
     team_results = [
@@ -106,7 +119,7 @@ def playoff_odds_calc(start_datetime, end_datetime, season_year, ratings_mode="E
     return team_results
 
 
-def playoff_odds_print(team_results):
+def playoff_odds_print(team_results,season_year):
     """
     Prints table based on alphabetically ordered team results matrix.
     Team results are the output of playoff_odds_calc.
@@ -124,6 +137,12 @@ def playoff_odds_print(team_results):
         dict(list(zip(["Team", "Conference"], [i.abbreviation, i.conf_or_league])))
         for i in teams
     ]
+
+
+    for z in teams_dict:
+        if z["Team"]=="NOP/NOH/CHA" and season_year <= 2003:
+            z["Conference"]="E"
+
 
     for i, d in enumerate(teams_dict):
         d["Hist. Playoff %"] = round(team_results[i][0], 1)
@@ -179,7 +198,7 @@ if __name__ == "__main__":
     results = playoff_odds_calc(
         start_datetime, end_datetime, season_year, ratings_mode=ratings_mode
     )
-    results_table = playoff_odds_print(results)
+    results_table = playoff_odds_print(results,season_year)
 
     print(
         "Playoff odds for the "
