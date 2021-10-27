@@ -213,7 +213,3 @@ if __name__ == "__main__":
         + "and home court advantage for the first round. That logic has not yet been implemented in this progam"
     )
 
-    print(
-        "For 2020 please note that:\n"
-        + "* League is releasing schedule in two halves; first half has 37 games"
-    )

@@ -159,10 +159,10 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             if( (((i >= 0) && (i <= 7)) || ((i >= 16) && (i <= 23))) && year < 2003 ){
                  sim_playoff_total.row(team_id-1)[0]++; //top 8 (pre 2004))
             }
-            if( ((i >= 0) && (i <= 5)) || ((i >= 15) && (i <= 20))){
+            if( (((i >= 0) && (i <= 5)) || ((i >= 15) && (i <= 20))) && year >= 2020){
               		sim_playoff_total.row(team_id-1)[2]++; //top 6
       	    }
-      	    if( ((i >= 6) && (i <= 9)) || ((i >= 21) && (i <= 24))){
+      	    if( (((i >= 6) && (i <= 9)) || ((i >= 21) && (i <= 24))) && year >= 2020){
             		sim_playoff_total.row(team_id-1)[3]++; //play in tournament
     	    }
         }
