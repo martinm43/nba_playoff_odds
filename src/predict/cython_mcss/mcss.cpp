@@ -153,13 +153,16 @@ mat mcss_function(mat mat_head_to_head, mat future_games, stdteamvec list_of_tea
             int team_id = sim_teams[i].get_team_id();
             //cout << team_name << ":" << team_division << ":" << total_wins << "\n" << endl;
 	    //Play-in is now a new designation, for the teams finishing 7-10 in each conf.
-            if( ((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))){
-                sim_playoff_total.row(team_id-1)[0]++; //top 8 (legacy format)
+            if( (((i >= 0) && (i <= 7)) || ((i >= 15) && (i <= 22))) && year >= 2004 ){
+                 sim_playoff_total.row(team_id-1)[0]++; //top 8 (legacy format)
+            }
+            if( (((i >= 0) && (i <= 7)) || ((i >= 16) && (i <= 23))) && year < 2003 ){
+                 sim_playoff_total.row(team_id-1)[0]++; //top 8 (pre 2004))
             }
             if( ((i >= 0) && (i <= 5)) || ((i >= 15) && (i <= 20))){
-            		sim_playoff_total.row(team_id-1)[2]++; //top 6
-    	    }
-    	    if( ((i >= 6) && (i <= 9)) || ((i >= 21) && (i <= 24))){
+              		sim_playoff_total.row(team_id-1)[2]++; //top 6
+      	    }
+      	    if( ((i >= 6) && (i <= 9)) || ((i >= 21) && (i <= 24))){
             		sim_playoff_total.row(team_id-1)[3]++; //play in tournament
     	    }
         }
