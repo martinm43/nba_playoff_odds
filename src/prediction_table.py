@@ -170,12 +170,12 @@ def playoff_odds_print(team_results):
 
 if __name__ == "__main__":
 
-    season_year = 2021  # year in which season ends
-    start_datetime = datetime(season_year - 1, 12, 22)  # start of season
-    end_datetime = datetime.today()  # a few weeks or months in
+    season_year = 2002  # year in which season ends
+    start_datetime = datetime(season_year - 1, 10, 19)  # start of season
+    end_datetime = datetime(season_year,4,30)  # a few weeks or months in
     # in-season option: end_datetime = datetime.today()-timedelta(days=1)
 
-    ratings_mode = "SRS"
+    ratings_mode = "Elo"
     results = playoff_odds_calc(
         start_datetime, end_datetime, season_year, ratings_mode=ratings_mode
     )

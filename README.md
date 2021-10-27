@@ -142,6 +142,7 @@ Manual calibration and testing were used to obtain appropriate initial ratings a
 The original SRS based model remains available for legacy reasons/comparison.
 
 ## To Do
+* Fix bug where NOP/NOH/CHA is not an Eastern Conference team in appropriate years
 * Playoff tiebreakers.
 
 ## Attributions
