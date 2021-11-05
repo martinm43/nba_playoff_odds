@@ -33,14 +33,14 @@ from analytics.wins_script import get_wins
 
 # Query Testing
 season_year = 2022
-start_datetime = datetime(2020, 10, 18)
+start_datetime = datetime(2021, 10, 18)
 end_datetime = datetime.today()
 
 games_list = games_query(start_datetime, end_datetime)
 
 # Custom SRS calculation options
 max_MOV = 100  # no real max MOV
-home_team_adv = 0
+home_team_adv = 2
 win_floor = 0
 
 wins_dict_list = [
