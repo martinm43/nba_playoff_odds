@@ -40,7 +40,7 @@ games_list = games_query(start_datetime, end_datetime)
 
 # Custom SRS calculation options
 max_MOV = 100  # no real max MOV
-home_team_adv = 2
+home_team_adv = 0
 win_floor = 0
 
 wins_dict_list = [
