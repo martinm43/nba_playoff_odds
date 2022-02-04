@@ -38,7 +38,7 @@ except ValueError:
     0
 
 min_year = 1990
-max_year = 2021
+max_year = 2022
 
 if season_year == 0:
     season_year = random.randint(min_year,max_year)
