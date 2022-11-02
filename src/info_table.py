@@ -32,8 +32,8 @@ from analytics.pythag import league_pythagorean_wins
 from analytics.wins_script import get_wins
 
 # Query Testing
-season_year = 2022
-start_datetime = datetime(2021, 10, 18)
+season_year = 2023
+start_datetime = datetime(2022, 10, 10)
 end_datetime = datetime.today()
 
 games_list = games_query(start_datetime, end_datetime)
