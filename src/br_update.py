@@ -23,13 +23,13 @@ from datetime import datetime
 from nba_database.queries import epochtime, full_name_to_id
 from nba_database.nba_data_models import database, BballrefScores
 
-season_year_start = 2021
-df = pd.read_csv("2022_data.csv")
+season_year_start = 2022
+df = pd.read_csv("2023_data.csv")
 season_dicts = df.T.to_dict().values()
 
 print("Number of entries: "+str(len(season_dicts)))
 print("Preparing to delete entries.")
-q = BballrefScores.delete().where(BballrefScores.id > 20220000)
+q = BballrefScores.delete().where(BballrefScores.id > 20230000)
 q.execute()
 print("Entries cleared, restoring entries.")
 

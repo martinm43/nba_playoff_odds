@@ -22,8 +22,8 @@ from datetime import datetime
 from nba_database.queries import epochtime, full_name_to_id
 from nba_database.nba_data_models import database, BballrefScores
 
-season_year_start = 2020
-df = pd.read_csv("2021_data.csv")
+season_year_start = 2022
+df = pd.read_csv("2023_data.csv")
 season_dicts = df.T.to_dict().values()
 
 print(len(season_dicts))
@@ -59,6 +59,7 @@ for d in season_dicts:
     d.pop("Home_PTS", None)
     d.pop("Visitor_PTS", None)
     d.pop("Notes", None)
+    d.pop("Arena",None) #may be used later to determine HFA
     d.pop("Start (ET)", None)
     d.pop("Date", None)
     d.pop("Unnamed: 5", None)
