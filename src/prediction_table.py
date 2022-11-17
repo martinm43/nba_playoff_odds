@@ -194,7 +194,7 @@ if __name__ == "__main__":
     #end_datetime = datetime(season_year,4,30)  # a few weeks or months in
     end_datetime = datetime.today()-timedelta(days=1)
 
-    ratings_mode = "Elo"
+    ratings_mode = "SRS"
     results = playoff_odds_calc(
         start_datetime, end_datetime, season_year, ratings_mode=ratings_mode
     )
@@ -212,4 +212,5 @@ if __name__ == "__main__":
         "Note that in 2014 and earlier, division winners were automatically given a top-four seed\n"
         + "and home court advantage for the first round. That logic has not yet been implemented in this progam"
     )
+
 
