@@ -6,30 +6,56 @@ using automation
 """
 
 import json
+
+from datetime import datetime, timedelta
+
+from nba_database.nba_data_models import database, BballrefScores
+from nba_database.queries import epochtime, abbrev_to_id
+
 from nba_api.stats.endpoints import scoreboard
 
-game_date = "2023-01-26"
 
-games = scoreboard.Scoreboard(game_date=game_date)
-games_json=json.loads(games.get_json())
 
-# Reforming dicts of required data based on game results, identified by team abbrev
-datalist = games_json["resultSets"][1]["rowSet"]
-results = []
-for d in datalist:
-    results.append({"team_abbreviation":d[4],"pts":d[21]})
+start_date = datetime(2023,1,26) #date, used for observation
+end_date = datetime.today() - timedelta(days=1)
+loop_date = start_date
 
-# Attach team info as appropriate
-gameinfolist = games_json["resultSets"][0]["rowSet"]
-game_list = []
-for i in gameinfolist:
-    game_str = i[5].split("/")[1]
-    game_dict = {"away_team_abbreviation":game_str[0:3],"home_team_abbreviation":game_str[3:6]}
-    away_pts = [x["pts"] for x in results if x["team_abbreviation"] == game_dict["away_team_abbreviation"]][0]
-    home_pts = [x["pts"] for x in results if x["team_abbreviation"] == game_dict["home_team_abbreviation"]][0]
-    game_dict["away_pts"]=away_pts
-    game_dict["home_pts"]=home_pts
-    game_dict["game_date"]=game_date
-    game_list.append(game_dict)
+while loop_date < end_date:
     
-#Usually BUT NOT ALWAYS in "Away@Home" format in the list of teams...
+    game_date = loop_date.strftime("%Y-%m-%d")
+    
+    games = scoreboard.Scoreboard(game_date=game_date)
+    games_json=json.loads(games.get_json())
+    
+    # Reforming dicts of required data based on game results, identified by team abbrev
+    datalist = games_json["resultSets"][1]["rowSet"]
+    results = []
+    for d in datalist:
+        results.append({"team_abbreviation":d[4],"pts":d[21]})
+    
+    # Attach team info as appropriate
+    gameinfolist = games_json["resultSets"][0]["rowSet"]
+    game_list = []
+    for i in gameinfolist:
+        game_str = i[5].split("/")[1]
+        game_dict = {"away_team_abbreviation":game_str[0:3],"home_team_abbreviation":game_str[3:6]}
+        away_pts = [x["pts"] for x in results if x["team_abbreviation"] == game_dict["away_team_abbreviation"]][0]
+        home_pts = [x["pts"] for x in results if x["team_abbreviation"] == game_dict["home_team_abbreviation"]][0]
+        game_dict["away_pts"]=away_pts
+        game_dict["home_pts"]=home_pts
+        game_dict["game_date"]=game_date
+        game_dict["datetime"]=epochtime(datetime.strptime(game_dict["game_date"],"%Y-%m-%d"))
+        game_list.append(game_dict)
+        
+    for z in game_list:
+        #Quick catch for the all-star games
+        try:
+            abbrev_to_id(z["away_team_abbreviation"]) 
+            BballrefScores.update(away_pts = z["away_pts"], home_pts = z["home_pts"]).\
+                where((BballrefScores.date == z["game_date"]) & \
+                      (BballrefScores.away_team_id == abbrev_to_id(z["away_team_abbreviation"]) & (BballrefScores.home_team_id == abbrev_to_id(z["home_team_abbreviation"])))).execute()
+        except IndexError:
+            print("Team "+z["away_team_abbreviation"]+" is not a standard NBA team, passing")
+            continue
+        
+    loop_date = loop_date + timedelta(days=1)
