@@ -16,7 +16,7 @@ from nba_api.stats.endpoints import scoreboard
 
 
 
-start_date = datetime(2023,1,26) #date, used for observation
+start_date = datetime(2023,2,14) #date, used for observation
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
@@ -44,18 +44,22 @@ while loop_date < end_date:
         game_dict["away_pts"]=away_pts
         game_dict["home_pts"]=home_pts
         game_dict["game_date"]=game_date
+        try:
+            game_dict["away_team_id"]=abbrev_to_id(game_dict["away_team_abbreviation"])
+            game_dict["home_team_id"]=abbrev_to_id(game_dict["home_team_abbreviation"])
+        except IndexError:
+            print("Please review games on "+game_date+" between "+game_dict["away_team_abbreviation"]+" and "+game_dict["home_team_abbreviation"])
+            game_dict["away_team_id"] = -1
+            game_dict["home_team_id"] = -1
+        
+        
         game_dict["datetime"]=epochtime(datetime.strptime(game_dict["game_date"],"%Y-%m-%d"))
         game_list.append(game_dict)
         
-    for z in game_list:
-        #Quick catch for the all-star games
-        try:
-            abbrev_to_id(z["away_team_abbreviation"]) 
-            BballrefScores.update(away_pts = z["away_pts"], home_pts = z["home_pts"]).\
-                where((BballrefScores.date == z["game_date"]) & \
-                      (BballrefScores.away_team_id == abbrev_to_id(z["away_team_abbreviation"]) & (BballrefScores.home_team_id == abbrev_to_id(z["home_team_abbreviation"])))).execute()
-        except IndexError:
-            print("Team "+z["away_team_abbreviation"]+" is not a standard NBA team, passing")
-            continue
+    for z in game_list: 
+        BballrefScores.update(away_pts = z["away_pts"], home_pts = z["home_pts"]).\
+            where((BballrefScores.date == z["game_date"]) & \
+                  (BballrefScores.away_team_id == z["away_team_id"]) & (BballrefScores.home_team_id == z["home_team_id"])).execute()
+
         
     loop_date = loop_date + timedelta(days=1)
