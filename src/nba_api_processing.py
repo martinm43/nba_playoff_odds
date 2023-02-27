@@ -16,14 +16,14 @@ from nba_api.stats.endpoints import scoreboard
 
 
 
-start_date = datetime(2023,2,14) #date, used for observation
+start_date = datetime(2023,4,14) #date, used for observation
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
 while loop_date < end_date:
     
     game_date = loop_date.strftime("%Y-%m-%d")
-    
+    print("Processing date "+game_date) 
     games = scoreboard.Scoreboard(game_date=game_date)
     games_json=json.loads(games.get_json())
     
@@ -48,7 +48,7 @@ while loop_date < end_date:
             game_dict["away_team_id"]=abbrev_to_id(game_dict["away_team_abbreviation"])
             game_dict["home_team_id"]=abbrev_to_id(game_dict["home_team_abbreviation"])
         except IndexError:
-            print("Please review games on "+game_date+" between "+game_dict["away_team_abbreviation"]+" and "+game_dict["home_team_abbreviation"])
+            print("Please review games on "+game_date+" between "+game_dict["away_team_abbreviation"]+" at "+game_dict["home_team_abbreviation"])
             game_dict["away_team_id"] = -1
             game_dict["home_team_id"] = -1
         
