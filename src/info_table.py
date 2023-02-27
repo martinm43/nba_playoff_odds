@@ -10,6 +10,7 @@ Output: table (string)
 """
 # Standard imports
 from datetime import datetime, timedelta
+import sys
 
 # Third Party Imports
 from tabulate import tabulate
@@ -33,8 +34,26 @@ from analytics.wins_script import get_wins
 
 # Query Testing
 season_year = 2023
-start_datetime = datetime(2022, 10, 10)
-#start_datetime = datetime.today()-timedelta(days=60)
+analysis_days = input("Please enter the number of days, min 7, to use for analysis. If all, enter -1: ")
+    
+try:
+    analysis_days = int(analysis_days)
+except ValueError:
+    sys.exit("Invalid value entered, program exiting")
+    
+    
+if analysis_days == -1:
+    start_datetime = datetime(2022, 10, 10)
+elif analysis_days >= 7:
+    start_datetime = datetime.today()-timedelta(days=analysis_days)
+else:
+    sys.exit("Number of days invalid, program exiting.")
+    
+
+        
+        
+        
+        
 end_datetime = datetime.today()
 
 games_list = games_query(start_datetime, end_datetime)
