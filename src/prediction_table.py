@@ -194,7 +194,7 @@ if __name__ == "__main__":
     #end_datetime = datetime(season_year,4,30)  # a few weeks or months in
     end_datetime = datetime.today()-timedelta(days=1)
 
-    ratings_mode = "Elo"
+    ratings_mode = "SRS"
     results = playoff_odds_calc(
         start_datetime, end_datetime, season_year, ratings_mode=ratings_mode
     )
