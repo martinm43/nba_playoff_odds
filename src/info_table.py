@@ -54,7 +54,7 @@ else:
         
         
         
-end_datetime = datetime.today()
+end_datetime = datetime.today()-timedelta(days=1)
 
 games_list = games_query(start_datetime, end_datetime)
 
