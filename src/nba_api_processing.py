@@ -16,7 +16,7 @@ from nba_api.stats.endpoints import scoreboard
 
 
 
-start_date = datetime(2023,3,10) #date, used for observation
+start_date = datetime(2023,3,15) #date, used for observation
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
@@ -59,7 +59,8 @@ while loop_date < end_date:
     for z in game_list: 
         BballrefScores.update(away_pts = z["away_pts"], home_pts = z["home_pts"]).\
             where((BballrefScores.date == z["game_date"]) & \
-                  (BballrefScores.away_team_id == z["away_team_id"]) & (BballrefScores.home_team_id == z["home_team_id"])).execute()
+                  (BballrefScores.away_team_id == z["away_team_id"]) & \
+                  (BballrefScores.home_team_id == z["home_team_id"])).execute()
 
         
     loop_date = loop_date + timedelta(days=1)
