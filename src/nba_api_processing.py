@@ -16,7 +16,7 @@ from nba_api.stats.endpoints import scoreboard
 
 
 
-start_date = datetime(2023,3,15) #date, used for observation
+start_date = datetime(2023,3,26) #date, used for observation
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
