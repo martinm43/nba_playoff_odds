@@ -9,8 +9,10 @@ Output: table (string)
 
 """
 # Standard imports
+import time
 from datetime import datetime, timedelta
 import sys
+import concurrent.futures
 
 # Third Party Imports
 from tabulate import tabulate
@@ -32,40 +34,52 @@ from analytics.pythag import league_pythagorean_wins
 # Wins script import
 from analytics.wins_script import get_wins
 
+startTime = time.time()
+
 # Query Testing
 season_year = 2023
+
+"""
 analysis_days = input("Please enter the number of days, min 7, to use for analysis. If all, enter -1: ")
     
 try:
     analysis_days = int(analysis_days)
 except ValueError:
     sys.exit("Invalid value entered, program exiting")
-    
-    
+
+
 if analysis_days == -1:
     start_datetime = datetime(2022, 10, 10)
 elif analysis_days >= 7:
     start_datetime = datetime.today()-timedelta(days=analysis_days)
 else:
     sys.exit("Number of days invalid, program exiting.")
-    
+"""
 
-        
-        
-        
-        
+start_datetime = datetime(2022,10,10)    
 end_datetime = datetime.today()-timedelta(days=1)
+games_list = games_query(start_datetime, end_datetime) 
 
-games_list = games_query(start_datetime, end_datetime)
 
 # Custom SRS calculation options
 max_MOV = 100  # no real max MOV
 home_team_adv = 0
 win_floor = 0
 
+
 wins_dict_list = [
     get_wins(i, season_year, start_datetime, end_datetime) for i in range(1, 31)
-]
+] 
+"""wins_dict_list = []
+ ### Threading to run queries simultaneously. SQLite allows infinite readers but limits writes to one.
+would need to sort the results, threads are not in order.
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    futures = []
+    for i in range(1,31):
+        futures.append(executor.submit(get_wins,i, season_year, start_datetime, end_datetime))
+    for future in concurrent.futures.as_completed(futures):
+        wins_dict_list.append(future.result())
+ """
 wins_list = [[x["away_record"], x["home_record"], x["record"]] for x in wins_dict_list]
 
 # Pythagorean Wins
@@ -80,6 +94,10 @@ srs_list = SRS(
 )
 
 elo_list = elo_ratings_list(epochtime(end_datetime))
+
+
+
+
 
 form_list = [form_query(i) for i in range(1, 31)]
 
@@ -131,3 +149,6 @@ print(
     + end_datetime.strftime("%b %d %Y")
 )
 print(results_table)
+
+executionTime = (time.time() - startTime)
+print('Execution time in seconds: ' + str(executionTime))
