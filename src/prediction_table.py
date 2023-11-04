@@ -189,12 +189,12 @@ def playoff_odds_print(team_results,season_year):
 
 if __name__ == "__main__":
 
-    season_year = 2023  # year in which season ends
+    season_year = 2024  # year in which season ends
     start_datetime = datetime(season_year - 1, 10, 10)  # start of season
     #end_datetime = datetime(season_year,4,30)  # a few weeks or months in
     end_datetime = datetime.today()-timedelta(days=1)
 
-    ratings_mode = "Elo"
+    ratings_mode = "SRS"
     results = playoff_odds_calc(
         start_datetime, end_datetime, season_year, ratings_mode=ratings_mode
     )
