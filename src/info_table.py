@@ -33,7 +33,7 @@ from analytics.pythag import league_pythagorean_wins
 from analytics.wins_script import get_wins
 
 # Query Testing
-season_year = 2023
+season_year = 2024
 analysis_days = input("Please enter the number of days, min 7, to use for analysis. If all, enter -1: ")
     
 try:
