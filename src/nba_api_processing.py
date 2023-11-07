@@ -16,7 +16,7 @@ from nba_api.stats.endpoints import scoreboard
 
 
 
-start_date = datetime(2023,3,26) #date, used for observation
+start_date = datetime(2023,10,24) #date, used for observation
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
@@ -63,4 +63,5 @@ while loop_date < end_date:
                   (BballrefScores.home_team_id == z["home_team_id"])).execute()
 
         
+    print("Processing date "+game_date+" complete.") 
     loop_date = loop_date + timedelta(days=1)
