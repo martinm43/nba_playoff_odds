@@ -11,6 +11,7 @@ Output: table (string)
 # Standard imports
 from datetime import datetime, timedelta
 import sys
+import argparse
 
 # Third Party Imports
 from tabulate import tabulate
@@ -24,39 +25,29 @@ from nba_database.queries import (
     form_query,
 )
 from nba_database.nba_data_models import BballrefScores as Game
-
-# Analytics imports
-from analytics.SRS import SRS
-from analytics.pythag import league_pythagorean_wins
-
-# Wins script import
 from analytics.wins_script import get_wins
+from analytics.pythag import league_pythagorean_wins
+from analytics.SRS import SRS
 
-# Query Testing
-season_year = 2024
-analysis_days = input("Please enter the number of days, min 7, to use for analysis. If all, enter -1: ")
-    
-try:
-    analysis_days = int(analysis_days)
-except ValueError:
-    sys.exit("Invalid value entered, program exiting")
-    
-    
-if analysis_days == -1:
-    start_datetime = datetime(2022, 10, 10)
-elif analysis_days >= 7:
-    start_datetime = datetime.today()-timedelta(days=analysis_days)
-else:
-    sys.exit("Number of days invalid, program exiting.")
-    
+parser = argparse.ArgumentParser(description='Process datetime-related arguments.')
 
-        
-        
-        
-        
-end_datetime = datetime.today()-timedelta(days=1)
+# Year argument
+parser.add_argument('--year', type=int, required=True, help='The year (e.g., 2023)')
 
-games_list = games_query(start_datetime, end_datetime)
+# Start datetime argument
+parser.add_argument('--start', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+                    required=True, help='Start datetime in the format YYYY-MM-DD')
+
+# End datetime argument
+parser.add_argument('--end', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+                    required=True, help='End datetime in the format YYYY-MM-DD')
+
+args = parser.parse_args()
+
+season_year = args.year
+start_datetime = args.start
+end_datetime = args.end
+games_list = games_query(start_datetime,end_datetime)
 
 # Custom SRS calculation options
 max_MOV = 100  # no real max MOV
