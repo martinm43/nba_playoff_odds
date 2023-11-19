@@ -7,7 +7,7 @@ and allow for integration with more 'modern' interfaces -think flask or Django
 
 # Future import first
 
-
+import argparse
 from nba_database.nba_data_models import ProApiTeams as Team
 from nba_database.queries import elo_ratings_list, epochtime
 from datetime import datetime, timedelta
@@ -194,9 +194,33 @@ if __name__ == "__main__":
     #end_datetime = datetime(season_year,4,30)  # a few weeks or months in
     end_datetime = datetime.today()-timedelta(days=1)
 
-    ratings_mode = "SRS"
+    parser = argparse.ArgumentParser(description='Process datetime-related arguments.')
+
+    # Year argument
+    parser.add_argument('--year', type=int, required=True, help='The year (e.g., 2023)')
+
+    # Start datetime argument
+    parser.add_argument('--start', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+                        required=True, help='Start datetime in the format YYYY-MM-DD')
+
+    # End datetime argument
+    parser.add_argument('--end', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+                        required=True, help='End datetime in the format YYYY-MM-DD')
+    
+    # Mode argument
+    parser.add_argument('--mode', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+                        required=True, help='One of SRS or Elo')
+
+    args = parser.parse_args()
+
+    season_year = args.year
+    start_datetime = args.start
+    end_datetime = args.end
+    ratings_mode = args.mode
+
+    ratings_mode = args.mode
     results = playoff_odds_calc(
-        start_datetime, end_datetime, season_year, ratings_mode=ratings_mode
+        args.start, args.end, args.year, ratings_mode=ratings_mode
     )
     results_table = playoff_odds_print(results,season_year)
 
