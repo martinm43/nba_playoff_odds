@@ -208,7 +208,7 @@ if __name__ == "__main__":
                         required=True, help='End datetime in the format YYYY-MM-DD')
     
     # Mode argument
-    parser.add_argument('--mode', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+    parser.add_argument('--mode', type=str,
                         required=True, help='One of SRS or Elo')
 
     args = parser.parse_args()
