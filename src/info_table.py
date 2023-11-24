@@ -23,6 +23,7 @@ from nba_database.queries import (
     epochtime,
     elo_ratings_list,
     form_query,
+    new_srs_ratings_list
 )
 from nba_database.nba_data_models import BballrefScores as Game
 from analytics.wins_script import get_wins
@@ -31,7 +32,7 @@ from analytics.SRS import SRS
 
 parser = argparse.ArgumentParser(description='Process datetime-related arguments.')
 
-# Year argument
+#Year argument
 parser.add_argument('--year', type=int, required=True, help='The year (e.g., 2023)')
 
 # Start datetime argument
@@ -47,7 +48,11 @@ args = parser.parse_args()
 season_year = args.year
 start_datetime = args.start
 end_datetime = args.end
-games_list = games_query(start_datetime,end_datetime)
+
+# season_year=2024
+# start_datetime=datetime(2023,10,1)
+# end_datetime=datetime.today()-timedelta(days=1)
+# games_list = games_query(start_datetime,end_datetime)
 
 # Custom SRS calculation options
 max_MOV = 100  # no real max MOV
@@ -66,9 +71,7 @@ lpw_results = league_pythagorean_wins(
     maxcalcdatetime=epochtime(end_datetime),
 )
 
-srs_list = SRS(
-    games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor
-)
+srs_list = new_srs_ratings_list(epochtime(end_datetime))
 
 elo_list = elo_ratings_list(epochtime(end_datetime))
 

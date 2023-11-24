@@ -306,3 +306,54 @@ def elo_ratings_list(epochtime):
     for i in range(1, 31):
         ratings_list.append(team_elo_rating(i, epochtime))
     return ratings_list
+
+def new_team_srs_rating(team_id, epochtime):
+    """
+    Get the most recent srs rating for a team given a date and the team_id
+
+    Parameters
+    ----------
+    team_id : integer team ID 1-30
+    epochtime : Unix time in seconds since epoch
+
+    Returns
+    -------
+    rtg : most recent srs rating
+
+    """
+
+    from .nba_data_models import SRS
+
+    rtg_iterable = (
+        SRS.select()
+        .where(SRS.team_id == team_id, SRS.epochtime <= epochtime)
+        .order_by(SRS.epochtime.desc())
+        .limit(1)
+    )
+    rtg = [x.srs_rating for x in rtg_iterable]
+    #print(rtg)
+    try:
+        rtg = rtg[0]
+        return rtg
+    except IndexError as e:
+        #print("ratings don't exist for team " + str(team_id))
+        return 0
+
+
+def new_srs_ratings_list(epochtime):
+    """
+
+
+    Parameters
+    ----------
+    epochtime : Unix time in seconds since epoch
+
+    Returns
+    -------
+    ratings_list : list of most recent team ratings to date
+
+    """
+    ratings_list = []
+    for i in range(1, 31):
+        ratings_list.append(new_team_srs_rating(i, epochtime))
+    return ratings_list
