@@ -12,6 +12,7 @@ Output: table (string)
 from datetime import datetime, timedelta
 import sys
 import argparse
+from pprint import pprint 
 
 # Third Party Imports
 from tabulate import tabulate
@@ -29,7 +30,7 @@ from nba_database.nba_data_models import BballrefScores as Game
 from analytics.wins_script import get_wins
 from analytics.pythag import league_pythagorean_wins
 from analytics.SRS import SRS
-
+"""
 parser = argparse.ArgumentParser(description='Process datetime-related arguments.')
 
 #Year argument
@@ -48,11 +49,11 @@ args = parser.parse_args()
 season_year = args.year
 start_datetime = args.start
 end_datetime = args.end
-
-# season_year=2024
-# start_datetime=datetime(2023,10,1)
-# end_datetime=datetime.today()-timedelta(days=1)
-# games_list = games_query(start_datetime,end_datetime)
+"""
+season_year=2024
+start_datetime=datetime(2023,10,1)
+end_datetime=datetime.today()-timedelta(days=1)
+games_list = games_query(start_datetime,end_datetime)
 
 # Custom SRS calculation options
 max_MOV = 100  # no real max MOV
@@ -63,6 +64,13 @@ wins_dict_list = [
     get_wins(i, season_year, start_datetime, end_datetime) for i in range(1, 31)
 ]
 wins_list = [[x["away_record"], x["home_record"], x["record"]] for x in wins_dict_list]
+
+win_pct_list = []
+for x in wins_dict_list:
+    wins,losses = map(int,x['record'].split('-'))
+    winpct = wins/(wins+losses)
+    win_pct_list.append(winpct)
+
 
 # Pythagorean Wins
 lpw_results = league_pythagorean_wins(
@@ -79,10 +87,10 @@ form_list = [form_query(i) for i in range(1, 31)]
 
 lpw_results.sort(key=lambda x: x[0])
 
-results = list(zip(lpw_results, srs_list, wins_list, elo_list, form_list))
+results = list(zip(lpw_results, srs_list, wins_list, elo_list, form_list,win_pct_list))
 
 results = [
-    [x[0][0], x[0][1], x[1], x[2][0], x[2][1], x[2][2], x[3], x[4]] for x in results
+    [x[0][0], x[0][1], x[1], x[2][0], x[2][1], x[2][2], x[3], x[4],x[5]] for x in results
 ]
 
 results_tuples = [
@@ -95,11 +103,12 @@ results_tuples = [
         x[4],
         x[5],
         x[7],
+        round(x[8]*100.0/100.0,3)
     )
     for x in results
 ]
 
-results_tuples.sort(key=lambda x: -x[2])
+results_tuples.sort(key=lambda x: -x[8])
 
 results_table = tabulate(
     results_tuples,
@@ -112,6 +121,7 @@ results_table = tabulate(
         "Home Record",
         "Overall Record",
         "Form",
+        "Win %"
     ],
     tablefmt="rst",
     numalign="left",
