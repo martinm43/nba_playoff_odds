@@ -71,7 +71,8 @@ for d in season_dicts:
     d.pop("Unnamed: 6", None)
     d.pop("Unnamed: 7", None)
     d.pop("Unnamed: 10", None)
-    
+    d.pop("Location",None)
+
     d["id"] = d['season_year'] * 10000 + id
     id += 1
 

@@ -16,7 +16,7 @@ from nba_api.stats.endpoints import scoreboard
 
 
 
-start_date = datetime.today() - timedelta(days=30)
+start_date = datetime.today() - timedelta(days=29)
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
