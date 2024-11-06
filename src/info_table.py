@@ -50,9 +50,8 @@ season_year = args.year
 start_datetime = args.start
 end_datetime = args.end
 """
-season_year=2024
-#start_datetime=datetime.today()-timedelta(days=60)
-start_datetime=datetime(2023,10,1)
+season_year=2025
+start_datetime=datetime(2024,10,1)
 end_datetime=datetime.today()-timedelta(days=1)
 games_list = games_query(start_datetime,end_datetime)
 

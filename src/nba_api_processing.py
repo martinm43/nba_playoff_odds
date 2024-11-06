@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from nba_database.nba_data_models import database, BballrefScores
 from nba_database.queries import epochtime, abbrev_to_id
 
-from nba_api.stats.endpoints import scoreboard
+from nba_api.stats.endpoints import scoreboardv2
 
 
 
@@ -24,7 +24,7 @@ while loop_date < end_date:
     
     game_date = loop_date.strftime("%Y-%m-%d")
     print("Processing date "+game_date) 
-    games = scoreboard.Scoreboard(game_date=game_date)
+    games = scoreboardv2.ScoreboardV2(game_date=game_date)
     games_json=json.loads(games.get_json())
     
     # Reforming dicts of required data based on game results, identified by team abbrev
