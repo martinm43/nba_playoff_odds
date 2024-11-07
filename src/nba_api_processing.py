@@ -4,7 +4,7 @@ To do: combine with the concept of games, maybe? Data needs to be munged maybe
 but this is a good toy script for understanding what can be done 
 using automation
 """
-
+from pprint import pprint
 import json
 
 from datetime import datetime, timedelta
@@ -15,8 +15,7 @@ from nba_database.queries import epochtime, abbrev_to_id
 from nba_api.stats.endpoints import scoreboardv2
 
 
-
-start_date = datetime.today() - timedelta(days=29)
+start_date = datetime(2024,11,6)
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
@@ -54,7 +53,8 @@ while loop_date < end_date:
         
         
         game_dict["datetime"]=epochtime(datetime.strptime(game_dict["game_date"],"%Y-%m-%d"))
-        game_list.append(game_dict)
+    pprint(game_dict)
+    game_list.append(game_dict)
         
     for z in game_list: 
         BballrefScores.update(away_pts = z["away_pts"], home_pts = z["home_pts"]).\
