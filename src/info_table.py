@@ -80,6 +80,7 @@ lpw_results = league_pythagorean_wins(
 )
 
 srs_list = new_srs_ratings_list(epochtime(end_datetime))
+#srs_list = srs_ratings_list(epochtime(end_datetime))
 
 elo_list = elo_ratings_list(epochtime(end_datetime))
 
