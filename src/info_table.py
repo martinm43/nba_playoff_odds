@@ -108,7 +108,7 @@ results_tuples = [
     for x in results
 ]
 
-results_tuples.sort(key=lambda x: -x[2])
+results_tuples.sort(key=lambda x: -x[8])
 
 results_table = tabulate(
     results_tuples,
