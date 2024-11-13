@@ -82,7 +82,6 @@ lpw_results = league_pythagorean_wins(
 #srs_list = new_srs_ratings_list(epochtime(end_datetime))
 srs_list = SRS(games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor)
 
-#srs_list = srs_ratings_list(epochtime(end_datetime))
 
 elo_list = elo_ratings_list(epochtime(end_datetime))
 
