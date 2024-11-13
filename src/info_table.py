@@ -79,7 +79,9 @@ lpw_results = league_pythagorean_wins(
     maxcalcdatetime=epochtime(end_datetime),
 )
 
-srs_list = new_srs_ratings_list(epochtime(end_datetime))
+#srs_list = new_srs_ratings_list(epochtime(end_datetime))
+srs_list = SRS(games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor)
+
 #srs_list = srs_ratings_list(epochtime(end_datetime))
 
 elo_list = elo_ratings_list(epochtime(end_datetime))
@@ -109,7 +111,7 @@ results_tuples = [
     for x in results
 ]
 
-results_tuples.sort(key=lambda x: -x[8])
+results_tuples.sort(key=lambda x: -x[2])
 
 results_table = tabulate(
     results_tuples,
