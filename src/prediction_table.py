@@ -202,15 +202,15 @@ if __name__ == "__main__":
 
     # Start datetime argument
     #parser.add_argument('--start', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
-                        required=True, help='Start datetime in the format YYYY-MM-DD')
+                       # required=True, help='Start datetime in the format YYYY-MM-DD')
 
     # End datetime argument
     #parser.add_argument('--end', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
-                        required=True, help='End datetime in the format YYYY-MM-DD')
+                        #required=True, help='End datetime in the format YYYY-MM-DD')
     
     # Mode argument
     #parser.add_argument('--mode', type=str,
-                        required=True, help='One of SRS or Elo')
+                        #required=True, help='One of SRS or Elo')
 
     #args = parser.parse_args()
 
