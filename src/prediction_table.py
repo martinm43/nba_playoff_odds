@@ -189,38 +189,39 @@ def playoff_odds_print(team_results,season_year):
 
 if __name__ == "__main__":
 
-    season_year = 2024  # year in which season ends
+    ratings_mode = "SRS"
+    season_year = 2025  # year in which season ends
     start_datetime = datetime(season_year - 1, 10, 10)  # start of season
     #end_datetime = datetime(season_year,4,30)  # a few weeks or months in
     end_datetime = datetime.today()-timedelta(days=1)
 
-    parser = argparse.ArgumentParser(description='Process datetime-related arguments.')
+    #parser = argparse.ArgumentParser(description='Process datetime-related arguments.')
 
     # Year argument
-    parser.add_argument('--year', type=int, required=True, help='The year (e.g., 2023)')
+    #parser.add_argument('--year', type=int, required=True, help='The year (e.g., 2023)')
 
     # Start datetime argument
-    parser.add_argument('--start', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+    #parser.add_argument('--start', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
                         required=True, help='Start datetime in the format YYYY-MM-DD')
 
     # End datetime argument
-    parser.add_argument('--end', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
+    #parser.add_argument('--end', type=lambda s: datetime.strptime(s, '%Y-%m-%d'),
                         required=True, help='End datetime in the format YYYY-MM-DD')
     
     # Mode argument
-    parser.add_argument('--mode', type=str,
+    #parser.add_argument('--mode', type=str,
                         required=True, help='One of SRS or Elo')
 
-    args = parser.parse_args()
+    #args = parser.parse_args()
 
-    season_year = args.year
-    start_datetime = args.start
-    end_datetime = args.end
-    ratings_mode = args.mode
+    #season_year = args.year
+    #start_datetime = args.start
+    #end_datetime = args.end
+    #ratings_mode = args.mode
 
-    ratings_mode = args.mode
+    #ratings_mode = args.mode
     results = playoff_odds_calc(
-        args.start, args.end, args.year, ratings_mode=ratings_mode
+        start_datetime, end_datetime, season_year, ratings_mode=ratings_mode
     )
     results_table = playoff_odds_print(results,season_year)
 
