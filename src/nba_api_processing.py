@@ -8,7 +8,7 @@ using automation
 import json
 
 from datetime import datetime, timedelta
-
+from pprint import pprint
 from nba_database.nba_data_models import database, BballrefScores
 from nba_database.queries import epochtime, abbrev_to_id
 
@@ -16,7 +16,7 @@ from nba_api.stats.endpoints import scoreboardv2
 
 
 
-start_date = datetime.today() - timedelta(days=29)
+start_date = datetime(2024,10,22)
 end_date = datetime.today() - timedelta(days=1)
 loop_date = start_date
 
@@ -30,31 +30,19 @@ while loop_date < end_date:
     # Reforming dicts of required data based on game results, identified by team abbrev
     datalist = games_json["resultSets"][1]["rowSet"]
     results = []
-    for d in datalist:
-        results.append({"team_abbreviation":d[4],"pts":d[21]})
-    
-    # Attach team info as appropriate
-    gameinfolist = games_json["resultSets"][0]["rowSet"]
+        
     game_list = []
-    for i in gameinfolist:
-        game_str = i[5].split("/")[1]
-        game_dict = {"away_team_abbreviation":game_str[0:3],"home_team_abbreviation":game_str[3:6]}
-        away_pts = [x["pts"] for x in results if x["team_abbreviation"] == game_dict["away_team_abbreviation"]][0]
-        home_pts = [x["pts"] for x in results if x["team_abbreviation"] == game_dict["home_team_abbreviation"]][0]
-        game_dict["away_pts"]=away_pts
-        game_dict["home_pts"]=home_pts
-        game_dict["game_date"]=game_date
-        try:
-            game_dict["away_team_id"]=abbrev_to_id(game_dict["away_team_abbreviation"])
-            game_dict["home_team_id"]=abbrev_to_id(game_dict["home_team_abbreviation"])
-        except IndexError:
-            print("Please review games on "+game_date+" between "+game_dict["away_team_abbreviation"]+" at "+game_dict["home_team_abbreviation"])
-            game_dict["away_team_id"] = -1
-            game_dict["home_team_id"] = -1
-        
-        
-        game_dict["datetime"]=epochtime(datetime.strptime(game_dict["game_date"],"%Y-%m-%d"))
-        game_list.append(game_dict)
+    for i in range(0, len(datalist), 2):  # Step by 2 to process each pair
+        game = {
+            "away_team_id": abbrev_to_id(datalist[i][4]),           # Away team data
+            "home_team_id": abbrev_to_id(datalist[i + 1][4]),        # Home team data
+            "away_pts": datalist[i][22],           # Away team data
+            "home_pts": datalist[i + 1][22],        # Home team data
+            "game_date": datalist[i][0][0:10],           # Away team data
+        }
+        pprint(game)
+        game_list.append(game)
+
         
     for z in game_list: 
         BballrefScores.update(away_pts = z["away_pts"], home_pts = z["home_pts"]).\
