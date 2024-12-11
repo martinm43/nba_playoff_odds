@@ -16,8 +16,8 @@ from nba_api.stats.endpoints import scoreboardv2
 
 
 
-start_date = datetime(2024,10,22)
-end_date = datetime.today() - timedelta(days=1)
+start_date = datetime.today() - timedelta(days=7)
+end_date = datetime.today()
 loop_date = start_date
 
 while loop_date < end_date:
@@ -40,7 +40,7 @@ while loop_date < end_date:
             "home_pts": datalist[i + 1][22],        # Home team data
             "game_date": datalist[i][0][0:10],           # Away team data
         }
-        pprint(game)
+        #pprint(game)
         game_list.append(game)
 
         
