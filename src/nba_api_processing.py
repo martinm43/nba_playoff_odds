@@ -43,15 +43,15 @@ while loop_date < end_date:
     #28: blocks
     for i in range(0, len(datalist), 2):  # Step by 2 to process each pair
         game = {
+            "away_abbrev": datalist[i][4],
+            "home_abbrev": datalist[i+1][4],
             "away_team_id": abbrev_to_id(datalist[i][4]),           # Away team data
             "home_team_id": abbrev_to_id(datalist[i + 1][4]),        # Home team data
             "away_pts": datalist[i][22],           # Away team data
             "home_pts": datalist[i + 1][22],        # Home team data
             "game_date": datalist[i][0][0:10],           # Away team data
-            "1Q_Away":datalist[i][8], #kept for an example
-            "1Q_Home":datalist[i + 1][8] #kept for an example
         }
-        pprint(game)
+        print(game["away_abbrev"]+" "+str(game["away_pts"])+", "+game["home_abbrev"]+" "+str(game["home_pts"]))
         game_list.append(game)
 
         

@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 #include <math.h>
-#include <armadillo>
+#include "armadillo"
 #include "mcss.hpp"
 
 #define MAX_ITER 10000
