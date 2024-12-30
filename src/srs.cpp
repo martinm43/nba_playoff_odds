@@ -72,7 +72,7 @@ int main() {
         // Set up times - end time for calculation.
         std::tm endtimeinfo = {}; // Initialize to all zeros
         endtimeinfo.tm_year = year - 1 - 1900; // Year since 1900 (2023)
-        endtimeinfo.tm_mon = 10;           // Month (0-based index)
+        endtimeinfo.tm_mon = 9;           // Month (0-based index)
         endtimeinfo.tm_mday = 1;         // Day of the month
         std::time_t endepochTime = std::mktime(&endtimeinfo); // Convert to epoch time
 

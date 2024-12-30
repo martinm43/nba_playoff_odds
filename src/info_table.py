@@ -79,7 +79,7 @@ lpw_results = league_pythagorean_wins(
     maxcalcdatetime=epochtime(end_datetime),
 )
 
-#srs_list = new_srs_ratings_list(epochtime(end_datetime))
+new_srs_list = new_srs_ratings_list(epochtime(end_datetime))
 srs_list = SRS(games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor)
 
 
@@ -89,10 +89,10 @@ form_list = [form_query(i) for i in range(1, 31)]
 
 lpw_results.sort(key=lambda x: x[0])
 
-results = list(zip(lpw_results, srs_list, wins_list, elo_list, form_list,win_pct_list))
+results = list(zip(lpw_results, srs_list, wins_list, elo_list, form_list,win_pct_list,new_srs_list))
 
 results = [
-    [x[0][0], x[0][1], x[1], x[2][0], x[2][1], x[2][2], x[3], x[4],x[5]] for x in results
+    [x[0][0], x[0][1], x[1], x[2][0], x[2][1], x[2][2], x[3], x[4],x[5],x[6]] for x in results
 ]
 
 results_tuples = [
@@ -105,7 +105,8 @@ results_tuples = [
         x[4],
         x[5],
         x[7],
-        round(x[8]*100.0/100.0,3)
+        round(x[8]*100.0/100.0,3),
+        x[9]
     )
     for x in results
 ]
@@ -123,7 +124,8 @@ results_table = tabulate(
         "Home Record",
         "Overall Record",
         "Form",
-        "Win %"
+        "Win %",
+        "C++ SRS"
     ],
     tablefmt="rst",
     numalign="left",
