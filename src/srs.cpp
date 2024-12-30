@@ -68,11 +68,10 @@ int main() {
         timeinfo.tm_mon = 9;           // Month (0-based index)
         timeinfo.tm_mday = 1;         // Day of the month
         std::time_t epochTime = std::mktime(&timeinfo); // Convert to epoch time
-
         // Set up times - end time for calculation.
         std::tm endtimeinfo = {}; // Initialize to all zeros
         endtimeinfo.tm_year = year - 1 - 1900; // Year since 1900 (2023)
-        endtimeinfo.tm_mon = 9;           // Month (0-based index)
+        endtimeinfo.tm_mon = 10;           // Month (0-based index)
         endtimeinfo.tm_mday = 1;         // Day of the month
         std::time_t endepochTime = std::mktime(&endtimeinfo); // Convert to epoch time
 
@@ -88,7 +87,7 @@ int main() {
         const char* selectDataQuery;
         std::vector<Game> games;
         const int numTeams = 30;
-        int numDays=4;
+        int numDays=7;
 
 
         while(endepochTime < yearendepochTime) {
@@ -198,11 +197,11 @@ int main() {
             
 
             //Debug print dimensions of matrices
-            //std::cout << "MT is " << MmatrixT.rows() << " by " << MmatrixT.cols() << std::endl;
-            //std::cout << "S is " << Svector.rows() << " by " << Svector.cols() << std::endl;
+            std::cout << "MT is " << MmatrixT.rows() << " by " << MmatrixT.cols() << std::endl;
+            std::cout << "S is " << Svector.rows() << " by " << Svector.cols() << std::endl;
 
             Eigen::LeastSquaresConjugateGradient<SparseMatrix> solver1;
-            int maxIterations = 25; //Accurate enough and doesn't give blow up solutions
+            int maxIterations = 30; //Accurate enough and doesn't give blow up solutions
             solver1.setMaxIterations(maxIterations); //known stable value
             solver1.compute(MmatrixT);
             if (solver1.info() != Eigen::Success) {
@@ -211,8 +210,8 @@ int main() {
             }
 
             DenseVector x1 = solver1.solve(Svector);
-            //std::cout << "SRS results on epochtime: " << endepochTime << std::endl;
-            //std::cout << "Solution using LeastSquaresConjugateGradient:\n";
+            std::cout << "SRS results on epochtime: " << endepochTime << std::endl;
+            std::cout << "Solution using LeastSquaresConjugateGradient:\n";
             
             for (int i=0; i<x1.size(); i++){
             Rating rating;
@@ -221,7 +220,7 @@ int main() {
             rating.epochtime = endepochTime;
             rating.srs_rating = x1[i];
             ratings_history.push_back(rating);
-            //std::cout << rating.team_id << ": " << rating.srs_rating << "\n";
+            std::cout << rating.team_id << ": " << rating.srs_rating << "\n";
             }
 
             //std::cout<<"Completion. "<<std::endl;
