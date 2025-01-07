@@ -52,6 +52,7 @@ while loop_date < end_date:
             "game_date": datalist[i][0][0:10],           # Away team data
         }
         print(game["away_abbrev"]+" "+str(game["away_pts"])+", "+game["home_abbrev"]+" "+str(game["home_pts"]))
+        #pprint(datalist[i])
         game_list.append(game)
 
         
