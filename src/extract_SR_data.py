@@ -13,7 +13,9 @@
      which must be modified from the following default header
      
      Date,Start (ET),Visitor/Neutral,PTS,Home/Neutral,PTS,,,Attend.,Notes
-     
+
+    Remember to extract the NBA cup final from the dataset!
+
 """
 from pprint import pprint
 import pandas as pd
