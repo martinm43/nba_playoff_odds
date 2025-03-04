@@ -90,8 +90,14 @@ def abbrev_to_id(team_abbrev):
     s_query = ProApiTeams.select(ProApiTeams.bball_ref).where(
         ProApiTeams.current_abbreviation == team_abbrev
     )
-    s_result = s_query[0]
-    return s_result.bball_ref
+    try:
+        s_result = s_query[0]
+        name = s_result.bball_ref
+    except IndexError:
+        print(team_abbrev+" not found")
+        name = ""
+
+    return name
 
 
 def id_to_name(team_id):
