@@ -26,14 +26,14 @@ season_year_start = 2025
 df = pd.read_csv("2026data.csv")
 season_dicts = df.T.to_dict().values()
 
-print(len(season_dicts))
+#print(len(season_dicts))
 
 SQLITE_MAX_VARIABLE_NUMBER = 100
 
 id = 1
 for d in season_dicts:
 
-    pprint(d)
+    #pprint(d)
     d["home_team"] = d["Home/Neutral"]
     d["away_team"] = d["Visitor/Neutral"]
     d["away_pts"] = d["Visitor_PTS"]
