@@ -22,8 +22,8 @@ from datetime import datetime
 from nba_database.queries import epochtime, full_name_to_id
 from nba_database.nba_data_models import database, BballrefScores
 
-season_year_start = 2024
-df = pd.read_csv("2025data.csv")
+season_year_start = 2025
+df = pd.read_csv("2026data.csv")
 season_dicts = df.T.to_dict().values()
 
 print(len(season_dicts))
@@ -33,7 +33,7 @@ SQLITE_MAX_VARIABLE_NUMBER = 100
 id = 1
 for d in season_dicts:
 
-    # pprint(d)
+    pprint(d)
     d["home_team"] = d["Home/Neutral"]
     d["away_team"] = d["Visitor/Neutral"]
     d["away_pts"] = d["Visitor_PTS"]
@@ -65,6 +65,9 @@ for d in season_dicts:
     d.pop("Unnamed: 5", None)
     d.pop("Unnamed: 6", None)
     d.pop("Unnamed: 7", None)
+    d.pop("Length", None)
+    d.pop("Location", None)
+    d.pop("Unnamed: 11", None)
 
     d.pop("LOG",None)
 

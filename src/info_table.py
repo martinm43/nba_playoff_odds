@@ -50,8 +50,8 @@ season_year = args.year
 start_datetime = args.start
 end_datetime = args.end
 """
-season_year=2025
-start_datetime=datetime(2024,10,1)
+season_year=2026
+start_datetime=datetime(2025,10,1)
 end_datetime=datetime.today()-timedelta(days=1)
 games_list = games_query(start_datetime,end_datetime)
 
@@ -80,8 +80,8 @@ lpw_results = league_pythagorean_wins(
 )
 
 new_srs_list = new_srs_ratings_list(epochtime(end_datetime))
-srs_list = SRS(games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor)
-
+#srs_list = SRS(games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor)
+srs_list = [0 for i in range(1,31)]
 
 elo_list = elo_ratings_list(epochtime(end_datetime))
 
