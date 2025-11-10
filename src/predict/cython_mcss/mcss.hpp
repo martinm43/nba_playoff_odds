@@ -6,7 +6,7 @@ function definitions, and type definitions.
 #ifndef MCSS_H
 #define MCSS_H
 
-#include"armadillo"
+#include<armadillo>
 #include<iostream>
 
 class Team{

@@ -28,7 +28,10 @@ while loop_date < end_date:
     games_json=json.loads(games.get_json())
     
     # Reforming dicts of required data based on game results, identified by team abbrev
+    
     datalist = games_json["resultSets"][1]["rowSet"]
+    
+    print(datalist)
     results = []
         
     game_list = []
