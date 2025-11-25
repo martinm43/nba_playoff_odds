@@ -7,6 +7,7 @@ using automation
 
 import json
 
+from pprint import pprint
 from datetime import datetime, timedelta
 from nba_database.nba_data_models import BballrefScores
 from nba_database.queries import abbrev_to_id
@@ -17,17 +18,11 @@ start_date = datetime.today() - timedelta(days=2)
 end_date = datetime.today()
 loop_date = start_date
 sample_id = "0022500039"
-while loop_date < end_date:
 
-    game_date = loop_date.strftime("%Y-%m-%d")
-    print("Processing date "+game_date) 
-    games = boxscoretraditionalv3.BoxScoreTraditionalV3(game_id=sample_id)
-    games_json=json.loads(games.get_json())
-    #fname = f"responses/{datetime.now().isoformat()}.json"
-    # #with open(fname, "w") as f:
-    # #    json.dump(games_json, f, indent=2)
+games = boxscoretraditionalv3.BoxScoreTraditionalV3(game_id=sample_id)
+games_json=json.loads(games.get_json())
     
-    # #pprint(games_json)
+pprint(games_json)
     # z=games_json.keys()
     # # Reforming dicts of required data based on game results, identified by team abbrev
     # #print(games_json["scoreboard"].keys())
@@ -62,6 +57,5 @@ while loop_date < end_date:
         
     # print("Processing date "+game_date+" complete.") 
     
-    loop_date = loop_date + timedelta(days=1)
 
 
