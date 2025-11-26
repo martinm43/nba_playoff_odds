@@ -15,7 +15,7 @@ from nba_api.stats.endpoints import scoreboardv3
 
 
 
-start_date = datetime.today() - timedelta(days=30)
+start_date = datetime.today() - timedelta(days=15)
 end_date = datetime.today()
 loop_date = start_date
 
@@ -43,6 +43,7 @@ while loop_date < end_date:
     for i in range(0, len(datalist)):  # Step by 2 to process each pair
         to_proc = datalist[i]
         game = {
+            "game_id_str": to_proc['gameId'],
             "away_abbrev": to_proc['awayTeam']['teamTricode'],
             "home_abbrev": to_proc['homeTeam']['teamTricode'],
             "away_team_id": abbrev_to_id(to_proc['awayTeam']['teamTricode']),           # Away team data
