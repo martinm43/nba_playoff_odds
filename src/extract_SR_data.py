@@ -30,10 +30,12 @@ season_dicts = df.T.to_dict().values()
 
 SQLITE_MAX_VARIABLE_NUMBER = 100
 
+
+
 id = 1
 for d in season_dicts:
 
-    #pprint(d)
+    pprint(d)
     d["home_team"] = d["Home/Neutral"]
     d["away_team"] = d["Visitor/Neutral"]
     d["away_pts"] = d["Visitor_PTS"]
@@ -56,6 +58,10 @@ for d in season_dicts:
     d.pop("Attend.", None)
     d.pop("x1", None)
     d.pop("x2", None)
+    d.pop("x3", None)
+    d.pop("x4", None)
+    d.pop("x5", None)
+    d.pop("x6", None)
     d.pop("Home_PTS", None)
     d.pop("Visitor_PTS", None)
     d.pop("Notes", None)
@@ -68,6 +74,8 @@ for d in season_dicts:
     d.pop("Length", None)
     d.pop("Location", None)
     d.pop("Unnamed: 11", None)
+    d.pop("Unnamed: 12", None)
+    d.pop("Time",None)
 
     d.pop("LOG",None)
 
