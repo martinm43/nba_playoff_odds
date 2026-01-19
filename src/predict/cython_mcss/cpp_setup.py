@@ -17,7 +17,7 @@ from Cython.Build import cythonize
 ext = Extension(
     "mcss_ext2",
     sources=["mcss_ext2.pyx", "mcss.cpp"],
-    extra_compile_args=["-std=c++11"],
+    extra_compile_args=["-std=c++14"],
 )
 
 setup(name="cython_mcss", ext_modules=cythonize(ext, language_level="3"))
