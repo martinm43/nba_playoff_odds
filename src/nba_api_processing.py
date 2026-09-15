@@ -7,6 +7,7 @@ using automation
 
 import json
 
+import time
 from datetime import datetime, timedelta
 from nba_database.nba_data_models import BballrefScores
 from nba_database.queries import abbrev_to_id
@@ -15,8 +16,8 @@ from nba_api.stats.endpoints import scoreboardv3
 
 
 
-start_date = datetime.today() - timedelta(days=15)
-end_date = datetime.today()
+start_date = datetime(2025,9,1)
+end_date = datetime(2026,5,1)
 loop_date = start_date
 
 while loop_date < end_date:
@@ -63,7 +64,8 @@ while loop_date < end_date:
                     (BballrefScores.home_team_id == z["home_team_id"])).execute()
     
         
-    print("Processing date "+game_date+" complete.") 
+    print("Processing date "+game_date+" complete.")
+    time.sleep(2)
     loop_date = loop_date + timedelta(days=1)
 
 
