@@ -57,8 +57,8 @@ int main() {
     
     std::vector<Rating> ratings_history;
 
-    int start_year = 2021;
-    int end_year = 2026;
+    int start_year = 2025;
+    int end_year = 2027;
 
     // Set up times - start time.
     std::tm timeinfo = {}; // Initialize to all zeros

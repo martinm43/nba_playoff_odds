@@ -50,8 +50,8 @@ season_year = args.year
 start_datetime = args.start
 end_datetime = args.end
 """
-season_year=2026
-start_datetime=datetime(2025,10,1)
+season_year=2027
+start_datetime=datetime(2026,10,1)
 end_datetime=datetime.today()-timedelta(days=1)
 games_list = games_query(start_datetime,end_datetime)
 
@@ -68,7 +68,8 @@ wins_list = [[x["away_record"], x["home_record"], x["record"]] for x in wins_dic
 win_pct_list = []
 for x in wins_dict_list:
     wins,losses = map(int,x['record'].split('-'))
-    winpct = wins/(wins+losses)
+    #winpct = wins/(wins+losses)
+    winpct = 0
     win_pct_list.append(winpct)
 
 

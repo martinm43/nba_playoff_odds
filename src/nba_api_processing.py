@@ -16,8 +16,8 @@ from nba_api.stats.endpoints import scoreboardv3
 
 
 
-start_date = datetime(2025,9,1)
-end_date = datetime(2026,5,1)
+start_date = datetime(2026,10,15)
+end_date = datetime.today()-timedelta(days=1)
 loop_date = start_date
 
 while loop_date < end_date:
