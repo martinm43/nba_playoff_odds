@@ -10,8 +10,7 @@ import json
 import time
 from datetime import datetime, timedelta
 from nba_database.nba_data_models import BballrefScores
-from nba_database.queries import abbrev_to_id
-
+from nba_database.queries import abbrev_to_id, new_team_srs_rating
 from nba_api.stats.endpoints import scoreboardv3
 
 
@@ -46,24 +45,25 @@ while loop_date < end_date:
         game = {
             "game_id_str": to_proc['gameId'],
             "away_abbrev": to_proc['awayTeam']['teamTricode'],
+            "away_srs": new_team_srs_rating(abbrev_to_id(to_proc['awayTeam']['teamTricode']),datetime.today()),
             "home_abbrev": to_proc['homeTeam']['teamTricode'],
+            "home_srs": new_team_srs_rating(abbrev_to_id(to_proc['homeTeam']['teamTricode']),datetime.today()),
             "away_team_id": abbrev_to_id(to_proc['awayTeam']['teamTricode']),           # Away team data
             "home_team_id": abbrev_to_id(to_proc['homeTeam']['teamTricode']),        # Home team data
             "away_pts": to_proc['awayTeam']['score'],           # Away team data
             "home_pts": to_proc['homeTeam']['score'],        # Home team data
             "game_date": datetime.fromisoformat(to_proc['gameEt'].replace("Z","+00:00")).strftime('%Y-%m-%d'),           # Away team data
+       
         }
-        print(game["away_abbrev"]+" "+str(game["away_pts"])+", "+game["home_abbrev"]+" "+str(game["home_pts"])+" on "+game["game_date"])
+        game["delta_srs"] =  game["home_srs"]-game["away_srs"]
+        
+        print(f"{game['away_abbrev']} {game['away_srs']:.1f}, {game['home_abbrev']} {game['home_srs']:.1f} "
+      f"Delta SRS: {game['delta_srs']:.1f}")
+        
         game_list.append(game)
     
-            
-    for z in game_list: 
-        BballrefScores.update(away_pts = z["away_pts"], home_pts = z["home_pts"]).\
-            where((BballrefScores.date == z["game_date"]) & \
-                    (BballrefScores.away_team_id == z["away_team_id"]) & \
-                    (BballrefScores.home_team_id == z["home_team_id"])).execute()
-    
-        
+           
+       
     print("Processing date "+game_date+" complete.")
     time.sleep(2)
     loop_date = loop_date + timedelta(days=1)
