@@ -64,7 +64,6 @@ wins_dict_list = [
     get_wins(i, season_year, start_datetime, end_datetime) for i in range(1, 31)
 ]
 wins_list = [[x["away_record"], x["home_record"], x["record"]] for x in wins_dict_list]
-
 win_pct_list = []
 for x in wins_dict_list:
     wins,losses = map(int,x['record'].split('-'))
@@ -80,7 +79,13 @@ lpw_results = league_pythagorean_wins(
     maxcalcdatetime=epochtime(end_datetime),
 )
 
-new_srs_list = new_srs_ratings_list(epochtime(end_datetime))
+#new_srs_list = new_srs_ratings_list(epochtime(end_datetime))
+
+if epochtime(end_datetime) < epochtime(datetime(2026,11,1)):
+    new_srs_list = new_srs_ratings_list(epochtime(datetime(2026,11,2)))
+else: 
+    new_srs_list = new_srs_ratings_list(epochtime(end_datetime))
+
 srs_list = SRS(games_list, max_MOV=max_MOV, home_team_adv=home_team_adv, win_floor=win_floor)
 #srs_list = [0 for i in range(1,31)]
 
