@@ -57,10 +57,14 @@ while loop_date < end_date:
         }
         game["delta_srs"] =  game["home_srs"]-game["away_srs"]
         
+        game_list.append(game)
+        
+    game_list = sorted(game_list, key=lambda g: abs(g["delta_srs"]))
+    for game in game_list:
         print(f"{game['away_abbrev']} {game['away_srs']:.1f}, {game['home_abbrev']} {game['home_srs']:.1f} "
       f"Delta SRS: {game['delta_srs']:.1f}")
-        
-        game_list.append(game)
+    
+    
     
            
        
